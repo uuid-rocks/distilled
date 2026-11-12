@@ -1,0 +1,25 @@
+{
+  "description": "Read `GET /v1/acl/list_org` as an `{ objects }` page. The spec declares a bare array of ACLs, but observed live 2026-11-12 the response is `{\"objects\":[{\"id\":...,\"object_type\":\"dataset\",...}]}`, the same envelope as `GET /v1/acl`, so the bare-array reading returned the wrapper object as if it were the list. With the items addressable, the operation pages by keyset like every other list: it takes `limit` and `starting_after`, and the next page starts after the last ACL's `id`.",
+  "patches": [
+    {
+      "op": "remove",
+      "path": "/shapes/com.braintrust#AclListOrgResponse/members/body/traits/com.distilled.openapi#rawResponse"
+    },
+    {
+      "op": "move",
+      "from": "/shapes/com.braintrust#AclListOrgResponse/members/body",
+      "path": "/shapes/com.braintrust#AclListOrgResponse/members/objects"
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#AclListOrg/traits/smithy.api#paginated",
+      "value": {
+        "mode": "keyset",
+        "inputToken": "starting_after",
+        "outputToken": "id",
+        "items": "objects",
+        "pageSize": "limit"
+      }
+    }
+  ]
+}

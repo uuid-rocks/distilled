@@ -5175,7 +5175,9 @@ export interface ListOrgAclsRequest {
   org_name?: string | undefined;
 }
 export type ListOrgAclsResponseBodyList = Array<Acl>;
-export type ListOrgAclsResponse = ListOrgAclsResponseBodyList;
+export interface ListOrgAclsResponse {
+  objects: ListOrgAclsResponseBodyList;
+}
 export interface ListOrganizationApiKeysRequest {
   /** Limit the number of objects to return */
   limit?: number | undefined;
@@ -8747,7 +8749,7 @@ export const listAcls: API.PaginatedOperationMethod<
   Acl
 > = /*@__PURE__*/ API.makePaginated(() => ({
   input: __S(3360, __c210, 0) as any as S.Schema<ListAclsRequest>,
-  output: __S(3361, __c210, 1) as any as S.Schema<ListAclsResponse>,
+  output: __S(3376, __c211, 0) as any as S.Schema<ListAclsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8771,8 +8773,8 @@ export const listAiSecrets: API.PaginatedOperationMethod<
   BraintrustOpContext,
   AISecret
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(3376, __c211, 0) as any as S.Schema<ListAiSecretsRequest>,
-  output: __S(3378, __c211, 2) as any as S.Schema<ListAiSecretsResponse>,
+  input: __S(3392, __c212, 0) as any as S.Schema<ListAiSecretsRequest>,
+  output: __S(3394, __c212, 2) as any as S.Schema<ListAiSecretsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8796,8 +8798,8 @@ export const listApiKeys: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ApiKey
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(3392, __c212, 0) as any as S.Schema<ListApiKeysRequest>,
-  output: __S(3409, __c213, 1) as any as S.Schema<ListApiKeysResponse>,
+  input: __S(3408, __c213, 0) as any as S.Schema<ListApiKeysRequest>,
+  output: __S(3425, __c214, 1) as any as S.Schema<ListApiKeysResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9040,20 +9042,28 @@ export const listMcpServers: API.PaginatedOperationMethod<
 
 export type ListOrgAclsError = BadRequest | Forbidden | BraintrustOpError;
 /** List org ACLs List all ACLs in the org. This query requires the caller to have `read_acls` permission at the organization level */
-export const listOrgAcls: API.OperationMethod<
+export const listOrgAcls: API.PaginatedOperationMethod<
   ListOrgAclsRequest,
   ListOrgAclsResponse,
   ListOrgAclsError,
-  BraintrustOpContext
-> = /*@__PURE__*/ API.make(() => ({
+  BraintrustOpContext,
+  Acl
+> = /*@__PURE__*/ API.makePaginated(() => ({
   input: __S(224, __c14, 0) as any as S.Schema<ListOrgAclsRequest>,
-  output: __S(225, __c14, 1) as any as S.Schema<ListOrgAclsResponse>,
+  output: __S(3376, __c211, 0) as any as S.Schema<ListOrgAclsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "ListOrgAcls",
-}));
+  pagination: {
+    mode: "keyset",
+    inputToken: "starting_after",
+    outputToken: "id",
+    items: "objects",
+    pageSize: "limit",
+  } as const,
+})) as any;
 
 export type ListOrganizationApiKeysError = BadRequest | Forbidden | BraintrustOpError;
 /** List organization API keys List all API keys associated with users in an organization, sorted by creation date with the newest keys first. An organization-scoped API key determines the organization; otherwise, provide `org_id`. If `org_id` does not match the organization-scoped key's organization, or the caller is not an owner of the organization, no keys are returned. Responses include key metadata only; key secrets are never returned. To list service tokens, use `GET /v1/service_token`. */
@@ -9065,7 +9075,7 @@ export const listOrganizationApiKeys: API.PaginatedOperationMethod<
   ApiKey
 > = /*@__PURE__*/ API.makePaginated(() => ({
   input: __S(240, __c15, 0) as any as S.Schema<ListOrganizationApiKeysRequest>,
-  output: __S(3409, __c213, 1) as any as S.Schema<ListOrganizationApiKeysResponse>,
+  output: __S(3425, __c214, 1) as any as S.Schema<ListOrganizationApiKeysResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10453,10 +10463,6 @@ function __c14(j: number): any {
           org_name: S.optional(S.String.pipe(T.Query())),
         }).pipe(T.Http({ method: "GET", uri: "/v1/acl/list_org", code: 200 })),
       ).annotate({ identifier: "ListOrgAclsRequest" });
-    case 1:
-      return S.suspend(() => __S(1760, __c110, 0).pipe(T.RawResponseRoot())).annotate({
-        identifier: "ListOrgAclsResponse",
-      });
   }
 }
 function __c15(j: number): any {
@@ -13880,7 +13886,11 @@ function __c210(j: number): any {
           role_id: S.optional(S.String.pipe(T.Query())),
         }).pipe(T.Http({ method: "GET", uri: "/v1/acl", code: 200 })),
       ).annotate({ identifier: "ListAclsRequest" });
-    case 1:
+  }
+}
+function __c211(j: number): any {
+  switch (j) {
+    case 0:
       return S.suspend(() =>
         S.Struct({
           objects: __S(1760, __c110, 0),
@@ -13888,7 +13898,7 @@ function __c210(j: number): any {
       ).annotate({ identifier: "ListAclsResponse" });
   }
 }
-function __c211(j: number): any {
+function __c212(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13907,12 +13917,12 @@ function __c211(j: number): any {
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(3377, __c211, 1),
+          objects: __S(3393, __c212, 1),
         }),
       ).annotate({ identifier: "ListAiSecretsResponse" });
   }
 }
-function __c212(j: number): any {
+function __c213(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13927,14 +13937,14 @@ function __c212(j: number): any {
       ).annotate({ identifier: "ListApiKeysRequest" });
   }
 }
-function __c213(j: number): any {
+function __c214(j: number): any {
   switch (j) {
     case 0:
       return S.Array(__S(2000, __c125, 0));
     case 1:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(3408, __c213, 0),
+          objects: __S(3424, __c214, 0),
         }),
       ).annotate({ identifier: "ListApiKeysResponse" });
   }
