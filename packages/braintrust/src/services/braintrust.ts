@@ -347,7 +347,7 @@ export interface CreateEnvVarRequest {
   /** The name of the environment variable */
   name: string;
   /** The value of the environment variable. Will be encrypted at rest. */
-  value?: string | null | undefined;
+  value?: string | Redacted.Redacted<string> | null | undefined;
   /** Optional metadata associated with the environment variable when managed via the function secrets API */
   metadata?: CreateEnvVarRequestMetadataMap | null | undefined;
   /** Optional classification for the secret (for example, the AI provider name) */
@@ -2071,7 +2071,7 @@ export interface CreateIngestKeyResponse {
   org_id: string;
   project_id: string;
   preview_name: string;
-  url: string;
+  url: string | Redacted.Redacted<string>;
 }
 export interface CreateMcpServerRequest {
   /** Unique identifier for the project that the MCP server belongs under */
@@ -3344,7 +3344,7 @@ export interface CreateProxyCredentialsRequest {
   logging?: CreateProxyCredentialsRequestLogging | null | undefined;
 }
 export interface CreateProxyCredentialsResponse {
-  key: string;
+  key: string | Redacted.Redacted<string>;
 }
 export interface CreateProxyEmbeddingRequest {}
 export type CreateProxyEmbeddingResponse = unknown;
@@ -3427,7 +3427,7 @@ export interface CreateServiceTokenOutput {
   /** Date and time at which the service token expires. If null, the token never expires. */
   expires_at?: string | null | undefined;
   /** The raw service token. It will only be exposed this one time */
-  key: string;
+  key: string | Redacted.Redacted<string>;
 }
 export interface CreateSpanIframeRequest {
   /** Unique identifier for the project that the span iframe belongs under */
@@ -5089,7 +5089,7 @@ export interface ListIngestKeysResponseObjectsItem {
   project_id: string;
   preview_name: string;
   /** Null when the organization's API URL cannot be used for ingest keys */
-  url: string | null;
+  url: string | Redacted.Redacted<string> | null;
 }
 export type ListIngestKeysResponseObjectsList = Array<ListIngestKeysResponseObjectsItem>;
 export interface ListIngestKeysResponse {
@@ -5545,7 +5545,7 @@ export interface ReplaceEnvVarRequest {
   /** The name of the environment variable */
   name: string;
   /** The value of the environment variable. Will be encrypted at rest. */
-  value?: string | null | undefined;
+  value?: string | Redacted.Redacted<string> | null | undefined;
   /** Optional metadata associated with the environment variable when managed via the function secrets API */
   metadata?: ReplaceEnvVarRequestMetadataMap | null | undefined;
   /** Optional classification for the secret (for example, the AI provider name) */
@@ -6064,7 +6064,7 @@ export interface UpdateEnvVarRequest {
   /** The name of the environment variable */
   name: string;
   /** The value of the environment variable. Will be encrypted at rest. */
-  value?: string | null | undefined;
+  value?: string | Redacted.Redacted<string> | null | undefined;
   /** Optional metadata associated with the environment variable when managed via the function secrets API */
   metadata?: UpdateEnvVarRequestMetadataMap | null | undefined;
   /** Optional classification for the secret (for example, the AI provider name) */
@@ -9984,7 +9984,7 @@ function __c0(j: number): any {
           object_type: S.String,
           object_id: S.String,
           name: S.String,
-          value: S.optional(S.NullOr(S.String)),
+          value: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
           metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
           secret_type: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "POST", uri: "/v1/env_var", code: 200 })),
@@ -10198,7 +10198,7 @@ function __c9(j: number): any {
           org_id: S.String,
           project_id: S.String,
           preview_name: S.String,
-          url: S.NullOr(S.String),
+          url: S.NullOr(S.String).pipe(T.SensitiveValue({})),
         }),
       ).annotate({ identifier: "ListIngestKeysResponseObjectsItem" });
     case 2:
@@ -10920,7 +10920,7 @@ function __c38(j: number): any {
           object_type: S.String,
           object_id: S.String,
           name: S.String,
-          value: S.optional(S.NullOr(S.String)),
+          value: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
           metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
           secret_type: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "PUT", uri: "/v1/env_var", code: 200 })),
@@ -11351,7 +11351,7 @@ function __c65(j: number): any {
         S.Struct({
           env_var_id: S.String.pipe(T.Label()),
           name: S.String,
-          value: S.optional(S.NullOr(S.String)),
+          value: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
           metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
           secret_type: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/env_var/{env_var_id}", code: 200 })),
@@ -11666,7 +11666,7 @@ function __c79(j: number): any {
           org_id: S.String,
           project_id: S.String,
           preview_name: S.String,
-          url: S.String,
+          url: S.String.pipe(T.SensitiveValue({})),
         }),
       ).annotate({ identifier: "CreateIngestKeyResponse" });
   }
@@ -12190,7 +12190,7 @@ function __c108(j: number): any {
     case 2:
       return S.suspend(() =>
         S.Struct({
-          key: S.String,
+          key: S.String.pipe(T.SensitiveValue({})),
         }),
       ).annotate({ identifier: "CreateProxyCredentialsResponse" });
   }
@@ -12287,7 +12287,7 @@ function __c114(j: number): any {
           service_account_name: S.optional(S.NullOr(S.String)),
           org_id: S.optional(S.NullOr(S.String)),
           expires_at: S.optional(S.NullOr(S.String)),
-          key: S.String,
+          key: S.String.pipe(T.SensitiveValue({})),
         }),
       ).annotate({ identifier: "CreateServiceTokenOutput" });
   }
