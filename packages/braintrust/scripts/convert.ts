@@ -111,15 +111,14 @@ const operationName = (_operationId: string, ctx: OperationIdContext): string =>
   const routed = segments.some(isGreedy)
     ? `/${segments.filter((s) => !isGreedy(s)).join("/")}`
     : ctx.path;
-  const routeCtx = { path: routed, method: segments.some(isGreedy) ? "post" : ctx.method };
   const response = responseSchema(op);
   const returnsCollection = response?.type === "array" || hasArray(response, "objects");
-  const base = pathToVerbNoun(routeCtx, { returnsCollection });
+  const base = pathToVerbNoun({ path: routed, method: ctx.method }, { returnsCollection });
 
-  const literals = routed.split("/").filter((s) => s && s !== "v1" && !isParam(s));
+  const routedSegments = routed.split("/").filter(Boolean);
+  const literals = routedSegments.filter((s) => s !== "v1" && !isParam(s));
   const resource = literals[0];
-  const last = routed.split("/").filter(Boolean).at(-1)!;
-  const memberAction = segments.length >= 3 && segments.some(isParam) && !isParam(last);
+  const memberAction = routedSegments.some(isParam) && !isParam(routedSegments.at(-1)!);
 
   // `/v1/x/<verb_noun>`: the verb is in the segment, the noun is the collection.
   const verb = literals.length === 2 ? actionVerb(literals[1]!) : undefined;
@@ -155,8 +154,9 @@ const paginationFor = (method: string, op: any): Record<string, string> | undefi
       .map((p: any) => p.name),
   );
   const response = responseSchema(op);
-  // A bare-array page (`GET /v1/acl/list_org`) is not stamped: core's items
-  // path cannot address the response root.
+  // A bare-array page is not stamped: core's items path cannot address the
+  // response root. (The spec's one, `GET /v1/acl/list_org`, is `{ objects }`
+  // on the wire; patches/list-org-acls.json fixes its shape and pages it.)
   if (method === "get" && query.has("starting_after")) {
     if (!hasArray(response, "objects")) return undefined;
     return {
