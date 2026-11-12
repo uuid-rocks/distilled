@@ -42,6 +42,18 @@ export class UnknownBraintrustError
     body: Schema.Unknown,
   }).pipe(Category.withServerError) {}
 
+/**
+ * 402 -- the organization is out of credits. Braintrust answers an event
+ * insert with `{"Code":"HTTPError","Message":"Credit balance is exhausted
+ * for logs. Add credits to resume."}` until credits are added, so it is not
+ * retried. Without a class the status would fall to
+ * {@link UnknownBraintrustError}, which the default policy retries.
+ */
+export class PaymentRequired
+  extends /*@__PURE__*/ Schema.TaggedError<PaymentRequired>()("PaymentRequired", {
+    message: Schema.String,
+  }).pipe(Category.withQuotaError) {}
+
 /** A 2xx response that does not match the operation's output schema. */
 export class BraintrustParseError
   extends /*@__PURE__*/ Schema.TaggedError<BraintrustParseError>()("BraintrustParseError", {

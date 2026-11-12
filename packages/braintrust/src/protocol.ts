@@ -1,5 +1,10 @@
 import type * as API from "@distilled.cloud/core/api";
-import type { API_ERRORS, ConfigError, InvalidInput } from "@distilled.cloud/core/errors";
+import {
+  HTTP_STATUS_MAP,
+  type API_ERRORS,
+  type ConfigError,
+  type InvalidInput,
+} from "@distilled.cloud/core/errors";
 import { makeRestProtocol, type RestErrorEnvelope } from "@distilled.cloud/core/protocol-rest";
 import type { SdkError } from "@distilled.cloud/core/sdk-error";
 /**
@@ -12,8 +17,8 @@ import type { SdkError } from "@distilled.cloud/core/sdk-error";
  *
  *   response: 2xx JSON is the payload; non-2xx `{ Code, Message }` bodies (or
  *             `text/plain` messages) map to the operation's typed error
- *             classes, then the shared HTTP-status classes, then
- *             {@link UnknownBraintrustError}.
+ *             classes, then the shared HTTP-status classes (plus 402 ->
+ *             PaymentRequired), then {@link UnknownBraintrustError}.
  */
 import * as Effect from "effect/Effect";
 import type * as HttpClient from "effect/http/HttpClient";
@@ -21,7 +26,7 @@ import type * as HttpClientError from "effect/http/HttpClientError";
 import type * as Layer from "effect/Layer";
 import * as Redacted from "effect/Redacted";
 import { Credentials, type Config } from "./credentials.ts";
-import { BraintrustParseError, UnknownBraintrustError } from "./errors.ts";
+import { BraintrustParseError, PaymentRequired, UnknownBraintrustError } from "./errors.ts";
 
 /**
  * Error channel shared by every generated Braintrust operation. Generated
@@ -32,6 +37,7 @@ import { BraintrustParseError, UnknownBraintrustError } from "./errors.ts";
 export type BraintrustOpError =
   | InstanceType<(typeof API_ERRORS)[number]>
   | UnknownBraintrustError
+  | PaymentRequired
   | ConfigError
   | HttpClientError.HttpClientError
   | BraintrustParseError
@@ -54,6 +60,9 @@ const errorEnvelope = (body: unknown): RestErrorEnvelope | undefined => {
   return { code, message };
 };
 
+/** Core's map plus 402, which Braintrust returns when the org is out of credits. */
+const statusMap = { ...HTTP_STATUS_MAP, 402: PaymentRequired };
+
 export const BraintrustProtocol: Layer.Layer<API.Protocol> = /*@__PURE__*/ makeRestProtocol<Config>(
   {
     // Resolved on the calling fiber per request, so a rotated key is picked
@@ -64,6 +73,7 @@ export const BraintrustProtocol: Layer.Layer<API.Protocol> = /*@__PURE__*/ makeR
       authorization: `Bearer ${Redacted.value(creds.apiKey)}`,
     }),
     errorEnvelope,
+    statusMap,
     unknownError: ({ code, message, body }) =>
       new UnknownBraintrustError({
         code: typeof code === "string" ? code : code !== undefined ? String(code) : undefined,
