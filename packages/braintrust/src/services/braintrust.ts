@@ -48,6 +48,20 @@ export class Forbidden
     [{ status: 403 }],
   ) {}
 
+/** The object does not exist, or the caller may not access it: Braintrust answers both with the same message ("..., or the <type> does not exist"). */
+export class NotFoundOrForbidden
+  extends /*@__PURE__*/ T.applyErrorMatchers(
+    /*@__PURE__*/ S.TaggedError<NotFoundOrForbidden>()("NotFoundOrForbidden", {
+      message: S.String,
+    }).pipe(C.withBadRequestError),
+    [
+      { status: 403, message: { includes: "does not exist" } },
+      { status: 400, message: { includes: "does not exist" } },
+      { status: 400, message: { includes: "not found" } },
+      { status: 404, message: { includes: "not found" } },
+    ],
+  ) {}
+
 /** The object type that the ACL applies to */
 export type AclObjectType =
   | "organization"
@@ -7037,8 +7051,8 @@ export const batchUpdateAcls: API.OperationMethod<
   BatchUpdateAclsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1458, __c91, 2) as any as S.Schema<BatchUpdateAclsRequest>,
-  output: __S(1459, __c91, 3) as any as S.Schema<AclBatchUpdateResponse>,
+  input: __S(1730, __c108, 2) as any as S.Schema<BatchUpdateAclsRequest>,
+  output: __S(1731, __c108, 3) as any as S.Schema<AclBatchUpdateResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7054,8 +7068,8 @@ export const createAcl: API.OperationMethod<
   CreateAclError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1744, __c109, 0) as any as S.Schema<CreateAclRequest>,
-  output: __S(1472, __c92, 0) as any as S.Schema<Acl>,
+  input: __S(2032, __c127, 0) as any as S.Schema<CreateAclRequest>,
+  output: __S(1744, __c109, 0) as any as S.Schema<Acl>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7071,8 +7085,8 @@ export const createAiSecret: API.OperationMethod<
   CreateAiSecretError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2016, __c126, 0) as any as S.Schema<CreateAiSecretRequest>,
-  output: __S(2032, __c127, 0) as any as S.Schema<AISecret>,
+  input: __S(2208, __c138, 0) as any as S.Schema<CreateAiSecretRequest>,
+  output: __S(2224, __c139, 0) as any as S.Schema<AISecret>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7088,8 +7102,8 @@ export const createColumn: API.OperationMethod<
   CreateColumnError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2224, __c139, 0) as any as S.Schema<CreateColumnRequest>,
-  output: __S(2240, __c140, 0) as any as S.Schema<CustomColumn>,
+  input: __S(2480, __c155, 0) as any as S.Schema<CreateColumnRequest>,
+  output: __S(2496, __c156, 0) as any as S.Schema<CustomColumn>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7105,8 +7119,8 @@ export const createDataset: API.OperationMethod<
   CreateDatasetError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2512, __c157, 0) as any as S.Schema<CreateDatasetRequest>,
-  output: __S(2528, __c158, 0) as any as S.Schema<Dataset>,
+  input: __S(2720, __c170, 0) as any as S.Schema<CreateDatasetRequest>,
+  output: __S(2736, __c171, 0) as any as S.Schema<Dataset>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7122,8 +7136,8 @@ export const createDatasetFeedback: API.OperationMethod<
   CreateDatasetFeedbackError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2736, __c171, 0) as any as S.Schema<CreateDatasetFeedbackRequest>,
-  output: __S(2752, __c172, 0) as any as S.Schema<FeedbackResponseSchema>,
+  input: __S(2944, __c184, 0) as any as S.Schema<CreateDatasetFeedbackRequest>,
+  output: __S(2960, __c185, 0) as any as S.Schema<FeedbackResponseSchema>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7139,8 +7153,8 @@ export const createDatasetSnapshot: API.OperationMethod<
   CreateDatasetSnapshotError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2960, __c185, 0) as any as S.Schema<CreateDatasetSnapshotRequest>,
-  output: __S(2976, __c186, 0) as any as S.Schema<DatasetSnapshot>,
+  input: __S(3152, __c197, 0) as any as S.Schema<CreateDatasetSnapshotRequest>,
+  output: __S(3168, __c198, 0) as any as S.Schema<DatasetSnapshot>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7156,8 +7170,8 @@ export const createEnvironment: API.OperationMethod<
   CreateEnvironmentError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3168, __c198, 0) as any as S.Schema<CreateEnvironmentRequest>,
-  output: __S(3184, __c199, 0) as any as S.Schema<Environment>,
+  input: __S(0, __c0, 0) as any as S.Schema<CreateEnvironmentRequest>,
+  output: __S(16, __c1, 0) as any as S.Schema<Environment>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7173,8 +7187,8 @@ export const createEnvVar: API.OperationMethod<
   CreateEnvVarError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(0, __c0, 0) as any as S.Schema<CreateEnvVarRequest>,
-  output: __S(16, __c1, 0) as any as S.Schema<EnvVar>,
+  input: __S(192, __c12, 0) as any as S.Schema<CreateEnvVarRequest>,
+  output: __S(208, __c13, 0) as any as S.Schema<EnvVar>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7190,8 +7204,8 @@ export const createEval: API.OperationMethod<
   CreateEvalError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(200, __c12, 8) as any as S.Schema<CreateEvalRequest>,
-  output: __S(260, __c16, 4) as any as S.Schema<SummarizeExperimentResponse>,
+  input: __S(392, __c24, 8) as any as S.Schema<CreateEvalRequest>,
+  output: __S(420, __c26, 4) as any as S.Schema<SummarizeExperimentResponse>,
   errors: [UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7207,8 +7221,8 @@ export const createExperiment: API.OperationMethod<
   CreateExperimentError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(464, __c29, 0) as any as S.Schema<CreateExperimentRequest>,
-  output: __S(481, __c30, 1) as any as S.Schema<Experiment>,
+  input: __S(656, __c41, 0) as any as S.Schema<CreateExperimentRequest>,
+  output: __S(673, __c42, 1) as any as S.Schema<Experiment>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7224,8 +7238,8 @@ export const createExperimentFeedback: API.OperationMethod<
   CreateExperimentFeedbackError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(656, __c41, 0) as any as S.Schema<CreateExperimentFeedbackRequest>,
-  output: __S(2752, __c172, 0) as any as S.Schema<FeedbackResponseSchema>,
+  input: __S(848, __c53, 0) as any as S.Schema<CreateExperimentFeedbackRequest>,
+  output: __S(2960, __c185, 0) as any as S.Schema<FeedbackResponseSchema>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7241,8 +7255,8 @@ export const createFunction: API.OperationMethod<
   CreateFunctionError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(864, __c54, 0) as any as S.Schema<CreateFunctionRequest>,
-  output: __S(898, __c56, 2) as any as S.Schema<Function>,
+  input: __S(1056, __c66, 0) as any as S.Schema<CreateFunctionRequest>,
+  output: __S(1090, __c68, 2) as any as S.Schema<Function>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7258,8 +7272,8 @@ export const createGroup: API.OperationMethod<
   CreateGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1072, __c67, 0) as any as S.Schema<CreateGroupRequest>,
-  output: __S(1088, __c68, 0) as any as S.Schema<Group>,
+  input: __S(1264, __c79, 0) as any as S.Schema<CreateGroupRequest>,
+  output: __S(1280, __c80, 0) as any as S.Schema<Group>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7275,8 +7289,8 @@ export const createIngestKey: API.OperationMethod<
   CreateIngestKeyError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1264, __c79, 0) as any as S.Schema<CreateIngestKeyRequest>,
-  output: __S(1265, __c79, 1) as any as S.Schema<CreateIngestKeyResponse>,
+  input: __S(1376, __c86, 0) as any as S.Schema<CreateIngestKeyRequest>,
+  output: __S(1377, __c86, 1) as any as S.Schema<CreateIngestKeyResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7292,8 +7306,8 @@ export const createMcpServer: API.OperationMethod<
   CreateMcpServerError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1344, __c84, 0) as any as S.Schema<CreateMcpServerRequest>,
-  output: __S(1360, __c85, 0) as any as S.Schema<MCPServer>,
+  input: __S(1392, __c87, 0) as any as S.Schema<CreateMcpServerRequest>,
+  output: __S(1408, __c88, 0) as any as S.Schema<MCPServer>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7309,8 +7323,8 @@ export const createProject: API.OperationMethod<
   CreateProjectError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1376, __c86, 0) as any as S.Schema<CreateProjectRequest>,
-  output: __S(1398, __c87, 6) as any as S.Schema<Project>,
+  input: __S(1424, __c89, 0) as any as S.Schema<CreateProjectRequest>,
+  output: __S(1446, __c90, 6) as any as S.Schema<Project>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7326,8 +7340,8 @@ export const createProjectAutomation: API.OperationMethod<
   CreateProjectAutomationError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1424, __c89, 0) as any as S.Schema<CreateProjectAutomationRequest>,
-  output: __S(1441, __c90, 1) as any as S.Schema<ProjectAutomation>,
+  input: __S(1472, __c92, 0) as any as S.Schema<CreateProjectAutomationRequest>,
+  output: __S(1489, __c93, 1) as any as S.Schema<ProjectAutomation>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7361,7 +7375,7 @@ export const createProjectLogFeedback: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(1536, __c96, 0) as any as S.Schema<CreateProjectLogFeedbackRequest>,
-  output: __S(2752, __c172, 0) as any as S.Schema<FeedbackResponseSchema>,
+  output: __S(2960, __c185, 0) as any as S.Schema<FeedbackResponseSchema>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7496,8 +7510,8 @@ export const createProxyCredentials: API.OperationMethod<
   CreateProxyCredentialsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1729, __c108, 1) as any as S.Schema<CreateProxyCredentialsRequest>,
-  output: __S(1730, __c108, 2) as any as S.Schema<CreateProxyCredentialsResponse>,
+  input: __S(1777, __c111, 1) as any as S.Schema<CreateProxyCredentialsRequest>,
+  output: __S(1778, __c111, 2) as any as S.Schema<CreateProxyCredentialsResponse>,
   errors: [BadRequest, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7513,7 +7527,7 @@ export const createProxyEmbedding: API.OperationMethod<
   CreateProxyEmbeddingError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1760, __c110, 0) as any as S.Schema<CreateProxyEmbeddingRequest>,
+  input: __S(1792, __c112, 0) as any as S.Schema<CreateProxyEmbeddingRequest>,
   output: __S(1664, __c104, 0) as any as S.Schema<CreateProxyEmbeddingResponse>,
   errors: [UnknownBraintrustError],
   protocol: BraintrustProtocol,
@@ -7530,8 +7544,8 @@ export const createRole: API.OperationMethod<
   CreateRoleError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1776, __c111, 0) as any as S.Schema<CreateRoleRequest>,
-  output: __S(1794, __c112, 2) as any as S.Schema<Role>,
+  input: __S(1808, __c113, 0) as any as S.Schema<CreateRoleRequest>,
+  output: __S(1826, __c114, 2) as any as S.Schema<Role>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7547,8 +7561,8 @@ export const createServiceToken: API.OperationMethod<
   CreateServiceTokenError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1808, __c113, 0) as any as S.Schema<CreateServiceTokenRequest>,
-  output: __S(1824, __c114, 0) as any as S.Schema<CreateServiceTokenOutput>,
+  input: __S(1840, __c115, 0) as any as S.Schema<CreateServiceTokenRequest>,
+  output: __S(1856, __c116, 0) as any as S.Schema<CreateServiceTokenOutput>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7564,8 +7578,8 @@ export const createSpanIframe: API.OperationMethod<
   CreateSpanIframeError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1840, __c115, 0) as any as S.Schema<CreateSpanIframeRequest>,
-  output: __S(1856, __c116, 0) as any as S.Schema<SpanIFrame>,
+  input: __S(1872, __c117, 0) as any as S.Schema<CreateSpanIframeRequest>,
+  output: __S(1888, __c118, 0) as any as S.Schema<SpanIFrame>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7581,8 +7595,8 @@ export const createView: API.OperationMethod<
   CreateViewError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1872, __c117, 0) as any as S.Schema<CreateViewRequest>,
-  output: __S(1906, __c119, 2) as any as S.Schema<View>,
+  input: __S(1904, __c119, 0) as any as S.Schema<CreateViewRequest>,
+  output: __S(1938, __c121, 2) as any as S.Schema<View>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7590,7 +7604,7 @@ export const createView: API.OperationMethod<
   span: "CreateView",
 }));
 
-export type DeleteAclError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteAclError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete ACL Delete an ACL object by its id */
 export const deleteAcl: API.OperationMethod<
   DeleteAclRequest,
@@ -7598,16 +7612,16 @@ export const deleteAcl: API.OperationMethod<
   DeleteAclError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1920, __c120, 0) as any as S.Schema<DeleteAclRequest>,
-  output: __S(1472, __c92, 0) as any as S.Schema<Acl>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1952, __c122, 0) as any as S.Schema<DeleteAclRequest>,
+  output: __S(1744, __c109, 0) as any as S.Schema<Acl>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteAcl",
 }));
 
-export type DeleteAiSecretError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteAiSecretError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete AI secret Delete an AI secret object by its id */
 export const deleteAiSecret: API.OperationMethod<
   DeleteAiSecretRequest,
@@ -7615,16 +7629,16 @@ export const deleteAiSecret: API.OperationMethod<
   DeleteAiSecretError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1936, __c121, 0) as any as S.Schema<DeleteAiSecretRequest>,
-  output: __S(2032, __c127, 0) as any as S.Schema<AISecret>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1968, __c123, 0) as any as S.Schema<DeleteAiSecretRequest>,
+  output: __S(2224, __c139, 0) as any as S.Schema<AISecret>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteAiSecret",
 }));
 
-export type DeleteApiKeyError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteApiKeyError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete API key Delete an API key object by its id */
 export const deleteApiKey: API.OperationMethod<
   DeleteApiKeyRequest,
@@ -7632,16 +7646,16 @@ export const deleteApiKey: API.OperationMethod<
   DeleteApiKeyError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1952, __c122, 0) as any as S.Schema<DeleteApiKeyRequest>,
-  output: __S(1968, __c123, 0) as any as S.Schema<ApiKey>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1984, __c124, 0) as any as S.Schema<DeleteApiKeyRequest>,
+  output: __S(2000, __c125, 0) as any as S.Schema<ApiKey>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteApiKey",
 }));
 
-export type DeleteColumnError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteColumnError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete custom column Delete a custom column object by its id. Requires delete permission on the scoping object. */
 export const deleteColumn: API.OperationMethod<
   DeleteColumnRequest,
@@ -7649,16 +7663,16 @@ export const deleteColumn: API.OperationMethod<
   DeleteColumnError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1984, __c124, 0) as any as S.Schema<DeleteColumnRequest>,
-  output: __S(2240, __c140, 0) as any as S.Schema<CustomColumn>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(2016, __c126, 0) as any as S.Schema<DeleteColumnRequest>,
+  output: __S(2496, __c156, 0) as any as S.Schema<CustomColumn>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteColumn",
 }));
 
-export type DeleteDatasetError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteDatasetError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete dataset Delete a dataset object by its id */
 export const deleteDataset: API.OperationMethod<
   DeleteDatasetRequest,
@@ -7666,16 +7680,20 @@ export const deleteDataset: API.OperationMethod<
   DeleteDatasetError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2000, __c125, 0) as any as S.Schema<DeleteDatasetRequest>,
-  output: __S(2528, __c158, 0) as any as S.Schema<Dataset>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(2048, __c128, 0) as any as S.Schema<DeleteDatasetRequest>,
+  output: __S(2736, __c171, 0) as any as S.Schema<Dataset>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteDataset",
 }));
 
-export type DeleteDatasetSnapshotError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteDatasetSnapshotError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Delete dataset snapshot Delete a dataset snapshot object by its id */
 export const deleteDatasetSnapshot: API.OperationMethod<
   DeleteDatasetSnapshotRequest,
@@ -7684,15 +7702,19 @@ export const deleteDatasetSnapshot: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2064, __c129, 0) as any as S.Schema<DeleteDatasetSnapshotRequest>,
-  output: __S(2976, __c186, 0) as any as S.Schema<DatasetSnapshot>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(3168, __c198, 0) as any as S.Schema<DatasetSnapshot>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteDatasetSnapshot",
 }));
 
-export type DeleteEnvironmentError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteEnvironmentError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Delete environment Delete an environment object by its id */
 export const deleteEnvironment: API.OperationMethod<
   DeleteEnvironmentRequest,
@@ -7701,15 +7723,15 @@ export const deleteEnvironment: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2080, __c130, 0) as any as S.Schema<DeleteEnvironmentRequest>,
-  output: __S(3184, __c199, 0) as any as S.Schema<Environment>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(16, __c1, 0) as any as S.Schema<Environment>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteEnvironment",
 }));
 
-export type DeleteEnvVarError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteEnvVarError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete env var Delete an env var object by its id */
 export const deleteEnvVar: API.OperationMethod<
   DeleteEnvVarRequest,
@@ -7718,15 +7740,19 @@ export const deleteEnvVar: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2096, __c131, 0) as any as S.Schema<DeleteEnvVarRequest>,
-  output: __S(16, __c1, 0) as any as S.Schema<EnvVar>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(208, __c13, 0) as any as S.Schema<EnvVar>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteEnvVar",
 }));
 
-export type DeleteExperimentError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteExperimentError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Delete experiment Delete an experiment object by its id */
 export const deleteExperiment: API.OperationMethod<
   DeleteExperimentRequest,
@@ -7735,15 +7761,15 @@ export const deleteExperiment: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2112, __c132, 0) as any as S.Schema<DeleteExperimentRequest>,
-  output: __S(481, __c30, 1) as any as S.Schema<Experiment>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(673, __c42, 1) as any as S.Schema<Experiment>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteExperiment",
 }));
 
-export type DeleteFunctionError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteFunctionError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete function Delete a function object by its id */
 export const deleteFunction: API.OperationMethod<
   DeleteFunctionRequest,
@@ -7752,15 +7778,15 @@ export const deleteFunction: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2128, __c133, 0) as any as S.Schema<DeleteFunctionRequest>,
-  output: __S(898, __c56, 2) as any as S.Schema<Function>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(1090, __c68, 2) as any as S.Schema<Function>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteFunction",
 }));
 
-export type DeleteGroupError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteGroupError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete group Delete a group object by its id */
 export const deleteGroup: API.OperationMethod<
   DeleteGroupRequest,
@@ -7769,15 +7795,15 @@ export const deleteGroup: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2144, __c134, 0) as any as S.Schema<DeleteGroupRequest>,
-  output: __S(1088, __c68, 0) as any as S.Schema<Group>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(1280, __c80, 0) as any as S.Schema<Group>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteGroup",
 }));
 
-export type DeleteIngestKeyError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteIngestKeyError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Revoke ingest key Revoke an ingest key. Requires project delete_acls permission. Cached authorization remains valid until the existing key caches expire. */
 export const deleteIngestKey: API.OperationMethod<
   DeleteIngestKeyRequest,
@@ -7787,14 +7813,14 @@ export const deleteIngestKey: API.OperationMethod<
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2160, __c135, 0) as any as S.Schema<DeleteIngestKeyRequest>,
   output: __S(2161, __c135, 1) as any as S.Schema<IngestKey>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteIngestKey",
 }));
 
-export type DeleteMcpServerError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteMcpServerError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete MCP server Delete an MCP server object by its id */
 export const deleteMcpServer: API.OperationMethod<
   DeleteMcpServerRequest,
@@ -7803,15 +7829,15 @@ export const deleteMcpServer: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2176, __c136, 0) as any as S.Schema<DeleteMcpServerRequest>,
-  output: __S(1360, __c85, 0) as any as S.Schema<MCPServer>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(1408, __c88, 0) as any as S.Schema<MCPServer>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteMcpServer",
 }));
 
-export type DeleteProjectError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteProjectError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete project Delete a project object by its id */
 export const deleteProject: API.OperationMethod<
   DeleteProjectRequest,
@@ -7820,15 +7846,19 @@ export const deleteProject: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2192, __c137, 0) as any as S.Schema<DeleteProjectRequest>,
-  output: __S(1398, __c87, 6) as any as S.Schema<Project>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(1446, __c90, 6) as any as S.Schema<Project>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteProject",
 }));
 
-export type DeleteProjectAutomationError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteProjectAutomationError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Delete project automation Delete a project automation object by its id */
 export const deleteProjectAutomation: API.OperationMethod<
   DeleteProjectAutomationRequest,
@@ -7836,16 +7866,20 @@ export const deleteProjectAutomation: API.OperationMethod<
   DeleteProjectAutomationError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2208, __c138, 0) as any as S.Schema<DeleteProjectAutomationRequest>,
-  output: __S(1441, __c90, 1) as any as S.Schema<ProjectAutomation>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(2256, __c141, 0) as any as S.Schema<DeleteProjectAutomationRequest>,
+  output: __S(1489, __c93, 1) as any as S.Schema<ProjectAutomation>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteProjectAutomation",
 }));
 
-export type DeleteProjectGroupError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteProjectGroupError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Delete project group Delete a project group object by its id */
 export const deleteProjectGroup: API.OperationMethod<
   DeleteProjectGroupRequest,
@@ -7853,16 +7887,20 @@ export const deleteProjectGroup: API.OperationMethod<
   DeleteProjectGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2256, __c141, 0) as any as S.Schema<DeleteProjectGroupRequest>,
+  input: __S(2272, __c142, 0) as any as S.Schema<DeleteProjectGroupRequest>,
   output: __S(1520, __c95, 0) as any as S.Schema<ProjectGroup>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteProjectGroup",
 }));
 
-export type DeleteProjectScoreError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteProjectScoreError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Delete project score Delete a project score object by its id */
 export const deleteProjectScore: API.OperationMethod<
   DeleteProjectScoreRequest,
@@ -7870,16 +7908,20 @@ export const deleteProjectScore: API.OperationMethod<
   DeleteProjectScoreError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2272, __c142, 0) as any as S.Schema<DeleteProjectScoreRequest>,
+  input: __S(2288, __c143, 0) as any as S.Schema<DeleteProjectScoreRequest>,
   output: __S(1573, __c98, 5) as any as S.Schema<ProjectScore>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteProjectScore",
 }));
 
-export type DeleteProjectTagError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteProjectTagError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Delete project tag Delete a project tag object by its id */
 export const deleteProjectTag: API.OperationMethod<
   DeleteProjectTagRequest,
@@ -7887,16 +7929,16 @@ export const deleteProjectTag: API.OperationMethod<
   DeleteProjectTagError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2288, __c143, 0) as any as S.Schema<DeleteProjectTagRequest>,
+  input: __S(2304, __c144, 0) as any as S.Schema<DeleteProjectTagRequest>,
   output: __S(1600, __c100, 0) as any as S.Schema<ProjectTag>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteProjectTag",
 }));
 
-export type DeletePromptError = BadRequest | Forbidden | BraintrustOpError;
+export type DeletePromptError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete prompt Delete a prompt object by its id */
 export const deletePrompt: API.OperationMethod<
   DeletePromptRequest,
@@ -7904,16 +7946,16 @@ export const deletePrompt: API.OperationMethod<
   DeletePromptError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2304, __c144, 0) as any as S.Schema<DeletePromptRequest>,
+  input: __S(2320, __c145, 0) as any as S.Schema<DeletePromptRequest>,
   output: __S(1632, __c102, 0) as any as S.Schema<Prompt>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeletePrompt",
 }));
 
-export type DeleteRoleError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteRoleError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete role Delete a role object by its id */
 export const deleteRole: API.OperationMethod<
   DeleteRoleRequest,
@@ -7921,16 +7963,20 @@ export const deleteRole: API.OperationMethod<
   DeleteRoleError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2320, __c145, 0) as any as S.Schema<DeleteRoleRequest>,
-  output: __S(1794, __c112, 2) as any as S.Schema<Role>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(2336, __c146, 0) as any as S.Schema<DeleteRoleRequest>,
+  output: __S(1826, __c114, 2) as any as S.Schema<Role>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteRole",
 }));
 
-export type DeleteServiceTokenError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteServiceTokenError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Delete service token Delete a service token object by its id */
 export const deleteServiceToken: API.OperationMethod<
   DeleteServiceTokenRequest,
@@ -7938,16 +7984,20 @@ export const deleteServiceToken: API.OperationMethod<
   DeleteServiceTokenError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2336, __c146, 0) as any as S.Schema<DeleteServiceTokenRequest>,
-  output: __S(2352, __c147, 0) as any as S.Schema<ServiceToken>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(2352, __c147, 0) as any as S.Schema<DeleteServiceTokenRequest>,
+  output: __S(2368, __c148, 0) as any as S.Schema<ServiceToken>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteServiceToken",
 }));
 
-export type DeleteSpanIframeError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteSpanIframeError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Delete span iframe Delete a span iframe object by its id */
 export const deleteSpanIframe: API.OperationMethod<
   DeleteSpanIframeRequest,
@@ -7955,16 +8005,16 @@ export const deleteSpanIframe: API.OperationMethod<
   DeleteSpanIframeError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2368, __c148, 0) as any as S.Schema<DeleteSpanIframeRequest>,
-  output: __S(1856, __c116, 0) as any as S.Schema<SpanIFrame>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(2384, __c149, 0) as any as S.Schema<DeleteSpanIframeRequest>,
+  output: __S(1888, __c118, 0) as any as S.Schema<SpanIFrame>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteSpanIframe",
 }));
 
-export type DeleteViewError = BadRequest | Forbidden | BraintrustOpError;
+export type DeleteViewError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Delete view Delete a view object by its id */
 export const deleteView: API.OperationMethod<
   DeleteViewRequest,
@@ -7972,16 +8022,20 @@ export const deleteView: API.OperationMethod<
   DeleteViewError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2384, __c149, 0) as any as S.Schema<DeleteViewRequest>,
-  output: __S(1906, __c119, 2) as any as S.Schema<View>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(2400, __c150, 0) as any as S.Schema<DeleteViewRequest>,
+  output: __S(1938, __c121, 2) as any as S.Schema<View>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "DeleteView",
 }));
 
-export type FetchDatasetEventsError = BadRequest | Forbidden | BraintrustOpError;
+export type FetchDatasetEventsError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Fetch dataset (POST form) Fetch the events in a dataset. Equivalent to the GET form of the same path, but with the parameters in the request body rather than in the URL query. For more complex queries, use the `POST /btql` endpoint. */
 export const fetchDatasetEvents: API.PaginatedOperationMethod<
   FetchDatasetEventsRequest,
@@ -7990,9 +8044,9 @@ export const fetchDatasetEvents: API.PaginatedOperationMethod<
   BraintrustOpContext,
   DatasetEvent
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(2400, __c150, 0) as any as S.Schema<FetchDatasetEventsRequest>,
-  output: __S(2450, __c153, 2) as any as S.Schema<FetchDatasetEventsResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(2416, __c151, 0) as any as S.Schema<FetchDatasetEventsRequest>,
+  output: __S(2466, __c154, 2) as any as S.Schema<FetchDatasetEventsResponse>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
@@ -8006,7 +8060,11 @@ export const fetchDatasetEvents: API.PaginatedOperationMethod<
   } as const,
 })) as any;
 
-export type FetchExperimentEventsError = BadRequest | Forbidden | BraintrustOpError;
+export type FetchExperimentEventsError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Fetch experiment (POST form) Fetch the events in an experiment. Equivalent to the GET form of the same path, but with the parameters in the request body rather than in the URL query. For more complex queries, use the `POST /btql` endpoint. */
 export const fetchExperimentEvents: API.PaginatedOperationMethod<
   FetchExperimentEventsRequest,
@@ -8015,9 +8073,9 @@ export const fetchExperimentEvents: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ExperimentEvent
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(2464, __c154, 0) as any as S.Schema<FetchExperimentEventsRequest>,
-  output: __S(2498, __c156, 2) as any as S.Schema<FetchExperimentEventsResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(2512, __c157, 0) as any as S.Schema<FetchExperimentEventsRequest>,
+  output: __S(2546, __c159, 2) as any as S.Schema<FetchExperimentEventsResponse>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
@@ -8031,7 +8089,11 @@ export const fetchExperimentEvents: API.PaginatedOperationMethod<
   } as const,
 })) as any;
 
-export type FetchProjectLogEventsError = BadRequest | Forbidden | BraintrustOpError;
+export type FetchProjectLogEventsError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Fetch project logs (POST form) Fetch the events in a project logs. Equivalent to the GET form of the same path, but with the parameters in the request body rather than in the URL query. For more complex queries, use the `POST /btql` endpoint. */
 export const fetchProjectLogEvents: API.PaginatedOperationMethod<
   FetchProjectLogEventsRequest,
@@ -8042,7 +8104,7 @@ export const fetchProjectLogEvents: API.PaginatedOperationMethod<
 > = /*@__PURE__*/ API.makePaginated(() => ({
   input: __S(2560, __c160, 0) as any as S.Schema<FetchProjectLogEventsRequest>,
   output: __S(2578, __c161, 2) as any as S.Schema<FetchProjectLogsEventsResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
@@ -8056,7 +8118,11 @@ export const fetchProjectLogEvents: API.PaginatedOperationMethod<
   } as const,
 })) as any;
 
-export type FindAndDeleteAclError = BadRequest | Forbidden | BraintrustOpError;
+export type FindAndDeleteAclError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Delete single ACL Delete a single ACL */
 export const findAndDeleteAcl: API.OperationMethod<
   FindAndDeleteAclRequest,
@@ -8065,15 +8131,19 @@ export const findAndDeleteAcl: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2592, __c162, 0) as any as S.Schema<FindAndDeleteAclRequest>,
-  output: __S(1472, __c92, 0) as any as S.Schema<Acl>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(1744, __c109, 0) as any as S.Schema<Acl>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "FindAndDeleteAcl",
 }));
 
-export type FindAndDeleteAiSecretError = BadRequest | Forbidden | BraintrustOpError;
+export type FindAndDeleteAiSecretError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Delete single AI secret Delete a single AI secret */
 export const findAndDeleteAiSecret: API.OperationMethod<
   FindAndDeleteAiSecretRequest,
@@ -8082,8 +8152,8 @@ export const findAndDeleteAiSecret: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2608, __c163, 0) as any as S.Schema<FindAndDeleteAiSecretRequest>,
-  output: __S(2032, __c127, 0) as any as S.Schema<AISecret>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(2224, __c139, 0) as any as S.Schema<AISecret>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
@@ -8099,7 +8169,7 @@ export const findAndDeleteServiceToken: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2624, __c164, 0) as any as S.Schema<FindAndDeleteServiceTokenRequest>,
-  output: __S(2352, __c147, 0) as any as S.Schema<ServiceToken>,
+  output: __S(2368, __c148, 0) as any as S.Schema<ServiceToken>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8107,20 +8177,20 @@ export const findAndDeleteServiceToken: API.OperationMethod<
   span: "FindAndDeleteServiceToken",
 }));
 
-export type GetAclError = BadRequest | Forbidden | BraintrustOpError;
+export type GetAclError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get ACL Get an ACL object by its id */
 export const getAcl: API.OperationMethod<GetAclRequest, Acl, GetAclError, BraintrustOpContext> =
   /*@__PURE__*/ API.make(() => ({
     input: __S(2640, __c165, 0) as any as S.Schema<GetAclRequest>,
-    output: __S(1472, __c92, 0) as any as S.Schema<Acl>,
-    errors: [BadRequest, Forbidden, UnknownBraintrustError],
+    output: __S(1744, __c109, 0) as any as S.Schema<Acl>,
+    errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
     protocol: BraintrustProtocol,
     retry: Retry.Retry,
     telemetry: TELEMETRY,
     span: "GetAcl",
   }));
 
-export type GetAiSecretError = BadRequest | Forbidden | BraintrustOpError;
+export type GetAiSecretError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get AI secret Get an AI secret object by its id */
 export const getAiSecret: API.OperationMethod<
   GetAiSecretRequest,
@@ -8129,15 +8199,15 @@ export const getAiSecret: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2656, __c166, 0) as any as S.Schema<GetAiSecretRequest>,
-  output: __S(2032, __c127, 0) as any as S.Schema<AISecret>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(2224, __c139, 0) as any as S.Schema<AISecret>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetAiSecret",
 }));
 
-export type GetApiKeyError = BadRequest | Forbidden | BraintrustOpError;
+export type GetApiKeyError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get API key Get an API key object by its id */
 export const getApiKey: API.OperationMethod<
   GetApiKeyRequest,
@@ -8146,15 +8216,15 @@ export const getApiKey: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2672, __c167, 0) as any as S.Schema<GetApiKeyRequest>,
-  output: __S(1968, __c123, 0) as any as S.Schema<ApiKey>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(2000, __c125, 0) as any as S.Schema<ApiKey>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetApiKey",
 }));
 
-export type GetDatasetError = BadRequest | Forbidden | BraintrustOpError;
+export type GetDatasetError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get dataset Get a dataset object by its id */
 export const getDataset: API.OperationMethod<
   GetDatasetRequest,
@@ -8163,15 +8233,19 @@ export const getDataset: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2688, __c168, 0) as any as S.Schema<GetDatasetRequest>,
-  output: __S(2528, __c158, 0) as any as S.Schema<Dataset>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(2736, __c171, 0) as any as S.Schema<Dataset>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetDataset",
 }));
 
-export type GetDatasetEventsError = BadRequest | Forbidden | BraintrustOpError;
+export type GetDatasetEventsError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Fetch dataset (GET form) Fetch the events in a dataset. Equivalent to the POST form of the same path, but with the parameters in the URL query rather than in the request body. For more complex queries, use the `POST /btql` endpoint. */
 export const getDatasetEvents: API.OperationMethod<
   GetDatasetEventsRequest,
@@ -8180,15 +8254,19 @@ export const getDatasetEvents: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2704, __c169, 0) as any as S.Schema<GetDatasetEventsRequest>,
-  output: __S(2450, __c153, 2) as any as S.Schema<FetchDatasetEventsResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(2466, __c154, 2) as any as S.Schema<FetchDatasetEventsResponse>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetDatasetEvents",
 }));
 
-export type GetDatasetSnapshotError = BadRequest | Forbidden | BraintrustOpError;
+export type GetDatasetSnapshotError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Get dataset snapshot Get a dataset snapshot object by its id */
 export const getDatasetSnapshot: API.OperationMethod<
   GetDatasetSnapshotRequest,
@@ -8196,16 +8274,16 @@ export const getDatasetSnapshot: API.OperationMethod<
   GetDatasetSnapshotError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2720, __c170, 0) as any as S.Schema<GetDatasetSnapshotRequest>,
-  output: __S(2976, __c186, 0) as any as S.Schema<DatasetSnapshot>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(2768, __c173, 0) as any as S.Schema<GetDatasetSnapshotRequest>,
+  output: __S(3168, __c198, 0) as any as S.Schema<DatasetSnapshot>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetDatasetSnapshot",
 }));
 
-export type GetEnvironmentError = BadRequest | Forbidden | BraintrustOpError;
+export type GetEnvironmentError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get environment Get an environment object by its id */
 export const getEnvironment: API.OperationMethod<
   GetEnvironmentRequest,
@@ -8214,15 +8292,15 @@ export const getEnvironment: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2784, __c174, 0) as any as S.Schema<GetEnvironmentRequest>,
-  output: __S(3184, __c199, 0) as any as S.Schema<Environment>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(16, __c1, 0) as any as S.Schema<Environment>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetEnvironment",
 }));
 
-export type GetEnvVarError = BadRequest | Forbidden | BraintrustOpError;
+export type GetEnvVarError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get env var Get an env var object by its id */
 export const getEnvVar: API.OperationMethod<
   GetEnvVarRequest,
@@ -8231,15 +8309,15 @@ export const getEnvVar: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2800, __c175, 0) as any as S.Schema<GetEnvVarRequest>,
-  output: __S(16, __c1, 0) as any as S.Schema<EnvVar>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(208, __c13, 0) as any as S.Schema<EnvVar>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetEnvVar",
 }));
 
-export type GetExperimentError = BadRequest | Forbidden | BraintrustOpError;
+export type GetExperimentError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get experiment Get an experiment object by its id */
 export const getExperiment: API.OperationMethod<
   GetExperimentRequest,
@@ -8248,15 +8326,19 @@ export const getExperiment: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2816, __c176, 0) as any as S.Schema<GetExperimentRequest>,
-  output: __S(481, __c30, 1) as any as S.Schema<Experiment>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(673, __c42, 1) as any as S.Schema<Experiment>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetExperiment",
 }));
 
-export type GetExperimentEventsError = BadRequest | Forbidden | BraintrustOpError;
+export type GetExperimentEventsError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Fetch experiment (GET form) Fetch the events in an experiment. Equivalent to the POST form of the same path, but with the parameters in the URL query rather than in the request body. For more complex queries, use the `POST /btql` endpoint. */
 export const getExperimentEvents: API.OperationMethod<
   GetExperimentEventsRequest,
@@ -8265,15 +8347,15 @@ export const getExperimentEvents: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2832, __c177, 0) as any as S.Schema<GetExperimentEventsRequest>,
-  output: __S(2498, __c156, 2) as any as S.Schema<FetchExperimentEventsResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(2546, __c159, 2) as any as S.Schema<FetchExperimentEventsResponse>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetExperimentEvents",
 }));
 
-export type GetFunctionError = BadRequest | Forbidden | BraintrustOpError;
+export type GetFunctionError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get function Get a function object by its id */
 export const getFunction: API.OperationMethod<
   GetFunctionRequest,
@@ -8282,15 +8364,15 @@ export const getFunction: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2848, __c178, 0) as any as S.Schema<GetFunctionRequest>,
-  output: __S(898, __c56, 2) as any as S.Schema<Function>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(1090, __c68, 2) as any as S.Schema<Function>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetFunction",
 }));
 
-export type GetGroupError = BadRequest | Forbidden | BraintrustOpError;
+export type GetGroupError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get group Get a group object by its id */
 export const getGroup: API.OperationMethod<
   GetGroupRequest,
@@ -8299,15 +8381,15 @@ export const getGroup: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2864, __c179, 0) as any as S.Schema<GetGroupRequest>,
-  output: __S(1088, __c68, 0) as any as S.Schema<Group>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(1280, __c80, 0) as any as S.Schema<Group>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetGroup",
 }));
 
-export type GetMcpServerError = BadRequest | Forbidden | BraintrustOpError;
+export type GetMcpServerError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get MCP server Get an MCP server object by its id */
 export const getMcpServer: API.OperationMethod<
   GetMcpServerRequest,
@@ -8316,15 +8398,15 @@ export const getMcpServer: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2880, __c180, 0) as any as S.Schema<GetMcpServerRequest>,
-  output: __S(1360, __c85, 0) as any as S.Schema<MCPServer>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(1408, __c88, 0) as any as S.Schema<MCPServer>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetMcpServer",
 }));
 
-export type GetOrganizationError = BadRequest | Forbidden | BraintrustOpError;
+export type GetOrganizationError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get organization Get an organization object by its id */
 export const getOrganization: API.OperationMethod<
   GetOrganizationRequest,
@@ -8334,14 +8416,14 @@ export const getOrganization: API.OperationMethod<
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2896, __c181, 0) as any as S.Schema<GetOrganizationRequest>,
   output: __S(2912, __c182, 0) as any as S.Schema<Organization>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetOrganization",
 }));
 
-export type GetProjectError = BadRequest | Forbidden | BraintrustOpError;
+export type GetProjectError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get project Get a project object by its id */
 export const getProject: API.OperationMethod<
   GetProjectRequest,
@@ -8350,15 +8432,19 @@ export const getProject: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2928, __c183, 0) as any as S.Schema<GetProjectRequest>,
-  output: __S(1398, __c87, 6) as any as S.Schema<Project>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(1446, __c90, 6) as any as S.Schema<Project>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetProject",
 }));
 
-export type GetProjectAutomationError = BadRequest | Forbidden | BraintrustOpError;
+export type GetProjectAutomationError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Get project automation Get a project automation object by its id */
 export const getProjectAutomation: API.OperationMethod<
   GetProjectAutomationRequest,
@@ -8366,16 +8452,16 @@ export const getProjectAutomation: API.OperationMethod<
   GetProjectAutomationError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2944, __c184, 0) as any as S.Schema<GetProjectAutomationRequest>,
-  output: __S(1441, __c90, 1) as any as S.Schema<ProjectAutomation>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(2992, __c187, 0) as any as S.Schema<GetProjectAutomationRequest>,
+  output: __S(1489, __c93, 1) as any as S.Schema<ProjectAutomation>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetProjectAutomation",
 }));
 
-export type GetProjectGroupError = BadRequest | Forbidden | BraintrustOpError;
+export type GetProjectGroupError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get project group Get a project group object by its id */
 export const getProjectGroup: API.OperationMethod<
   GetProjectGroupRequest,
@@ -8383,16 +8469,20 @@ export const getProjectGroup: API.OperationMethod<
   GetProjectGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2992, __c187, 0) as any as S.Schema<GetProjectGroupRequest>,
+  input: __S(3008, __c188, 0) as any as S.Schema<GetProjectGroupRequest>,
   output: __S(1520, __c95, 0) as any as S.Schema<ProjectGroup>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetProjectGroup",
 }));
 
-export type GetProjectLogEventsError = BadRequest | Forbidden | BraintrustOpError;
+export type GetProjectLogEventsError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Fetch project logs (GET form) Fetch the events in a project logs. Equivalent to the POST form of the same path, but with the parameters in the URL query rather than in the request body. For more complex queries, use the `POST /btql` endpoint. */
 export const getProjectLogEvents: API.OperationMethod<
   GetProjectLogEventsRequest,
@@ -8400,16 +8490,16 @@ export const getProjectLogEvents: API.OperationMethod<
   GetProjectLogEventsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3008, __c188, 0) as any as S.Schema<GetProjectLogEventsRequest>,
+  input: __S(3024, __c189, 0) as any as S.Schema<GetProjectLogEventsRequest>,
   output: __S(2578, __c161, 2) as any as S.Schema<FetchProjectLogsEventsResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetProjectLogEvents",
 }));
 
-export type GetProjectScoreError = BadRequest | Forbidden | BraintrustOpError;
+export type GetProjectScoreError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get project score Get a project score object by its id */
 export const getProjectScore: API.OperationMethod<
   GetProjectScoreRequest,
@@ -8417,16 +8507,16 @@ export const getProjectScore: API.OperationMethod<
   GetProjectScoreError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3024, __c189, 0) as any as S.Schema<GetProjectScoreRequest>,
+  input: __S(3040, __c190, 0) as any as S.Schema<GetProjectScoreRequest>,
   output: __S(1573, __c98, 5) as any as S.Schema<ProjectScore>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetProjectScore",
 }));
 
-export type GetProjectTagError = BadRequest | Forbidden | BraintrustOpError;
+export type GetProjectTagError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get project tag Get a project tag object by its id */
 export const getProjectTag: API.OperationMethod<
   GetProjectTagRequest,
@@ -8434,16 +8524,16 @@ export const getProjectTag: API.OperationMethod<
   GetProjectTagError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3040, __c190, 0) as any as S.Schema<GetProjectTagRequest>,
+  input: __S(3056, __c191, 0) as any as S.Schema<GetProjectTagRequest>,
   output: __S(1600, __c100, 0) as any as S.Schema<ProjectTag>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetProjectTag",
 }));
 
-export type GetPromptError = BadRequest | Forbidden | BraintrustOpError;
+export type GetPromptError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get prompt Get a prompt object by its id */
 export const getPrompt: API.OperationMethod<
   GetPromptRequest,
@@ -8451,22 +8541,22 @@ export const getPrompt: API.OperationMethod<
   GetPromptError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3056, __c191, 0) as any as S.Schema<GetPromptRequest>,
+  input: __S(3072, __c192, 0) as any as S.Schema<GetPromptRequest>,
   output: __S(1632, __c102, 0) as any as S.Schema<Prompt>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetPrompt",
 }));
 
-export type GetRoleError = BadRequest | Forbidden | BraintrustOpError;
+export type GetRoleError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get role Get a role object by its id */
 export const getRole: API.OperationMethod<GetRoleRequest, Role, GetRoleError, BraintrustOpContext> =
   /*@__PURE__*/ API.make(() => ({
-    input: __S(3072, __c192, 0) as any as S.Schema<GetRoleRequest>,
-    output: __S(1794, __c112, 2) as any as S.Schema<Role>,
-    errors: [BadRequest, Forbidden, UnknownBraintrustError],
+    input: __S(3088, __c193, 0) as any as S.Schema<GetRoleRequest>,
+    output: __S(1826, __c114, 2) as any as S.Schema<Role>,
+    errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
     protocol: BraintrustProtocol,
     retry: Retry.Retry,
     telemetry: TELEMETRY,
@@ -8481,8 +8571,8 @@ export const getRoot: API.OperationMethod<
   GetRootError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3088, __c193, 0) as any as S.Schema<GetRootRequest>,
-  output: __S(3089, __c193, 1) as any as S.Schema<GetRootResponse>,
+  input: __S(3104, __c194, 0) as any as S.Schema<GetRootRequest>,
+  output: __S(3105, __c194, 1) as any as S.Schema<GetRootResponse>,
   errors: [BadRequest, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8490,7 +8580,7 @@ export const getRoot: API.OperationMethod<
   span: "GetRoot",
 }));
 
-export type GetServiceTokenError = BadRequest | Forbidden | BraintrustOpError;
+export type GetServiceTokenError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get service token Get a service token object by its id */
 export const getServiceToken: API.OperationMethod<
   GetServiceTokenRequest,
@@ -8498,16 +8588,16 @@ export const getServiceToken: API.OperationMethod<
   GetServiceTokenError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3104, __c194, 0) as any as S.Schema<GetServiceTokenRequest>,
-  output: __S(2352, __c147, 0) as any as S.Schema<ServiceToken>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(3120, __c195, 0) as any as S.Schema<GetServiceTokenRequest>,
+  output: __S(2368, __c148, 0) as any as S.Schema<ServiceToken>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetServiceToken",
 }));
 
-export type GetSpanIframeError = BadRequest | Forbidden | BraintrustOpError;
+export type GetSpanIframeError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get span iframe Get a span iframe object by its id */
 export const getSpanIframe: API.OperationMethod<
   GetSpanIframeRequest,
@@ -8515,35 +8605,35 @@ export const getSpanIframe: API.OperationMethod<
   GetSpanIframeError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3120, __c195, 0) as any as S.Schema<GetSpanIframeRequest>,
-  output: __S(1856, __c116, 0) as any as S.Schema<SpanIFrame>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(3136, __c196, 0) as any as S.Schema<GetSpanIframeRequest>,
+  output: __S(1888, __c118, 0) as any as S.Schema<SpanIFrame>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "GetSpanIframe",
 }));
 
-export type GetUserError = BadRequest | Forbidden | BraintrustOpError;
+export type GetUserError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get user Get a user object by its id */
 export const getUser: API.OperationMethod<GetUserRequest, User, GetUserError, BraintrustOpContext> =
   /*@__PURE__*/ API.make(() => ({
-    input: __S(3136, __c196, 0) as any as S.Schema<GetUserRequest>,
-    output: __S(3152, __c197, 0) as any as S.Schema<User>,
-    errors: [BadRequest, Forbidden, UnknownBraintrustError],
+    input: __S(3184, __c199, 0) as any as S.Schema<GetUserRequest>,
+    output: __S(3200, __c200, 0) as any as S.Schema<User>,
+    errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
     protocol: BraintrustProtocol,
     retry: Retry.Retry,
     telemetry: TELEMETRY,
     span: "GetUser",
   }));
 
-export type GetViewError = BadRequest | Forbidden | BraintrustOpError;
+export type GetViewError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Get view Get a view object by its id */
 export const getView: API.OperationMethod<GetViewRequest, View, GetViewError, BraintrustOpContext> =
   /*@__PURE__*/ API.make(() => ({
-    input: __S(3200, __c200, 0) as any as S.Schema<GetViewRequest>,
-    output: __S(1906, __c119, 2) as any as S.Schema<View>,
-    errors: [BadRequest, Forbidden, UnknownBraintrustError],
+    input: __S(3216, __c201, 0) as any as S.Schema<GetViewRequest>,
+    output: __S(1938, __c121, 2) as any as S.Schema<View>,
+    errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
     protocol: BraintrustProtocol,
     retry: Retry.Retry,
     telemetry: TELEMETRY,
@@ -8558,8 +8648,8 @@ export const insertCrossObject: API.OperationMethod<
   InsertCrossObjectError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3220, __c201, 4) as any as S.Schema<InsertCrossObjectRequest>,
-  output: __S(3222, __c201, 6) as any as S.Schema<CrossObjectInsertResponse>,
+  input: __S(3236, __c202, 4) as any as S.Schema<InsertCrossObjectRequest>,
+  output: __S(3238, __c202, 6) as any as S.Schema<CrossObjectInsertResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8567,7 +8657,11 @@ export const insertCrossObject: API.OperationMethod<
   span: "InsertCrossObject",
 }));
 
-export type InsertDatasetEventsError = BadRequest | Forbidden | BraintrustOpError;
+export type InsertDatasetEventsError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Insert dataset events Insert a set of events into the dataset */
 export const insertDatasetEvents: API.OperationMethod<
   InsertDatasetEventsRequest,
@@ -8575,16 +8669,20 @@ export const insertDatasetEvents: API.OperationMethod<
   InsertDatasetEventsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3280, __c205, 0) as any as S.Schema<InsertDatasetEventsRequest>,
-  output: __S(3250, __c203, 2) as any as S.Schema<InsertEventsResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(3296, __c206, 0) as any as S.Schema<InsertDatasetEventsRequest>,
+  output: __S(3266, __c204, 2) as any as S.Schema<InsertEventsResponse>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "InsertDatasetEvents",
 }));
 
-export type InsertExperimentEventsError = BadRequest | Forbidden | BraintrustOpError;
+export type InsertExperimentEventsError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Insert experiment events Insert a set of events into the experiment */
 export const insertExperimentEvents: API.OperationMethod<
   InsertExperimentEventsRequest,
@@ -8592,16 +8690,20 @@ export const insertExperimentEvents: API.OperationMethod<
   InsertExperimentEventsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3296, __c206, 0) as any as S.Schema<InsertExperimentEventsRequest>,
-  output: __S(3250, __c203, 2) as any as S.Schema<InsertEventsResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(3312, __c207, 0) as any as S.Schema<InsertExperimentEventsRequest>,
+  output: __S(3266, __c204, 2) as any as S.Schema<InsertEventsResponse>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "InsertExperimentEvents",
 }));
 
-export type InsertProjectLogEventsError = BadRequest | Forbidden | BraintrustOpError;
+export type InsertProjectLogEventsError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Insert project logs events Insert a set of events into the project logs */
 export const insertProjectLogEvents: API.OperationMethod<
   InsertProjectLogEventsRequest,
@@ -8609,16 +8711,16 @@ export const insertProjectLogEvents: API.OperationMethod<
   InsertProjectLogEventsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3312, __c207, 0) as any as S.Schema<InsertProjectLogEventsRequest>,
-  output: __S(3250, __c203, 2) as any as S.Schema<InsertEventsResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(3328, __c208, 0) as any as S.Schema<InsertProjectLogEventsRequest>,
+  output: __S(3266, __c204, 2) as any as S.Schema<InsertEventsResponse>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "InsertProjectLogEvents",
 }));
 
-export type InvokeFunctionError = BraintrustOpError;
+export type InvokeFunctionError = NotFoundOrForbidden | BraintrustOpError;
 /** Invoke function Run the specified function with the provided input and return its result. Use `version` to select a specific function version, `parent` to attach the call to a trace, and `stream` to receive results in the Braintrust SSE format. */
 export const invokeFunction: API.OperationMethod<
   InvokeFunctionRequest,
@@ -8626,9 +8728,9 @@ export const invokeFunction: API.OperationMethod<
   InvokeFunctionError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3329, __c208, 1) as any as S.Schema<InvokeFunctionRequest>,
+  input: __S(3345, __c209, 1) as any as S.Schema<InvokeFunctionRequest>,
   output: __S(1664, __c104, 0) as any as S.Schema<InvokeFunctionResponse>,
-  errors: [UnknownBraintrustError],
+  errors: [NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
@@ -8644,8 +8746,8 @@ export const listAcls: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Acl
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(3344, __c209, 0) as any as S.Schema<ListAclsRequest>,
-  output: __S(3345, __c209, 1) as any as S.Schema<ListAclsResponse>,
+  input: __S(3360, __c210, 0) as any as S.Schema<ListAclsRequest>,
+  output: __S(3361, __c210, 1) as any as S.Schema<ListAclsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8669,8 +8771,8 @@ export const listAiSecrets: API.PaginatedOperationMethod<
   BraintrustOpContext,
   AISecret
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(3360, __c210, 0) as any as S.Schema<ListAiSecretsRequest>,
-  output: __S(3362, __c210, 2) as any as S.Schema<ListAiSecretsResponse>,
+  input: __S(3376, __c211, 0) as any as S.Schema<ListAiSecretsRequest>,
+  output: __S(3378, __c211, 2) as any as S.Schema<ListAiSecretsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8694,8 +8796,8 @@ export const listApiKeys: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ApiKey
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(3376, __c211, 0) as any as S.Schema<ListApiKeysRequest>,
-  output: __S(3393, __c212, 1) as any as S.Schema<ListApiKeysResponse>,
+  input: __S(3392, __c212, 0) as any as S.Schema<ListApiKeysRequest>,
+  output: __S(3409, __c213, 1) as any as S.Schema<ListApiKeysResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8718,8 +8820,8 @@ export const listColumns: API.OperationMethod<
   ListColumnsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3408, __c213, 0) as any as S.Schema<ListColumnsRequest>,
-  output: __S(3410, __c213, 2) as any as S.Schema<ListColumnsResponse>,
+  input: __S(32, __c2, 0) as any as S.Schema<ListColumnsRequest>,
+  output: __S(34, __c2, 2) as any as S.Schema<ListColumnsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8736,8 +8838,8 @@ export const listDatasets: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Dataset
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(32, __c2, 0) as any as S.Schema<ListDatasetsRequest>,
-  output: __S(34, __c2, 2) as any as S.Schema<ListDatasetsResponse>,
+  input: __S(48, __c3, 0) as any as S.Schema<ListDatasetsRequest>,
+  output: __S(50, __c3, 2) as any as S.Schema<ListDatasetsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8761,8 +8863,8 @@ export const listDatasetSnapshots: API.PaginatedOperationMethod<
   BraintrustOpContext,
   DatasetSnapshot
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(48, __c3, 0) as any as S.Schema<ListDatasetSnapshotsRequest>,
-  output: __S(50, __c3, 2) as any as S.Schema<ListDatasetSnapshotsResponse>,
+  input: __S(64, __c4, 0) as any as S.Schema<ListDatasetSnapshotsRequest>,
+  output: __S(66, __c4, 2) as any as S.Schema<ListDatasetSnapshotsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8785,8 +8887,8 @@ export const listEnvironments: API.OperationMethod<
   ListEnvironmentsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(64, __c4, 0) as any as S.Schema<ListEnvironmentsRequest>,
-  output: __S(66, __c4, 2) as any as S.Schema<ListEnvironmentsResponse>,
+  input: __S(80, __c5, 0) as any as S.Schema<ListEnvironmentsRequest>,
+  output: __S(82, __c5, 2) as any as S.Schema<ListEnvironmentsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8802,8 +8904,8 @@ export const listEnvVars: API.OperationMethod<
   ListEnvVarsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(80, __c5, 0) as any as S.Schema<ListEnvVarsRequest>,
-  output: __S(82, __c5, 2) as any as S.Schema<ListEnvVarsResponse>,
+  input: __S(96, __c6, 0) as any as S.Schema<ListEnvVarsRequest>,
+  output: __S(98, __c6, 2) as any as S.Schema<ListEnvVarsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8820,8 +8922,8 @@ export const listExperiments: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Experiment
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(96, __c6, 0) as any as S.Schema<ListExperimentsRequest>,
-  output: __S(98, __c6, 2) as any as S.Schema<ListExperimentsResponse>,
+  input: __S(112, __c7, 0) as any as S.Schema<ListExperimentsRequest>,
+  output: __S(114, __c7, 2) as any as S.Schema<ListExperimentsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8845,8 +8947,8 @@ export const listFunctions: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Function
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(112, __c7, 0) as any as S.Schema<ListFunctionsRequest>,
-  output: __S(114, __c7, 2) as any as S.Schema<ListFunctionsResponse>,
+  input: __S(128, __c8, 0) as any as S.Schema<ListFunctionsRequest>,
+  output: __S(130, __c8, 2) as any as S.Schema<ListFunctionsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8870,8 +8972,8 @@ export const listGroups: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Group
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(128, __c8, 0) as any as S.Schema<ListGroupsRequest>,
-  output: __S(130, __c8, 2) as any as S.Schema<ListGroupsResponse>,
+  input: __S(144, __c9, 0) as any as S.Schema<ListGroupsRequest>,
+  output: __S(146, __c9, 2) as any as S.Schema<ListGroupsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8895,8 +8997,8 @@ export const listIngestKeys: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ListIngestKeysResponseObjectsItem
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(144, __c9, 0) as any as S.Schema<ListIngestKeysRequest>,
-  output: __S(147, __c9, 3) as any as S.Schema<ListIngestKeysResponse>,
+  input: __S(160, __c10, 0) as any as S.Schema<ListIngestKeysRequest>,
+  output: __S(163, __c10, 3) as any as S.Schema<ListIngestKeysResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8920,8 +9022,8 @@ export const listMcpServers: API.PaginatedOperationMethod<
   BraintrustOpContext,
   MCPServer
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(160, __c10, 0) as any as S.Schema<ListMcpServersRequest>,
-  output: __S(162, __c10, 2) as any as S.Schema<ListMcpServersResponse>,
+  input: __S(176, __c11, 0) as any as S.Schema<ListMcpServersRequest>,
+  output: __S(178, __c11, 2) as any as S.Schema<ListMcpServersResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8944,8 +9046,8 @@ export const listOrgAcls: API.OperationMethod<
   ListOrgAclsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(176, __c11, 0) as any as S.Schema<ListOrgAclsRequest>,
-  output: __S(177, __c11, 1) as any as S.Schema<ListOrgAclsResponse>,
+  input: __S(224, __c14, 0) as any as S.Schema<ListOrgAclsRequest>,
+  output: __S(225, __c14, 1) as any as S.Schema<ListOrgAclsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8962,8 +9064,8 @@ export const listOrganizationApiKeys: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ApiKey
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(304, __c19, 0) as any as S.Schema<ListOrganizationApiKeysRequest>,
-  output: __S(3393, __c212, 1) as any as S.Schema<ListOrganizationApiKeysResponse>,
+  input: __S(240, __c15, 0) as any as S.Schema<ListOrganizationApiKeysRequest>,
+  output: __S(3409, __c213, 1) as any as S.Schema<ListOrganizationApiKeysResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8987,8 +9089,8 @@ export const listOrganizations: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Organization
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(320, __c20, 0) as any as S.Schema<ListOrganizationsRequest>,
-  output: __S(322, __c20, 2) as any as S.Schema<ListOrganizationsResponse>,
+  input: __S(256, __c16, 0) as any as S.Schema<ListOrganizationsRequest>,
+  output: __S(258, __c16, 2) as any as S.Schema<ListOrganizationsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9012,8 +9114,8 @@ export const listProjectAutomations: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ProjectAutomation
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(336, __c21, 0) as any as S.Schema<ListProjectAutomationsRequest>,
-  output: __S(338, __c21, 2) as any as S.Schema<ListProjectAutomationsResponse>,
+  input: __S(272, __c17, 0) as any as S.Schema<ListProjectAutomationsRequest>,
+  output: __S(274, __c17, 2) as any as S.Schema<ListProjectAutomationsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9037,8 +9139,8 @@ export const listProjectGroups: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ProjectGroup
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(352, __c22, 0) as any as S.Schema<ListProjectGroupsRequest>,
-  output: __S(354, __c22, 2) as any as S.Schema<ListProjectGroupsResponse>,
+  input: __S(288, __c18, 0) as any as S.Schema<ListProjectGroupsRequest>,
+  output: __S(290, __c18, 2) as any as S.Schema<ListProjectGroupsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9062,8 +9164,8 @@ export const listProjects: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Project
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(368, __c23, 0) as any as S.Schema<ListProjectsRequest>,
-  output: __S(370, __c23, 2) as any as S.Schema<ListProjectsResponse>,
+  input: __S(304, __c19, 0) as any as S.Schema<ListProjectsRequest>,
+  output: __S(306, __c19, 2) as any as S.Schema<ListProjectsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9087,8 +9189,8 @@ export const listProjectScores: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ProjectScore
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(384, __c24, 0) as any as S.Schema<ListProjectScoresRequest>,
-  output: __S(386, __c24, 2) as any as S.Schema<ListProjectScoresResponse>,
+  input: __S(320, __c20, 0) as any as S.Schema<ListProjectScoresRequest>,
+  output: __S(322, __c20, 2) as any as S.Schema<ListProjectScoresResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9112,8 +9214,8 @@ export const listProjectTags: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ProjectTag
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(400, __c25, 0) as any as S.Schema<ListProjectTagsRequest>,
-  output: __S(402, __c25, 2) as any as S.Schema<ListProjectTagsResponse>,
+  input: __S(336, __c21, 0) as any as S.Schema<ListProjectTagsRequest>,
+  output: __S(338, __c21, 2) as any as S.Schema<ListProjectTagsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9137,8 +9239,8 @@ export const listPrompts: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Prompt
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(416, __c26, 0) as any as S.Schema<ListPromptsRequest>,
-  output: __S(418, __c26, 2) as any as S.Schema<ListPromptsResponse>,
+  input: __S(352, __c22, 0) as any as S.Schema<ListPromptsRequest>,
+  output: __S(354, __c22, 2) as any as S.Schema<ListPromptsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9162,8 +9264,8 @@ export const listRoles: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Role
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(432, __c27, 0) as any as S.Schema<ListRolesRequest>,
-  output: __S(434, __c27, 2) as any as S.Schema<ListRolesResponse>,
+  input: __S(368, __c23, 0) as any as S.Schema<ListRolesRequest>,
+  output: __S(370, __c23, 2) as any as S.Schema<ListRolesResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9187,8 +9289,8 @@ export const listServiceTokens: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ServiceToken
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(448, __c28, 0) as any as S.Schema<ListServiceTokensRequest>,
-  output: __S(450, __c28, 2) as any as S.Schema<ListServiceTokensResponse>,
+  input: __S(496, __c31, 0) as any as S.Schema<ListServiceTokensRequest>,
+  output: __S(498, __c31, 2) as any as S.Schema<ListServiceTokensResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9212,8 +9314,8 @@ export const listSpanIframes: API.PaginatedOperationMethod<
   BraintrustOpContext,
   SpanIFrame
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(496, __c31, 0) as any as S.Schema<ListSpanIframesRequest>,
-  output: __S(498, __c31, 2) as any as S.Schema<ListSpanIframesResponse>,
+  input: __S(512, __c32, 0) as any as S.Schema<ListSpanIframesRequest>,
+  output: __S(514, __c32, 2) as any as S.Schema<ListSpanIframesResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9237,8 +9339,8 @@ export const listUsers: API.PaginatedOperationMethod<
   BraintrustOpContext,
   User
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(512, __c32, 0) as any as S.Schema<ListUsersRequest>,
-  output: __S(514, __c32, 2) as any as S.Schema<ListUsersResponse>,
+  input: __S(528, __c33, 0) as any as S.Schema<ListUsersRequest>,
+  output: __S(530, __c33, 2) as any as S.Schema<ListUsersResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9262,8 +9364,8 @@ export const listViews: API.PaginatedOperationMethod<
   BraintrustOpContext,
   View
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(528, __c33, 0) as any as S.Schema<ListViewsRequest>,
-  output: __S(530, __c33, 2) as any as S.Schema<ListViewsResponse>,
+  input: __S(544, __c34, 0) as any as S.Schema<ListViewsRequest>,
+  output: __S(546, __c34, 2) as any as S.Schema<ListViewsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9278,7 +9380,11 @@ export const listViews: API.PaginatedOperationMethod<
   } as const,
 })) as any;
 
-export type PreviewDatasetRestoreError = BadRequest | Forbidden | BraintrustOpError;
+export type PreviewDatasetRestoreError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Preview dataset restore Preview restoring a dataset to an earlier version, such as a dataset snapshot. Returns how many rows a restore would change, without modifying the dataset. Fails if more than 20,000 rows changed since the requested version. Requires read permission on the dataset. */
 export const previewDatasetRestore: API.OperationMethod<
   PreviewDatasetRestoreRequest,
@@ -9286,9 +9392,9 @@ export const previewDatasetRestore: API.OperationMethod<
   PreviewDatasetRestoreError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(544, __c34, 0) as any as S.Schema<PreviewDatasetRestoreRequest>,
-  output: __S(545, __c34, 1) as any as S.Schema<DatasetRestorePreviewResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(560, __c35, 0) as any as S.Schema<PreviewDatasetRestoreRequest>,
+  output: __S(561, __c35, 1) as any as S.Schema<DatasetRestorePreviewResponse>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
@@ -9303,8 +9409,8 @@ export const replaceAiSecret: API.OperationMethod<
   ReplaceAiSecretError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(560, __c35, 0) as any as S.Schema<ReplaceAiSecretRequest>,
-  output: __S(2032, __c127, 0) as any as S.Schema<AISecret>,
+  input: __S(576, __c36, 0) as any as S.Schema<ReplaceAiSecretRequest>,
+  output: __S(2224, __c139, 0) as any as S.Schema<AISecret>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9320,8 +9426,8 @@ export const replaceColumn: API.OperationMethod<
   ReplaceColumnError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(576, __c36, 0) as any as S.Schema<ReplaceColumnRequest>,
-  output: __S(2240, __c140, 0) as any as S.Schema<CustomColumn>,
+  input: __S(592, __c37, 0) as any as S.Schema<ReplaceColumnRequest>,
+  output: __S(2496, __c156, 0) as any as S.Schema<CustomColumn>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9337,8 +9443,8 @@ export const replaceDatasetSnapshot: API.OperationMethod<
   ReplaceDatasetSnapshotError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(592, __c37, 0) as any as S.Schema<ReplaceDatasetSnapshotRequest>,
-  output: __S(2976, __c186, 0) as any as S.Schema<DatasetSnapshot>,
+  input: __S(608, __c38, 0) as any as S.Schema<ReplaceDatasetSnapshotRequest>,
+  output: __S(3168, __c198, 0) as any as S.Schema<DatasetSnapshot>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9354,8 +9460,8 @@ export const replaceEnvVar: API.OperationMethod<
   ReplaceEnvVarError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(608, __c38, 0) as any as S.Schema<ReplaceEnvVarRequest>,
-  output: __S(16, __c1, 0) as any as S.Schema<EnvVar>,
+  input: __S(624, __c39, 0) as any as S.Schema<ReplaceEnvVarRequest>,
+  output: __S(208, __c13, 0) as any as S.Schema<EnvVar>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9371,8 +9477,8 @@ export const replaceFunction: API.OperationMethod<
   ReplaceFunctionError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(624, __c39, 0) as any as S.Schema<ReplaceFunctionRequest>,
-  output: __S(898, __c56, 2) as any as S.Schema<Function>,
+  input: __S(640, __c40, 0) as any as S.Schema<ReplaceFunctionRequest>,
+  output: __S(1090, __c68, 2) as any as S.Schema<Function>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9388,8 +9494,8 @@ export const replaceGroup: API.OperationMethod<
   ReplaceGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(640, __c40, 0) as any as S.Schema<ReplaceGroupRequest>,
-  output: __S(1088, __c68, 0) as any as S.Schema<Group>,
+  input: __S(688, __c43, 0) as any as S.Schema<ReplaceGroupRequest>,
+  output: __S(1280, __c80, 0) as any as S.Schema<Group>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9406,7 +9512,7 @@ export const replaceMcpServer: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(704, __c44, 0) as any as S.Schema<ReplaceMcpServerRequest>,
-  output: __S(1360, __c85, 0) as any as S.Schema<MCPServer>,
+  output: __S(1408, __c88, 0) as any as S.Schema<MCPServer>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9423,7 +9529,7 @@ export const replaceProjectAutomation: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(720, __c45, 0) as any as S.Schema<ReplaceProjectAutomationRequest>,
-  output: __S(1441, __c90, 1) as any as S.Schema<ProjectAutomation>,
+  output: __S(1489, __c93, 1) as any as S.Schema<ProjectAutomation>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9508,7 +9614,7 @@ export const replaceRole: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(800, __c50, 0) as any as S.Schema<ReplaceRoleRequest>,
-  output: __S(1794, __c112, 2) as any as S.Schema<Role>,
+  output: __S(1826, __c114, 2) as any as S.Schema<Role>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9525,7 +9631,7 @@ export const replaceServiceToken: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(816, __c51, 0) as any as S.Schema<ReplaceServiceTokenRequest>,
-  output: __S(1824, __c114, 0) as any as S.Schema<CreateServiceTokenOutput>,
+  output: __S(1856, __c116, 0) as any as S.Schema<CreateServiceTokenOutput>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9542,7 +9648,7 @@ export const replaceSpanIframe: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(832, __c52, 0) as any as S.Schema<ReplaceSpanIframeRequest>,
-  output: __S(1856, __c116, 0) as any as S.Schema<SpanIFrame>,
+  output: __S(1888, __c118, 0) as any as S.Schema<SpanIFrame>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9558,8 +9664,8 @@ export const replaceView: API.OperationMethod<
   ReplaceViewError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(848, __c53, 0) as any as S.Schema<ReplaceViewRequest>,
-  output: __S(1906, __c119, 2) as any as S.Schema<View>,
+  input: __S(896, __c56, 0) as any as S.Schema<ReplaceViewRequest>,
+  output: __S(1938, __c121, 2) as any as S.Schema<View>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9567,7 +9673,7 @@ export const replaceView: API.OperationMethod<
   span: "ReplaceView",
 }));
 
-export type RestoreDatasetError = BadRequest | Forbidden | BraintrustOpError;
+export type RestoreDatasetError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Restore dataset Restore a dataset to an earlier version, such as a dataset snapshot. Rows changed since that version are reverted, and rows created since then are deleted. The restore is recorded as a new transaction, so dataset history is preserved. Fails if more than 20,000 rows changed since the requested version. Requires update permission on the dataset. */
 export const restoreDataset: API.OperationMethod<
   RestoreDatasetRequest,
@@ -9577,14 +9683,18 @@ export const restoreDataset: API.OperationMethod<
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(912, __c57, 0) as any as S.Schema<RestoreDatasetRequest>,
   output: __S(913, __c57, 1) as any as S.Schema<DatasetRestoreResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "RestoreDataset",
 }));
 
-export type SummarizeDatasetError = BadRequest | Forbidden | BraintrustOpError;
+export type SummarizeDatasetError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Summarize dataset Return the dataset and project names and URLs. Set `summarize_data=true` to include the total number of records in the dataset; otherwise, only metadata is returned. */
 export const summarizeDataset: API.OperationMethod<
   SummarizeDatasetRequest,
@@ -9594,14 +9704,18 @@ export const summarizeDataset: API.OperationMethod<
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(928, __c58, 0) as any as S.Schema<SummarizeDatasetRequest>,
   output: __S(930, __c58, 2) as any as S.Schema<SummarizeDatasetResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "SummarizeDataset",
 }));
 
-export type SummarizeExperimentError = BadRequest | Forbidden | BraintrustOpError;
+export type SummarizeExperimentError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Summarize experiment Return the experiment and project names and URLs. Set `summarize_scores=true` to include aggregate scores and metrics, with differences, improvements, and regressions relative to a comparison experiment. Use `comparison_experiment_id` to select the comparison; otherwise, the experiment's base experiment or the most recent experiment in the project is used. */
 export const summarizeExperiment: API.OperationMethod<
   SummarizeExperimentRequest,
@@ -9610,15 +9724,15 @@ export const summarizeExperiment: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(944, __c59, 0) as any as S.Schema<SummarizeExperimentRequest>,
-  output: __S(260, __c16, 4) as any as S.Schema<SummarizeExperimentResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(420, __c26, 4) as any as S.Schema<SummarizeExperimentResponse>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "SummarizeExperiment",
 }));
 
-export type UpdateAiSecretError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateAiSecretError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Partially update AI secret Partially update an AI secret object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateAiSecret: API.OperationMethod<
   UpdateAiSecretRequest,
@@ -9627,15 +9741,15 @@ export const updateAiSecret: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(960, __c60, 0) as any as S.Schema<UpdateAiSecretRequest>,
-  output: __S(2032, __c127, 0) as any as S.Schema<AISecret>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(2224, __c139, 0) as any as S.Schema<AISecret>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateAiSecret",
 }));
 
-export type UpdateColumnError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateColumnError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Partially update custom column Update the name or expression of a custom column. Fields that are omitted are left unchanged. Requires update permission on the scoping object. */
 export const updateColumn: API.OperationMethod<
   UpdateColumnRequest,
@@ -9644,15 +9758,15 @@ export const updateColumn: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(976, __c61, 0) as any as S.Schema<UpdateColumnRequest>,
-  output: __S(2240, __c140, 0) as any as S.Schema<CustomColumn>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(2496, __c156, 0) as any as S.Schema<CustomColumn>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateColumn",
 }));
 
-export type UpdateDatasetError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateDatasetError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Partially update dataset Partially update a dataset object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateDataset: API.OperationMethod<
   UpdateDatasetRequest,
@@ -9661,15 +9775,19 @@ export const updateDataset: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(992, __c62, 0) as any as S.Schema<UpdateDatasetRequest>,
-  output: __S(2528, __c158, 0) as any as S.Schema<Dataset>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(2736, __c171, 0) as any as S.Schema<Dataset>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateDataset",
 }));
 
-export type UpdateDatasetSnapshotError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateDatasetSnapshotError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Partially update dataset snapshot Partially update a dataset snapshot object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateDatasetSnapshot: API.OperationMethod<
   UpdateDatasetSnapshotRequest,
@@ -9678,15 +9796,19 @@ export const updateDatasetSnapshot: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(1008, __c63, 0) as any as S.Schema<UpdateDatasetSnapshotRequest>,
-  output: __S(2976, __c186, 0) as any as S.Schema<DatasetSnapshot>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(3168, __c198, 0) as any as S.Schema<DatasetSnapshot>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateDatasetSnapshot",
 }));
 
-export type UpdateEnvironmentError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateEnvironmentError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Partially update environment Partially update an environment object. Specify the fields to update in the payload. */
 export const updateEnvironment: API.OperationMethod<
   UpdateEnvironmentRequest,
@@ -9695,15 +9817,15 @@ export const updateEnvironment: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(1024, __c64, 0) as any as S.Schema<UpdateEnvironmentRequest>,
-  output: __S(3184, __c199, 0) as any as S.Schema<Environment>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(16, __c1, 0) as any as S.Schema<Environment>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateEnvironment",
 }));
 
-export type UpdateEnvVarError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateEnvVarError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Partially update env var Partially update an env var object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateEnvVar: API.OperationMethod<
   UpdateEnvVarRequest,
@@ -9712,15 +9834,19 @@ export const updateEnvVar: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(1040, __c65, 0) as any as S.Schema<UpdateEnvVarRequest>,
-  output: __S(16, __c1, 0) as any as S.Schema<EnvVar>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  output: __S(208, __c13, 0) as any as S.Schema<EnvVar>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateEnvVar",
 }));
 
-export type UpdateExperimentError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateExperimentError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Partially update experiment Partially update an experiment object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateExperiment: API.OperationMethod<
   UpdateExperimentRequest,
@@ -9728,16 +9854,16 @@ export const updateExperiment: API.OperationMethod<
   UpdateExperimentError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1056, __c66, 0) as any as S.Schema<UpdateExperimentRequest>,
-  output: __S(481, __c30, 1) as any as S.Schema<Experiment>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1104, __c69, 0) as any as S.Schema<UpdateExperimentRequest>,
+  output: __S(673, __c42, 1) as any as S.Schema<Experiment>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateExperiment",
 }));
 
-export type UpdateFunctionError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateFunctionError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Partially update function Partially update a function object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateFunction: API.OperationMethod<
   UpdateFunctionRequest,
@@ -9745,16 +9871,16 @@ export const updateFunction: API.OperationMethod<
   UpdateFunctionError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1104, __c69, 0) as any as S.Schema<UpdateFunctionRequest>,
-  output: __S(898, __c56, 2) as any as S.Schema<Function>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1120, __c70, 0) as any as S.Schema<UpdateFunctionRequest>,
+  output: __S(1090, __c68, 2) as any as S.Schema<Function>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateFunction",
 }));
 
-export type UpdateGroupError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateGroupError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Partially update group Partially update a group object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateGroup: API.OperationMethod<
   UpdateGroupRequest,
@@ -9762,16 +9888,16 @@ export const updateGroup: API.OperationMethod<
   UpdateGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1120, __c70, 0) as any as S.Schema<UpdateGroupRequest>,
-  output: __S(1088, __c68, 0) as any as S.Schema<Group>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1136, __c71, 0) as any as S.Schema<UpdateGroupRequest>,
+  output: __S(1280, __c80, 0) as any as S.Schema<Group>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateGroup",
 }));
 
-export type UpdateMcpServerError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateMcpServerError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Partially update MCP server Partially update an MCP server object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateMcpServer: API.OperationMethod<
   UpdateMcpServerRequest,
@@ -9779,16 +9905,20 @@ export const updateMcpServer: API.OperationMethod<
   UpdateMcpServerError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1136, __c71, 0) as any as S.Schema<UpdateMcpServerRequest>,
-  output: __S(1360, __c85, 0) as any as S.Schema<MCPServer>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1152, __c72, 0) as any as S.Schema<UpdateMcpServerRequest>,
+  output: __S(1408, __c88, 0) as any as S.Schema<MCPServer>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateMcpServer",
 }));
 
-export type UpdateOrganizationError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateOrganizationError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Partially update organization Partially update an organization object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateOrganization: API.OperationMethod<
   UpdateOrganizationRequest,
@@ -9796,9 +9926,9 @@ export const updateOrganization: API.OperationMethod<
   UpdateOrganizationError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1152, __c72, 0) as any as S.Schema<UpdateOrganizationRequest>,
+  input: __S(1168, __c73, 0) as any as S.Schema<UpdateOrganizationRequest>,
   output: __S(2912, __c182, 0) as any as S.Schema<Organization>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
@@ -9813,8 +9943,8 @@ export const updateOrganizationMembers: API.OperationMethod<
   UpdateOrganizationMembersError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1172, __c73, 4) as any as S.Schema<UpdateOrganizationMembersRequest>,
-  output: __S(1175, __c73, 7) as any as S.Schema<PatchOrganizationMembersOutput>,
+  input: __S(1188, __c74, 4) as any as S.Schema<UpdateOrganizationMembersRequest>,
+  output: __S(1191, __c74, 7) as any as S.Schema<PatchOrganizationMembersOutput>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9822,7 +9952,7 @@ export const updateOrganizationMembers: API.OperationMethod<
   span: "UpdateOrganizationMembers",
 }));
 
-export type UpdateProjectError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateProjectError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Partially update project Partially update a project object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateProject: API.OperationMethod<
   UpdateProjectRequest,
@@ -9830,16 +9960,20 @@ export const updateProject: API.OperationMethod<
   UpdateProjectError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1188, __c74, 4) as any as S.Schema<UpdateProjectRequest>,
-  output: __S(1398, __c87, 6) as any as S.Schema<Project>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1204, __c75, 4) as any as S.Schema<UpdateProjectRequest>,
+  output: __S(1446, __c90, 6) as any as S.Schema<Project>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateProject",
 }));
 
-export type UpdateProjectAutomationError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateProjectAutomationError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Partially update project automation Partially update a project automation object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateProjectAutomation: API.OperationMethod<
   UpdateProjectAutomationRequest,
@@ -9847,16 +9981,20 @@ export const updateProjectAutomation: API.OperationMethod<
   UpdateProjectAutomationError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1200, __c75, 0) as any as S.Schema<UpdateProjectAutomationRequest>,
-  output: __S(1441, __c90, 1) as any as S.Schema<ProjectAutomation>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1216, __c76, 0) as any as S.Schema<UpdateProjectAutomationRequest>,
+  output: __S(1489, __c93, 1) as any as S.Schema<ProjectAutomation>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateProjectAutomation",
 }));
 
-export type UpdateProjectGroupError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateProjectGroupError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Partially update project group Partially update a project group object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateProjectGroup: API.OperationMethod<
   UpdateProjectGroupRequest,
@@ -9864,16 +10002,20 @@ export const updateProjectGroup: API.OperationMethod<
   UpdateProjectGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1216, __c76, 0) as any as S.Schema<UpdateProjectGroupRequest>,
+  input: __S(1232, __c77, 0) as any as S.Schema<UpdateProjectGroupRequest>,
   output: __S(1520, __c95, 0) as any as S.Schema<ProjectGroup>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateProjectGroup",
 }));
 
-export type UpdateProjectScoreError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateProjectScoreError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Partially update project score Partially update a project score object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateProjectScore: API.OperationMethod<
   UpdateProjectScoreRequest,
@@ -9881,16 +10023,20 @@ export const updateProjectScore: API.OperationMethod<
   UpdateProjectScoreError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1232, __c77, 0) as any as S.Schema<UpdateProjectScoreRequest>,
+  input: __S(1248, __c78, 0) as any as S.Schema<UpdateProjectScoreRequest>,
   output: __S(1573, __c98, 5) as any as S.Schema<ProjectScore>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateProjectScore",
 }));
 
-export type UpdateProjectTagError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateProjectTagError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Partially update project tag Partially update a project tag object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateProjectTag: API.OperationMethod<
   UpdateProjectTagRequest,
@@ -9898,16 +10044,16 @@ export const updateProjectTag: API.OperationMethod<
   UpdateProjectTagError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1248, __c78, 0) as any as S.Schema<UpdateProjectTagRequest>,
+  input: __S(1296, __c81, 0) as any as S.Schema<UpdateProjectTagRequest>,
   output: __S(1600, __c100, 0) as any as S.Schema<ProjectTag>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateProjectTag",
 }));
 
-export type UpdatePromptError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdatePromptError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Partially update prompt Partially update a prompt object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updatePrompt: API.OperationMethod<
   UpdatePromptRequest,
@@ -9915,16 +10061,16 @@ export const updatePrompt: API.OperationMethod<
   UpdatePromptError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1280, __c80, 0) as any as S.Schema<UpdatePromptRequest>,
+  input: __S(1312, __c82, 0) as any as S.Schema<UpdatePromptRequest>,
   output: __S(1632, __c102, 0) as any as S.Schema<Prompt>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdatePrompt",
 }));
 
-export type UpdateRoleError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateRoleError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Partially update role Partially update a role object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateRole: API.OperationMethod<
   UpdateRoleRequest,
@@ -9932,16 +10078,20 @@ export const updateRole: API.OperationMethod<
   UpdateRoleError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1296, __c81, 0) as any as S.Schema<UpdateRoleRequest>,
-  output: __S(1794, __c112, 2) as any as S.Schema<Role>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1328, __c83, 0) as any as S.Schema<UpdateRoleRequest>,
+  output: __S(1826, __c114, 2) as any as S.Schema<Role>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateRole",
 }));
 
-export type UpdateSpanIframeError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateSpanIframeError =
+  | BadRequest
+  | Forbidden
+  | NotFoundOrForbidden
+  | BraintrustOpError;
 /** Partially update span iframe Partially update a span iframe object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateSpanIframe: API.OperationMethod<
   UpdateSpanIframeRequest,
@@ -9949,16 +10099,16 @@ export const updateSpanIframe: API.OperationMethod<
   UpdateSpanIframeError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1312, __c82, 0) as any as S.Schema<UpdateSpanIframeRequest>,
-  output: __S(1856, __c116, 0) as any as S.Schema<SpanIFrame>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1344, __c84, 0) as any as S.Schema<UpdateSpanIframeRequest>,
+  output: __S(1888, __c118, 0) as any as S.Schema<SpanIFrame>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "UpdateSpanIframe",
 }));
 
-export type UpdateViewError = BadRequest | Forbidden | BraintrustOpError;
+export type UpdateViewError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** Partially update view Partially update a view object. Specify the fields to update in the payload. Any object-type fields will be deep-merged with existing content. Currently we do not support removing fields or setting them to null. */
 export const updateView: API.OperationMethod<
   UpdateViewRequest,
@@ -9966,9 +10116,9 @@ export const updateView: API.OperationMethod<
   UpdateViewError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1328, __c83, 0) as any as S.Schema<UpdateViewRequest>,
-  output: __S(1906, __c119, 2) as any as S.Schema<View>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1360, __c85, 0) as any as S.Schema<UpdateViewRequest>,
+  output: __S(1938, __c121, 2) as any as S.Schema<View>,
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
@@ -9981,14 +10131,12 @@ function __c0(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          object_type: S.String,
-          object_id: S.String,
           name: S.String,
-          value: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          secret_type: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/env_var", code: 200 })),
-      ).annotate({ identifier: "CreateEnvVarRequest" });
+          slug: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          org_name: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "POST", uri: "/environment", code: 200 })),
+      ).annotate({ identifier: "CreateEnvironmentRequest" });
   }
 }
 function __c1(j: number): any {
@@ -9997,22 +10145,38 @@ function __c1(j: number): any {
       return S.suspend(() =>
         S.Struct({
           id: S.String,
-          object_type: S.String,
-          object_id: S.String,
+          org_id: S.String,
           name: S.String,
+          slug: S.String,
+          description: S.optional(S.NullOr(S.String)),
           created: S.optional(S.NullOr(S.String)),
-          secret_updated_at: S.optional(S.NullOr(S.String)),
-          secret_updated_by_user_id: S.optional(S.NullOr(S.String)),
-          used: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          preview_secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
-          secret_type: S.optional(S.NullOr(S.String)),
-          secret_category: S.optional(S.String),
+          deleted_at: S.optional(S.NullOr(S.String)),
         }),
-      ).annotate({ identifier: "EnvVar" });
+      ).annotate({ identifier: "Environment" });
   }
 }
 function __c2(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          object_type: S.String.pipe(T.Query()),
+          object_id: S.String.pipe(T.Query()),
+          subtype: S.optional(S.Unknown.pipe(T.Query())),
+          variant: S.optional(S.Unknown.pipe(T.Query())),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/column", code: 200 })),
+      ).annotate({ identifier: "ListColumnsRequest" });
+    case 1:
+      return S.Array(__S(2496, __c156, 0));
+    case 2:
+      return S.suspend(() =>
+        S.Struct({
+          objects: __S(33, __c2, 1),
+        }),
+      ).annotate({ identifier: "ListColumnsResponse" });
+  }
+}
+function __c3(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10028,16 +10192,16 @@ function __c2(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/dataset", code: 200 })),
       ).annotate({ identifier: "ListDatasetsRequest" });
     case 1:
-      return S.Array(__S(2528, __c158, 0));
+      return S.Array(__S(2736, __c171, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(33, __c2, 1),
+          objects: __S(49, __c3, 1),
         }),
       ).annotate({ identifier: "ListDatasetsResponse" });
   }
 }
-function __c3(j: number): any {
+function __c4(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10051,16 +10215,16 @@ function __c3(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/dataset_snapshot", code: 200 })),
       ).annotate({ identifier: "ListDatasetSnapshotsRequest" });
     case 1:
-      return S.Array(__S(2976, __c186, 0));
+      return S.Array(__S(3168, __c198, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(49, __c3, 1),
+          objects: __S(65, __c4, 1),
         }),
       ).annotate({ identifier: "ListDatasetSnapshotsResponse" });
   }
 }
-function __c4(j: number): any {
+function __c5(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10071,16 +10235,16 @@ function __c4(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/environment", code: 200 })),
       ).annotate({ identifier: "ListEnvironmentsRequest" });
     case 1:
-      return S.Array(__S(3184, __c199, 0));
+      return S.Array(__S(16, __c1, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(65, __c4, 1),
+          objects: __S(81, __c5, 1),
         }),
       ).annotate({ identifier: "ListEnvironmentsResponse" });
   }
 }
-function __c5(j: number): any {
+function __c6(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10093,16 +10257,16 @@ function __c5(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/env_var", code: 200 })),
       ).annotate({ identifier: "ListEnvVarsRequest" });
     case 1:
-      return S.Array(__S(16, __c1, 0));
+      return S.Array(__S(208, __c13, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(81, __c5, 1),
+          objects: __S(97, __c6, 1),
         }),
       ).annotate({ identifier: "ListEnvVarsResponse" });
   }
 }
-function __c6(j: number): any {
+function __c7(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10118,16 +10282,16 @@ function __c6(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/experiment", code: 200 })),
       ).annotate({ identifier: "ListExperimentsRequest" });
     case 1:
-      return S.Array(__S(481, __c30, 1));
+      return S.Array(__S(673, __c42, 1));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(97, __c6, 1),
+          objects: __S(113, __c7, 1),
         }),
       ).annotate({ identifier: "ListExperimentsResponse" });
   }
 }
-function __c7(j: number): any {
+function __c8(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10146,16 +10310,16 @@ function __c7(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/function", code: 200 })),
       ).annotate({ identifier: "ListFunctionsRequest" });
     case 1:
-      return S.Array(__S(898, __c56, 2));
+      return S.Array(__S(1090, __c68, 2));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(113, __c7, 1),
+          objects: __S(129, __c8, 1),
         }),
       ).annotate({ identifier: "ListFunctionsResponse" });
   }
 }
-function __c8(j: number): any {
+function __c9(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10169,16 +10333,16 @@ function __c8(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/group", code: 200 })),
       ).annotate({ identifier: "ListGroupsRequest" });
     case 1:
-      return S.Array(__S(1088, __c68, 0));
+      return S.Array(__S(1280, __c80, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(129, __c8, 1),
+          objects: __S(145, __c9, 1),
         }),
       ).annotate({ identifier: "ListGroupsResponse" });
   }
 }
-function __c9(j: number): any {
+function __c10(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10202,16 +10366,16 @@ function __c9(j: number): any {
         }),
       ).annotate({ identifier: "ListIngestKeysResponseObjectsItem" });
     case 2:
-      return S.Array(__S(145, __c9, 1));
+      return S.Array(__S(161, __c10, 1));
     case 3:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(146, __c9, 2),
+          objects: __S(162, __c10, 2),
         }),
       ).annotate({ identifier: "ListIngestKeysResponse" });
   }
 }
-function __c10(j: number): any {
+function __c11(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10225,16 +10389,52 @@ function __c10(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/mcp_server", code: 200 })),
       ).annotate({ identifier: "ListMcpServersRequest" });
     case 1:
-      return S.Array(__S(1360, __c85, 0));
+      return S.Array(__S(1408, __c88, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(161, __c10, 1),
+          objects: __S(177, __c11, 1),
         }),
       ).annotate({ identifier: "ListMcpServersResponse" });
   }
 }
-function __c11(j: number): any {
+function __c12(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          object_type: S.String,
+          object_id: S.String,
+          name: S.String,
+          value: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          secret_type: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/env_var", code: 200 })),
+      ).annotate({ identifier: "CreateEnvVarRequest" });
+  }
+}
+function __c13(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          object_type: S.String,
+          object_id: S.String,
+          name: S.String,
+          created: S.optional(S.NullOr(S.String)),
+          secret_updated_at: S.optional(S.NullOr(S.String)),
+          secret_updated_by_user_id: S.optional(S.NullOr(S.String)),
+          used: S.optional(S.NullOr(S.String)),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          preview_secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
+          secret_type: S.optional(S.NullOr(S.String)),
+          secret_category: S.optional(S.String),
+        }),
+      ).annotate({ identifier: "EnvVar" });
+  }
+}
+function __c14(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10254,238 +10454,12 @@ function __c11(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/acl/list_org", code: 200 })),
       ).annotate({ identifier: "ListOrgAclsRequest" });
     case 1:
-      return S.suspend(() => __S(1488, __c93, 0).pipe(T.RawResponseRoot())).annotate({
+      return S.suspend(() => __S(1760, __c110, 0).pipe(T.RawResponseRoot())).annotate({
         identifier: "ListOrgAclsResponse",
       });
   }
 }
-function __c12(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          runtime: S.String,
-          version: S.String,
-        }),
-      ).annotate({ identifier: "FunctionIdCase4InlineContext" });
-    case 1:
-      return S.Record(S.String, S.Unknown);
-    case 2:
-      return S.suspend(() =>
-        S.Struct({
-          prompt: S.optional(S.NullOr(S.Unknown)),
-          options: S.optional(S.NullOr(__S(240, __c15, 0))),
-          parser: S.optional(S.NullOr(__S(242, __c15, 2))),
-          preprocessor: S.optional(S.NullOr(S.Unknown)),
-          tool_functions: S.optional(S.NullOr(__S(225, __c14, 1))),
-          template_format: S.optional(S.NullOr(S.String)),
-          mcp: S.optional(S.NullOr(__S(193, __c12, 1))),
-          origin: S.optional(S.NullOr(__S(243, __c15, 3))),
-        }),
-      ).annotate({ identifier: "PromptData" });
-    case 3:
-      return S.suspend(() =>
-        S.Struct({
-          function_id: S.optional(S.String),
-          version: S.optional(S.String),
-          project_name: S.optional(S.String),
-          slug: S.optional(S.String),
-          global_function: S.optional(S.String),
-          function_type: S.optional(S.String),
-          prompt_session_id: S.optional(S.String),
-          prompt_session_function_id: S.optional(S.String),
-          inline_context: S.optional(__S(192, __c12, 0)),
-          code: S.optional(S.String),
-          name: S.optional(S.NullOr(S.String)),
-          inline_prompt: S.optional(__S(194, __c12, 2)),
-          inline_function: S.optional(__S(2048, __c128, 0)),
-        }),
-      ).annotate({ identifier: "CreateEvalRequestScoresItem" });
-    case 4:
-      return S.Array(__S(195, __c12, 3));
-    case 5:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          span_id: S.String,
-          root_span_id: S.String,
-        }),
-      ).annotate({ identifier: "CreateEvalRequestParentRowIds" });
-    case 6:
-      return S.suspend(() =>
-        S.Struct({
-          object_type: S.optional(S.String),
-          object_id: S.optional(S.String),
-          row_ids: S.optional(S.NullOr(__S(197, __c12, 5))),
-          propagated_event: S.optional(S.NullOr(__S(2048, __c128, 0))),
-        }),
-      ).annotate({ identifier: "CreateEvalRequestParent" });
-    case 7:
-      return S.suspend(() =>
-        S.Struct({
-          collect: S.String,
-          fields: S.optional(__S(272, __c17, 0)),
-        }),
-      ).annotate({ identifier: "GitMetadataSettings" });
-    case 8:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String,
-          data: S.Unknown,
-          name: S.optional(S.String),
-          parameters: S.optional(__S(2048, __c128, 0)),
-          task: S.Unknown,
-          scores: __S(196, __c12, 4),
-          experiment_name: S.optional(S.String),
-          metadata: S.optional(__S(2048, __c128, 0)),
-          parent: S.optional(__S(198, __c12, 6)),
-          stream: S.optional(S.Boolean),
-          trial_count: S.optional(S.NullOr(S.Number)),
-          is_public: S.optional(S.NullOr(S.Boolean)),
-          timeout: S.optional(S.NullOr(S.Number)),
-          max_concurrency: S.optional(S.NullOr(S.Number)),
-          base_experiment_name: S.optional(S.NullOr(S.String)),
-          base_experiment_id: S.optional(S.NullOr(S.String)),
-          git_metadata_settings: S.optional(S.NullOr(__S(199, __c12, 7))),
-          repo_info: S.optional(__S(208, __c13, 0)),
-          strict: S.optional(S.NullOr(S.Boolean)),
-          stop_token: S.optional(S.NullOr(S.String)),
-          extra_messages: S.optional(S.String),
-          tags: S.optional(__S(2544, __c159, 0)),
-          mcp_auth: S.optional(__S(289, __c18, 1)),
-          endpoint_name: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/eval", code: 200 })),
-      ).annotate({ identifier: "CreateEvalRequest" });
-  }
-}
-function __c13(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          commit: S.optional(S.NullOr(S.String)),
-          branch: S.optional(S.NullOr(S.String)),
-          tag: S.optional(S.NullOr(S.String)),
-          dirty: S.optional(S.NullOr(S.Boolean)),
-          author_name: S.optional(S.NullOr(S.String)),
-          author_email: S.optional(S.NullOr(S.String)),
-          commit_message: S.optional(S.NullOr(S.String)),
-          commit_time: S.optional(S.NullOr(S.String)),
-          git_diff: S.optional(S.NullOr(S.String)),
-        }),
-      ).annotate({ identifier: "CreateEvalRequestRepoInfo" });
-  }
-}
-function __c14(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          type: S.optional(S.String),
-          id: S.optional(S.String),
-          version: S.optional(S.String),
-          name: S.optional(S.String),
-          function_type: S.optional(S.String),
-        }),
-      ).annotate({ identifier: "PromptDataToolFunctionsItem" });
-    case 1:
-      return S.Array(__S(224, __c14, 0));
-  }
-}
 function __c15(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          model: S.optional(S.String),
-          params: S.optional(S.Unknown),
-          position: S.optional(S.String),
-          endpoint_name: S.optional(S.NullOr(S.String)),
-        }),
-      ).annotate({ identifier: "PromptOptionsNullish" });
-    case 1:
-      return S.Record(S.String, S.Number);
-    case 2:
-      return S.suspend(() =>
-        S.Struct({
-          type: S.String,
-          use_cot: S.Boolean,
-          choice_scores: S.optional(__S(241, __c15, 1)),
-          choice: S.optional(__S(2544, __c159, 0)),
-          allow_no_match: S.optional(S.Boolean),
-          allow_skip: S.optional(S.Boolean),
-        }),
-      ).annotate({ identifier: "PromptParserNullish" });
-    case 3:
-      return S.suspend(() =>
-        S.Struct({
-          prompt_id: S.optional(S.String),
-          project_id: S.optional(S.String),
-          prompt_version: S.optional(S.String),
-        }),
-      ).annotate({ identifier: "PromptDataOrigin" });
-  }
-}
-function __c16(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          name: S.String,
-          score: S.Number,
-          diff: S.optional(S.Number),
-          improvements: S.Number,
-          regressions: S.Number,
-        }),
-      ).annotate({ identifier: "ScoreSummary" });
-    case 1:
-      return S.Record(S.String, __S(256, __c16, 0));
-    case 2:
-      return S.suspend(() =>
-        S.Struct({
-          name: S.String,
-          metric: S.Number,
-          unit: S.String,
-          diff: S.optional(S.Number),
-          improvements: S.Number,
-          regressions: S.Number,
-        }),
-      ).annotate({ identifier: "MetricSummary" });
-    case 3:
-      return S.Record(S.String, __S(258, __c16, 2));
-    case 4:
-      return S.suspend(() =>
-        S.Struct({
-          project_name: S.String,
-          experiment_name: S.String,
-          project_url: S.String,
-          experiment_url: S.String,
-          comparison_experiment_name: S.optional(S.NullOr(S.String)),
-          scores: S.optional(S.NullOr(__S(257, __c16, 1))),
-          metrics: S.optional(S.NullOr(__S(259, __c16, 3))),
-        }),
-      ).annotate({ identifier: "SummarizeExperimentResponse" });
-  }
-}
-function __c17(j: number): any {
-  switch (j) {
-    case 0:
-      return S.Array(S.String);
-  }
-}
-function __c18(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          oauth_token: S.optional(S.String),
-        }),
-      ).annotate({ identifier: "CreateEvalRequestMcpAuthValue" });
-    case 1:
-      return S.Record(S.String, __S(288, __c18, 0));
-  }
-}
-function __c19(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10502,7 +10476,7 @@ function __c19(j: number): any {
       ).annotate({ identifier: "ListOrganizationApiKeysRequest" });
   }
 }
-function __c20(j: number): any {
+function __c16(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10519,12 +10493,12 @@ function __c20(j: number): any {
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(321, __c20, 1),
+          objects: __S(257, __c16, 1),
         }),
       ).annotate({ identifier: "ListOrganizationsResponse" });
   }
 }
-function __c21(j: number): any {
+function __c17(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10538,16 +10512,16 @@ function __c21(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/project_automation", code: 200 })),
       ).annotate({ identifier: "ListProjectAutomationsRequest" });
     case 1:
-      return S.Array(__S(1441, __c90, 1));
+      return S.Array(__S(1489, __c93, 1));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(337, __c21, 1),
+          objects: __S(273, __c17, 1),
         }),
       ).annotate({ identifier: "ListProjectAutomationsResponse" });
   }
 }
-function __c22(j: number): any {
+function __c18(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10565,12 +10539,12 @@ function __c22(j: number): any {
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(353, __c22, 1),
+          objects: __S(289, __c18, 1),
         }),
       ).annotate({ identifier: "ListProjectGroupsResponse" });
   }
 }
-function __c23(j: number): any {
+function __c19(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10584,16 +10558,16 @@ function __c23(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/project", code: 200 })),
       ).annotate({ identifier: "ListProjectsRequest" });
     case 1:
-      return S.Array(__S(1398, __c87, 6));
+      return S.Array(__S(1446, __c90, 6));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(369, __c23, 1),
+          objects: __S(305, __c19, 1),
         }),
       ).annotate({ identifier: "ListProjectsResponse" });
   }
 }
-function __c24(j: number): any {
+function __c20(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10614,12 +10588,12 @@ function __c24(j: number): any {
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(385, __c24, 1),
+          objects: __S(321, __c20, 1),
         }),
       ).annotate({ identifier: "ListProjectScoresResponse" });
   }
 }
-function __c25(j: number): any {
+function __c21(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10639,12 +10613,12 @@ function __c25(j: number): any {
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(401, __c25, 1),
+          objects: __S(337, __c21, 1),
         }),
       ).annotate({ identifier: "ListProjectTagsResponse" });
   }
 }
-function __c26(j: number): any {
+function __c22(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10667,12 +10641,12 @@ function __c26(j: number): any {
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(417, __c26, 1),
+          objects: __S(353, __c22, 1),
         }),
       ).annotate({ identifier: "ListPromptsResponse" });
   }
 }
-function __c27(j: number): any {
+function __c23(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10686,16 +10660,242 @@ function __c27(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/role", code: 200 })),
       ).annotate({ identifier: "ListRolesRequest" });
     case 1:
-      return S.Array(__S(1794, __c112, 2));
+      return S.Array(__S(1826, __c114, 2));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(433, __c27, 1),
+          objects: __S(369, __c23, 1),
         }),
       ).annotate({ identifier: "ListRolesResponse" });
   }
 }
+function __c24(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          runtime: S.String,
+          version: S.String,
+        }),
+      ).annotate({ identifier: "FunctionIdCase4InlineContext" });
+    case 1:
+      return S.Record(S.String, S.Unknown);
+    case 2:
+      return S.suspend(() =>
+        S.Struct({
+          prompt: S.optional(S.NullOr(S.Unknown)),
+          options: S.optional(S.NullOr(__S(448, __c28, 0))),
+          parser: S.optional(S.NullOr(__S(450, __c28, 2))),
+          preprocessor: S.optional(S.NullOr(S.Unknown)),
+          tool_functions: S.optional(S.NullOr(__S(433, __c27, 1))),
+          template_format: S.optional(S.NullOr(S.String)),
+          mcp: S.optional(S.NullOr(__S(385, __c24, 1))),
+          origin: S.optional(S.NullOr(__S(451, __c28, 3))),
+        }),
+      ).annotate({ identifier: "PromptData" });
+    case 3:
+      return S.suspend(() =>
+        S.Struct({
+          function_id: S.optional(S.String),
+          version: S.optional(S.String),
+          project_name: S.optional(S.String),
+          slug: S.optional(S.String),
+          global_function: S.optional(S.String),
+          function_type: S.optional(S.String),
+          prompt_session_id: S.optional(S.String),
+          prompt_session_function_id: S.optional(S.String),
+          inline_context: S.optional(__S(384, __c24, 0)),
+          code: S.optional(S.String),
+          name: S.optional(S.NullOr(S.String)),
+          inline_prompt: S.optional(__S(386, __c24, 2)),
+          inline_function: S.optional(__S(2240, __c140, 0)),
+        }),
+      ).annotate({ identifier: "CreateEvalRequestScoresItem" });
+    case 4:
+      return S.Array(__S(387, __c24, 3));
+    case 5:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          span_id: S.String,
+          root_span_id: S.String,
+        }),
+      ).annotate({ identifier: "CreateEvalRequestParentRowIds" });
+    case 6:
+      return S.suspend(() =>
+        S.Struct({
+          object_type: S.optional(S.String),
+          object_id: S.optional(S.String),
+          row_ids: S.optional(S.NullOr(__S(389, __c24, 5))),
+          propagated_event: S.optional(S.NullOr(__S(2240, __c140, 0))),
+        }),
+      ).annotate({ identifier: "CreateEvalRequestParent" });
+    case 7:
+      return S.suspend(() =>
+        S.Struct({
+          collect: S.String,
+          fields: S.optional(__S(464, __c29, 0)),
+        }),
+      ).annotate({ identifier: "GitMetadataSettings" });
+    case 8:
+      return S.suspend(() =>
+        S.Struct({
+          project_id: S.String,
+          data: S.Unknown,
+          name: S.optional(S.String),
+          parameters: S.optional(__S(2240, __c140, 0)),
+          task: S.Unknown,
+          scores: __S(388, __c24, 4),
+          experiment_name: S.optional(S.String),
+          metadata: S.optional(__S(2240, __c140, 0)),
+          parent: S.optional(__S(390, __c24, 6)),
+          stream: S.optional(S.Boolean),
+          trial_count: S.optional(S.NullOr(S.Number)),
+          is_public: S.optional(S.NullOr(S.Boolean)),
+          timeout: S.optional(S.NullOr(S.Number)),
+          max_concurrency: S.optional(S.NullOr(S.Number)),
+          base_experiment_name: S.optional(S.NullOr(S.String)),
+          base_experiment_id: S.optional(S.NullOr(S.String)),
+          git_metadata_settings: S.optional(S.NullOr(__S(391, __c24, 7))),
+          repo_info: S.optional(__S(400, __c25, 0)),
+          strict: S.optional(S.NullOr(S.Boolean)),
+          stop_token: S.optional(S.NullOr(S.String)),
+          extra_messages: S.optional(S.String),
+          tags: S.optional(__S(2752, __c172, 0)),
+          mcp_auth: S.optional(__S(481, __c30, 1)),
+          endpoint_name: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/eval", code: 200 })),
+      ).annotate({ identifier: "CreateEvalRequest" });
+  }
+}
+function __c25(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          commit: S.optional(S.NullOr(S.String)),
+          branch: S.optional(S.NullOr(S.String)),
+          tag: S.optional(S.NullOr(S.String)),
+          dirty: S.optional(S.NullOr(S.Boolean)),
+          author_name: S.optional(S.NullOr(S.String)),
+          author_email: S.optional(S.NullOr(S.String)),
+          commit_message: S.optional(S.NullOr(S.String)),
+          commit_time: S.optional(S.NullOr(S.String)),
+          git_diff: S.optional(S.NullOr(S.String)),
+        }),
+      ).annotate({ identifier: "CreateEvalRequestRepoInfo" });
+  }
+}
+function __c26(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          name: S.String,
+          score: S.Number,
+          diff: S.optional(S.Number),
+          improvements: S.Number,
+          regressions: S.Number,
+        }),
+      ).annotate({ identifier: "ScoreSummary" });
+    case 1:
+      return S.Record(S.String, __S(416, __c26, 0));
+    case 2:
+      return S.suspend(() =>
+        S.Struct({
+          name: S.String,
+          metric: S.Number,
+          unit: S.String,
+          diff: S.optional(S.Number),
+          improvements: S.Number,
+          regressions: S.Number,
+        }),
+      ).annotate({ identifier: "MetricSummary" });
+    case 3:
+      return S.Record(S.String, __S(418, __c26, 2));
+    case 4:
+      return S.suspend(() =>
+        S.Struct({
+          project_name: S.String,
+          experiment_name: S.String,
+          project_url: S.String,
+          experiment_url: S.String,
+          comparison_experiment_name: S.optional(S.NullOr(S.String)),
+          scores: S.optional(S.NullOr(__S(417, __c26, 1))),
+          metrics: S.optional(S.NullOr(__S(419, __c26, 3))),
+        }),
+      ).annotate({ identifier: "SummarizeExperimentResponse" });
+  }
+}
+function __c27(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          type: S.optional(S.String),
+          id: S.optional(S.String),
+          version: S.optional(S.String),
+          name: S.optional(S.String),
+          function_type: S.optional(S.String),
+        }),
+      ).annotate({ identifier: "PromptDataToolFunctionsItem" });
+    case 1:
+      return S.Array(__S(432, __c27, 0));
+  }
+}
 function __c28(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          model: S.optional(S.String),
+          params: S.optional(S.Unknown),
+          position: S.optional(S.String),
+          endpoint_name: S.optional(S.NullOr(S.String)),
+        }),
+      ).annotate({ identifier: "PromptOptionsNullish" });
+    case 1:
+      return S.Record(S.String, S.Number);
+    case 2:
+      return S.suspend(() =>
+        S.Struct({
+          type: S.String,
+          use_cot: S.Boolean,
+          choice_scores: S.optional(__S(449, __c28, 1)),
+          choice: S.optional(__S(2752, __c172, 0)),
+          allow_no_match: S.optional(S.Boolean),
+          allow_skip: S.optional(S.Boolean),
+        }),
+      ).annotate({ identifier: "PromptParserNullish" });
+    case 3:
+      return S.suspend(() =>
+        S.Struct({
+          prompt_id: S.optional(S.String),
+          project_id: S.optional(S.String),
+          prompt_version: S.optional(S.String),
+        }),
+      ).annotate({ identifier: "PromptDataOrigin" });
+  }
+}
+function __c29(j: number): any {
+  switch (j) {
+    case 0:
+      return S.Array(S.String);
+  }
+}
+function __c30(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          oauth_token: S.optional(S.String),
+        }),
+      ).annotate({ identifier: "CreateEvalRequestMcpAuthValue" });
+    case 1:
+      return S.Record(S.String, __S(480, __c30, 0));
+  }
+}
+function __c31(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10709,75 +10909,16 @@ function __c28(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/service_token", code: 200 })),
       ).annotate({ identifier: "ListServiceTokensRequest" });
     case 1:
-      return S.Array(__S(2352, __c147, 0));
+      return S.Array(__S(2368, __c148, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(449, __c28, 1),
+          objects: __S(497, __c31, 1),
         }),
       ).annotate({ identifier: "ListServiceTokensResponse" });
   }
 }
-function __c29(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String,
-          name: S.optional(S.NullOr(S.String)),
-          description: S.optional(S.NullOr(S.String)),
-          repo_info: S.optional(S.NullOr(__S(208, __c13, 0))),
-          base_exp_id: S.optional(S.NullOr(S.String)),
-          dataset_id: S.optional(S.NullOr(S.String)),
-          dataset_version: S.optional(S.NullOr(S.String)),
-          internal_metadata: S.optional(S.NullOr(__S(480, __c30, 0))),
-          parameters_id: S.optional(S.NullOr(S.String)),
-          parameters_version: S.optional(S.NullOr(S.String)),
-          public: S.optional(S.NullOr(S.Boolean)),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          ensure_new: S.optional(S.NullOr(S.Boolean)),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/experiment", code: 200 })),
-      ).annotate({ identifier: "CreateExperimentRequest" });
-  }
-}
-function __c30(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.StructWithRest(
-          S.Struct({
-            dataset_filter: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          }),
-          [S.Record(S.String, S.Unknown)],
-        ),
-      ).annotate({ identifier: "CreateExperimentRequestInternalMetadata" });
-    case 1:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          project_id: S.String,
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          created: S.optional(S.NullOr(S.String)),
-          repo_info: S.optional(S.NullOr(__S(208, __c13, 0))),
-          commit: S.optional(S.NullOr(S.String)),
-          base_exp_id: S.optional(S.NullOr(S.String)),
-          deleted_at: S.optional(S.NullOr(S.String)),
-          dataset_id: S.optional(S.NullOr(S.String)),
-          dataset_version: S.optional(S.NullOr(S.String)),
-          internal_metadata: S.optional(S.NullOr(__S(480, __c30, 0))),
-          parameters_id: S.optional(S.NullOr(S.String)),
-          parameters_version: S.optional(S.NullOr(S.String)),
-          public: S.Boolean,
-          user_id: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-        }),
-      ).annotate({ identifier: "Experiment" });
-  }
-}
-function __c31(j: number): any {
+function __c32(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10791,16 +10932,16 @@ function __c31(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/span_iframe", code: 200 })),
       ).annotate({ identifier: "ListSpanIframesRequest" });
     case 1:
-      return S.Array(__S(1856, __c116, 0));
+      return S.Array(__S(1888, __c118, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(497, __c31, 1),
+          objects: __S(513, __c32, 1),
         }),
       ).annotate({ identifier: "ListSpanIframesResponse" });
   }
 }
-function __c32(j: number): any {
+function __c33(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10816,16 +10957,16 @@ function __c32(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/user", code: 200 })),
       ).annotate({ identifier: "ListUsersRequest" });
     case 1:
-      return S.Array(__S(3152, __c197, 0));
+      return S.Array(__S(3200, __c200, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(513, __c32, 1),
+          objects: __S(529, __c33, 1),
         }),
       ).annotate({ identifier: "ListUsersResponse" });
   }
 }
-function __c33(j: number): any {
+function __c34(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10841,16 +10982,16 @@ function __c33(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/view", code: 200 })),
       ).annotate({ identifier: "ListViewsRequest" });
     case 1:
-      return S.Array(__S(1906, __c119, 2));
+      return S.Array(__S(1938, __c121, 2));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(529, __c33, 1),
+          objects: __S(545, __c34, 1),
         }),
       ).annotate({ identifier: "ListViewsResponse" });
   }
 }
-function __c34(j: number): any {
+function __c35(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10870,21 +11011,21 @@ function __c34(j: number): any {
       ).annotate({ identifier: "DatasetRestorePreviewResponse" });
   }
 }
-function __c35(j: number): any {
+function __c36(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
         S.Struct({
           name: S.String,
           type: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
           secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
           org_name: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "PUT", uri: "/v1/ai_secret", code: 200 })),
       ).annotate({ identifier: "ReplaceAiSecretRequest" });
   }
 }
-function __c36(j: number): any {
+function __c37(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10899,7 +11040,7 @@ function __c36(j: number): any {
       ).annotate({ identifier: "ReplaceColumnRequest" });
   }
 }
-function __c37(j: number): any {
+function __c38(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10912,7 +11053,7 @@ function __c37(j: number): any {
       ).annotate({ identifier: "ReplaceDatasetSnapshotRequest" });
   }
 }
-function __c38(j: number): any {
+function __c39(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10921,13 +11062,13 @@ function __c38(j: number): any {
           object_id: S.String,
           name: S.String,
           value: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
           secret_type: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "PUT", uri: "/v1/env_var", code: 200 })),
       ).annotate({ identifier: "ReplaceEnvVarRequest" });
   }
 }
-function __c39(j: number): any {
+function __c40(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10936,28 +11077,14 @@ function __c39(j: number): any {
           name: S.String,
           slug: S.String,
           description: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(881, __c55, 1))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          prompt_data: S.optional(S.NullOr(__S(1073, __c67, 1))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
           function_type: S.optional(S.NullOr(S.String)),
           function_data: S.Unknown,
-          origin: S.optional(S.NullOr(__S(896, __c56, 0))),
-          function_schema: S.optional(S.NullOr(__S(897, __c56, 1))),
+          origin: S.optional(S.NullOr(__S(1088, __c68, 0))),
+          function_schema: S.optional(S.NullOr(__S(1089, __c68, 1))),
         }).pipe(T.Http({ method: "PUT", uri: "/v1/function", code: 200 })),
       ).annotate({ identifier: "ReplaceFunctionRequest" });
-  }
-}
-function __c40(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          member_users: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          member_groups: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          org_name: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "PUT", uri: "/v1/group", code: 200 })),
-      ).annotate({ identifier: "ReplaceGroupRequest" });
   }
 }
 function __c41(j: number): any {
@@ -10965,18 +11092,58 @@ function __c41(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          experiment_id: S.String.pipe(T.Label()),
-          feedback: __S(689, __c43, 1),
-        }).pipe(
-          T.Http({ method: "POST", uri: "/v1/experiment/{experiment_id}/feedback", code: 200 }),
-        ),
-      ).annotate({ identifier: "CreateExperimentFeedbackRequest" });
+          project_id: S.String,
+          name: S.optional(S.NullOr(S.String)),
+          description: S.optional(S.NullOr(S.String)),
+          repo_info: S.optional(S.NullOr(__S(400, __c25, 0))),
+          base_exp_id: S.optional(S.NullOr(S.String)),
+          dataset_id: S.optional(S.NullOr(S.String)),
+          dataset_version: S.optional(S.NullOr(S.String)),
+          internal_metadata: S.optional(S.NullOr(__S(672, __c42, 0))),
+          parameters_id: S.optional(S.NullOr(S.String)),
+          parameters_version: S.optional(S.NullOr(S.String)),
+          public: S.optional(S.NullOr(S.Boolean)),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          ensure_new: S.optional(S.NullOr(S.Boolean)),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/experiment", code: 200 })),
+      ).annotate({ identifier: "CreateExperimentRequest" });
   }
 }
 function __c42(j: number): any {
   switch (j) {
     case 0:
-      return S.Record(S.String, /*@__PURE__*/ S.NullOr(S.Number));
+      return S.suspend(() =>
+        S.StructWithRest(
+          S.Struct({
+            dataset_filter: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          }),
+          [S.Record(S.String, S.Unknown)],
+        ),
+      ).annotate({ identifier: "CreateExperimentRequestInternalMetadata" });
+    case 1:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          project_id: S.String,
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          created: S.optional(S.NullOr(S.String)),
+          repo_info: S.optional(S.NullOr(__S(400, __c25, 0))),
+          commit: S.optional(S.NullOr(S.String)),
+          base_exp_id: S.optional(S.NullOr(S.String)),
+          deleted_at: S.optional(S.NullOr(S.String)),
+          dataset_id: S.optional(S.NullOr(S.String)),
+          dataset_version: S.optional(S.NullOr(S.String)),
+          internal_metadata: S.optional(S.NullOr(__S(672, __c42, 0))),
+          parameters_id: S.optional(S.NullOr(S.String)),
+          parameters_version: S.optional(S.NullOr(S.String)),
+          public: S.Boolean,
+          user_id: S.optional(S.NullOr(S.String)),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+        }),
+      ).annotate({ identifier: "Experiment" });
   }
 }
 function __c43(j: number): any {
@@ -10984,17 +11151,13 @@ function __c43(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          id: S.String,
-          scores: S.optional(S.NullOr(__S(672, __c42, 0))),
-          expected: S.optional(S.Unknown),
-          comment: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          source: S.optional(S.NullOr(S.String)),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-        }),
-      ).annotate({ identifier: "FeedbackExperimentItem" });
-    case 1:
-      return S.Array(__S(688, __c43, 0));
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          member_users: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          member_groups: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          org_name: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "PUT", uri: "/v1/group", code: 200 })),
+      ).annotate({ identifier: "ReplaceGroupRequest" });
   }
 }
 function __c44(j: number): any {
@@ -11072,10 +11235,10 @@ function __c49(j: number): any {
           name: S.String,
           slug: S.String,
           description: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(881, __c55, 1))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          prompt_data: S.optional(S.NullOr(__S(1073, __c67, 1))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
           function_type: S.optional(S.NullOr(S.String)),
-          environment_slugs: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          environment_slugs: S.optional(S.NullOr(__S(2752, __c172, 0))),
         }).pipe(T.Http({ method: "PUT", uri: "/v1/prompt", code: 200 })),
       ).annotate({ identifier: "ReplacePromptRequest" });
   }
@@ -11087,8 +11250,8 @@ function __c50(j: number): any {
         S.Struct({
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
-          member_permissions: S.optional(S.NullOr(__S(1793, __c112, 1))),
-          member_roles: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          member_permissions: S.optional(S.NullOr(__S(1825, __c114, 1))),
+          member_roles: S.optional(S.NullOr(__S(2752, __c172, 0))),
           org_name: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "PUT", uri: "/v1/role", code: 200 })),
       ).annotate({ identifier: "ReplaceRoleRequest" });
@@ -11126,55 +11289,36 @@ function __c53(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          object_type: S.String,
-          object_id: S.String,
-          view_type: S.String,
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          view_data: S.optional(S.NullOr(__S(1905, __c119, 1))),
-          options: S.optional(S.NullOr(S.Unknown)),
-          user_id: S.optional(S.NullOr(S.String)),
-          deleted_at: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "PUT", uri: "/v1/view", code: 200 })),
-      ).annotate({ identifier: "ReplaceViewRequest" });
+          experiment_id: S.String.pipe(T.Label()),
+          feedback: __S(881, __c55, 1),
+        }).pipe(
+          T.Http({ method: "POST", uri: "/v1/experiment/{experiment_id}/feedback", code: 200 }),
+        ),
+      ).annotate({ identifier: "CreateExperimentFeedbackRequest" });
   }
 }
 function __c54(j: number): any {
   switch (j) {
     case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String,
-          name: S.String,
-          slug: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(881, __c55, 1))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          function_type: S.optional(S.NullOr(S.String)),
-          function_data: S.Unknown,
-          origin: S.optional(S.NullOr(__S(896, __c56, 0))),
-          function_schema: S.optional(S.NullOr(__S(897, __c56, 1))),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/function", code: 200 })),
-      ).annotate({ identifier: "CreateFunctionRequest" });
+      return S.Record(S.String, /*@__PURE__*/ S.NullOr(S.Number));
   }
 }
 function __c55(j: number): any {
   switch (j) {
     case 0:
-      return S.Record(S.String, S.Unknown);
-    case 1:
       return S.suspend(() =>
         S.Struct({
-          prompt: S.optional(S.NullOr(S.Unknown)),
-          options: S.optional(S.NullOr(__S(240, __c15, 0))),
-          parser: S.optional(S.NullOr(__S(242, __c15, 2))),
-          preprocessor: S.optional(S.NullOr(S.Unknown)),
-          tool_functions: S.optional(S.NullOr(__S(225, __c14, 1))),
-          template_format: S.optional(S.NullOr(S.String)),
-          mcp: S.optional(S.NullOr(__S(880, __c55, 0))),
-          origin: S.optional(S.NullOr(__S(243, __c15, 3))),
+          id: S.String,
+          scores: S.optional(S.NullOr(__S(864, __c54, 0))),
+          expected: S.optional(S.Unknown),
+          comment: S.optional(S.NullOr(S.String)),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          source: S.optional(S.NullOr(S.String)),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
         }),
-      ).annotate({ identifier: "PromptDataNullish" });
+      ).annotate({ identifier: "FeedbackExperimentItem" });
+    case 1:
+      return S.Array(__S(880, __c55, 0));
   }
 }
 function __c56(j: number): any {
@@ -11184,37 +11328,15 @@ function __c56(j: number): any {
         S.Struct({
           object_type: S.String,
           object_id: S.String,
-          internal: S.optional(S.NullOr(S.Boolean)),
-        }),
-      ).annotate({ identifier: "CreateFunctionRequestOrigin" });
-    case 1:
-      return S.suspend(() =>
-        S.Struct({
-          parameters: S.optional(S.Unknown),
-          returns: S.optional(S.Unknown),
-        }),
-      ).annotate({ identifier: "CreateFunctionRequestFunctionSchema" });
-    case 2:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          _xact_id: S.String,
-          project_id: S.String,
-          log_id: S.String,
-          org_id: S.String,
+          view_type: S.String,
           name: S.String,
-          slug: S.String,
           description: S.optional(S.NullOr(S.String)),
-          created: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(881, __c55, 1))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          function_type: S.optional(S.NullOr(S.String)),
-          function_data: S.Unknown,
-          origin: S.optional(S.NullOr(__S(896, __c56, 0))),
-          function_schema: S.optional(S.NullOr(__S(897, __c56, 1))),
-        }),
-      ).annotate({ identifier: "Function" });
+          view_data: S.optional(S.NullOr(__S(1937, __c121, 1))),
+          options: S.optional(S.NullOr(S.Unknown)),
+          user_id: S.optional(S.NullOr(S.String)),
+          deleted_at: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "PUT", uri: "/v1/view", code: 200 })),
+      ).annotate({ identifier: "ReplaceViewRequest" });
   }
 }
 function __c57(j: number): any {
@@ -11285,7 +11407,7 @@ function __c60(j: number): any {
           ai_secret_id: S.String.pipe(T.Label()),
           name: S.optional(S.NullOr(S.String)),
           type: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
           secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/ai_secret/{ai_secret_id}", code: 200 })),
       ).annotate({ identifier: "UpdateAiSecretRequest" });
@@ -11311,8 +11433,8 @@ function __c62(j: number): any {
           dataset_id: S.String.pipe(T.Label()),
           name: S.optional(S.NullOr(S.String)),
           description: S.optional(S.NullOr(S.String)),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/dataset/{dataset_id}", code: 200 })),
       ).annotate({ identifier: "UpdateDatasetRequest" });
   }
@@ -11352,7 +11474,7 @@ function __c65(j: number): any {
           env_var_id: S.String.pipe(T.Label()),
           name: S.String,
           value: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
           secret_type: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/env_var/{env_var_id}", code: 200 })),
       ).annotate({ identifier: "UpdateEnvVarRequest" });
@@ -11363,35 +11485,37 @@ function __c66(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          experiment_id: S.String.pipe(T.Label()),
-          name: S.optional(S.NullOr(S.String)),
+          project_id: S.String,
+          name: S.String,
+          slug: S.String,
           description: S.optional(S.NullOr(S.String)),
-          repo_info: S.optional(S.NullOr(__S(208, __c13, 0))),
-          base_exp_id: S.optional(S.NullOr(S.String)),
-          dataset_id: S.optional(S.NullOr(S.String)),
-          dataset_version: S.optional(S.NullOr(S.String)),
-          internal_metadata: S.optional(S.NullOr(__S(480, __c30, 0))),
-          parameters_id: S.optional(S.NullOr(S.String)),
-          parameters_version: S.optional(S.NullOr(S.String)),
-          public: S.optional(S.NullOr(S.Boolean)),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/experiment/{experiment_id}", code: 200 })),
-      ).annotate({ identifier: "UpdateExperimentRequest" });
+          prompt_data: S.optional(S.NullOr(__S(1073, __c67, 1))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          function_type: S.optional(S.NullOr(S.String)),
+          function_data: S.Unknown,
+          origin: S.optional(S.NullOr(__S(1088, __c68, 0))),
+          function_schema: S.optional(S.NullOr(__S(1089, __c68, 1))),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/function", code: 200 })),
+      ).annotate({ identifier: "CreateFunctionRequest" });
   }
 }
 function __c67(j: number): any {
   switch (j) {
     case 0:
+      return S.Record(S.String, S.Unknown);
+    case 1:
       return S.suspend(() =>
         S.Struct({
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          member_users: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          member_groups: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          org_name: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/group", code: 200 })),
-      ).annotate({ identifier: "CreateGroupRequest" });
+          prompt: S.optional(S.NullOr(S.Unknown)),
+          options: S.optional(S.NullOr(__S(448, __c28, 0))),
+          parser: S.optional(S.NullOr(__S(450, __c28, 2))),
+          preprocessor: S.optional(S.NullOr(S.Unknown)),
+          tool_functions: S.optional(S.NullOr(__S(433, __c27, 1))),
+          template_format: S.optional(S.NullOr(S.String)),
+          mcp: S.optional(S.NullOr(__S(1072, __c67, 0))),
+          origin: S.optional(S.NullOr(__S(451, __c28, 3))),
+        }),
+      ).annotate({ identifier: "PromptDataNullish" });
   }
 }
 function __c68(j: number): any {
@@ -11399,17 +11523,39 @@ function __c68(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          id: S.String,
-          org_id: S.String,
-          user_id: S.optional(S.NullOr(S.String)),
-          created: S.optional(S.NullOr(S.String)),
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          deleted_at: S.optional(S.NullOr(S.String)),
-          member_users: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          member_groups: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          object_type: S.String,
+          object_id: S.String,
+          internal: S.optional(S.NullOr(S.Boolean)),
         }),
-      ).annotate({ identifier: "Group" });
+      ).annotate({ identifier: "CreateFunctionRequestOrigin" });
+    case 1:
+      return S.suspend(() =>
+        S.Struct({
+          parameters: S.optional(S.Unknown),
+          returns: S.optional(S.Unknown),
+        }),
+      ).annotate({ identifier: "CreateFunctionRequestFunctionSchema" });
+    case 2:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          _xact_id: S.String,
+          project_id: S.String,
+          log_id: S.String,
+          org_id: S.String,
+          name: S.String,
+          slug: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          created: S.optional(S.NullOr(S.String)),
+          prompt_data: S.optional(S.NullOr(__S(1073, __c67, 1))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          function_type: S.optional(S.NullOr(S.String)),
+          function_data: S.Unknown,
+          origin: S.optional(S.NullOr(__S(1088, __c68, 0))),
+          function_schema: S.optional(S.NullOr(__S(1089, __c68, 1))),
+        }),
+      ).annotate({ identifier: "Function" });
   }
 }
 function __c69(j: number): any {
@@ -11417,14 +11563,21 @@ function __c69(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          function_id: S.String.pipe(T.Label()),
+          experiment_id: S.String.pipe(T.Label()),
           name: S.optional(S.NullOr(S.String)),
           description: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(881, __c55, 1))),
-          function_data: S.optional(S.NullOr(S.Unknown)),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/function/{function_id}", code: 200 })),
-      ).annotate({ identifier: "UpdateFunctionRequest" });
+          repo_info: S.optional(S.NullOr(__S(400, __c25, 0))),
+          base_exp_id: S.optional(S.NullOr(S.String)),
+          dataset_id: S.optional(S.NullOr(S.String)),
+          dataset_version: S.optional(S.NullOr(S.String)),
+          internal_metadata: S.optional(S.NullOr(__S(672, __c42, 0))),
+          parameters_id: S.optional(S.NullOr(S.String)),
+          parameters_version: S.optional(S.NullOr(S.String)),
+          public: S.optional(S.NullOr(S.Boolean)),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/experiment/{experiment_id}", code: 200 })),
+      ).annotate({ identifier: "UpdateExperimentRequest" });
   }
 }
 function __c70(j: number): any {
@@ -11432,18 +11585,33 @@ function __c70(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
+          function_id: S.String.pipe(T.Label()),
+          name: S.optional(S.NullOr(S.String)),
+          description: S.optional(S.NullOr(S.String)),
+          prompt_data: S.optional(S.NullOr(__S(1073, __c67, 1))),
+          function_data: S.optional(S.NullOr(S.Unknown)),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/function/{function_id}", code: 200 })),
+      ).annotate({ identifier: "UpdateFunctionRequest" });
+  }
+}
+function __c71(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
           group_id: S.String.pipe(T.Label()),
           description: S.optional(S.NullOr(S.String)),
           name: S.optional(S.NullOr(S.String)),
-          add_member_users: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          remove_member_users: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          add_member_groups: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          remove_member_groups: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          add_member_users: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          remove_member_users: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          add_member_groups: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          remove_member_groups: S.optional(S.NullOr(__S(2752, __c172, 0))),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/group/{group_id}", code: 200 })),
       ).annotate({ identifier: "UpdateGroupRequest" });
   }
 }
-function __c71(j: number): any {
+function __c72(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11456,7 +11624,7 @@ function __c71(j: number): any {
       ).annotate({ identifier: "UpdateMcpServerRequest" });
   }
 }
-function __c72(j: number): any {
+function __c73(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11473,7 +11641,7 @@ function __c72(j: number): any {
       ).annotate({ identifier: "UpdateOrganizationRequest" });
   }
 }
-function __c73(j: number): any {
+function __c74(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11484,16 +11652,16 @@ function __c73(j: number): any {
         }),
       ).annotate({ identifier: "UpdateOrganizationMembersRequestInviteUsersServiceAccountsItem" });
     case 1:
-      return S.Array(__S(1168, __c73, 0));
+      return S.Array(__S(1184, __c74, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          ids: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          emails: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          service_accounts: S.optional(S.NullOr(__S(1169, __c73, 1))),
+          ids: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          emails: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          service_accounts: S.optional(S.NullOr(__S(1185, __c74, 1))),
           send_invite_emails: S.optional(S.NullOr(S.Boolean)),
-          group_ids: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          group_names: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          group_ids: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          group_names: S.optional(S.NullOr(__S(2752, __c172, 0))),
           group_id: S.optional(S.NullOr(S.String)),
           group_name: S.optional(S.NullOr(S.String)),
           project_group_id: S.optional(S.NullOr(S.String)),
@@ -11502,15 +11670,15 @@ function __c73(j: number): any {
     case 3:
       return S.suspend(() =>
         S.Struct({
-          ids: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          emails: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          ids: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          emails: S.optional(S.NullOr(__S(2752, __c172, 0))),
         }),
       ).annotate({ identifier: "UpdateOrganizationMembersRequestRemoveUsers" });
     case 4:
       return S.suspend(() =>
         S.Struct({
-          invite_users: S.optional(S.NullOr(__S(1170, __c73, 2))),
-          remove_users: S.optional(S.NullOr(__S(1171, __c73, 3))),
+          invite_users: S.optional(S.NullOr(__S(1186, __c74, 2))),
+          remove_users: S.optional(S.NullOr(__S(1187, __c74, 3))),
           org_name: S.optional(S.NullOr(S.String)),
           org_id: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/organization/members", code: 200 })),
@@ -11525,19 +11693,19 @@ function __c73(j: number): any {
         }),
       ).annotate({ identifier: "PatchOrganizationMembersOutputAddedUsersItem" });
     case 6:
-      return S.Array(__S(1173, __c73, 5));
+      return S.Array(__S(1189, __c74, 5));
     case 7:
       return S.suspend(() =>
         S.Struct({
           status: S.String,
           org_id: S.String,
           send_email_error: S.optional(S.NullOr(S.String)),
-          added_users: S.optional(S.NullOr(__S(1174, __c73, 6))),
+          added_users: S.optional(S.NullOr(__S(1190, __c74, 6))),
         }),
       ).annotate({ identifier: "PatchOrganizationMembersOutput" });
   }
 }
-function __c74(j: number): any {
+function __c75(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11549,7 +11717,7 @@ function __c74(j: number): any {
         }),
       ).annotate({ identifier: "UpdateProjectRequestSettingsSpanFieldOrderItem" });
     case 1:
-      return S.Array(__S(1184, __c74, 0));
+      return S.Array(__S(1200, __c75, 0));
     case 2:
       return S.Array(S.Unknown);
     case 3:
@@ -11557,16 +11725,16 @@ function __c74(j: number): any {
         S.Struct({
           comparison_key: S.optional(S.NullOr(S.String)),
           baseline_experiment_id: S.optional(S.NullOr(S.String)),
-          spanFieldOrder: S.optional(S.NullOr(__S(1185, __c74, 1))),
-          remote_eval_sources: S.optional(S.NullOr(__S(1395, __c87, 3))),
+          spanFieldOrder: S.optional(S.NullOr(__S(1201, __c75, 1))),
+          remote_eval_sources: S.optional(S.NullOr(__S(1443, __c90, 3))),
           disable_realtime_queries: S.optional(S.NullOr(S.Boolean)),
           monitor_charts_use_metrics_start: S.optional(S.NullOr(S.Boolean)),
           coding_agent_insights_dashboard: S.optional(S.NullOr(S.Boolean)),
           blind_reviews: S.optional(S.NullOr(S.Boolean)),
           require_all_human_review_scores: S.optional(S.NullOr(S.Boolean)),
-          user_id_fields: S.optional(S.NullOr(__S(1408, __c88, 0))),
-          pattern_alert_destinations: S.optional(S.NullOr(__S(1186, __c74, 2))),
-          session_id_fields: S.optional(S.NullOr(__S(1408, __c88, 0))),
+          user_id_fields: S.optional(S.NullOr(__S(1456, __c91, 0))),
+          pattern_alert_destinations: S.optional(S.NullOr(__S(1202, __c75, 2))),
+          session_id_fields: S.optional(S.NullOr(__S(1456, __c91, 0))),
           default_preprocessor: S.optional(S.NullOr(S.Unknown)),
         }),
       ).annotate({ identifier: "UpdateProjectRequestSettings" });
@@ -11577,13 +11745,13 @@ function __c74(j: number): any {
           name: S.optional(S.NullOr(S.String)),
           description: S.optional(S.NullOr(S.String)),
           user_id: S.optional(S.NullOr(S.String)),
-          settings: S.optional(__S(1187, __c74, 3)),
+          settings: S.optional(__S(1203, __c75, 3)),
           only_if_unset: S.optional(S.Boolean),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/project/{project_id}", code: 200 })),
       ).annotate({ identifier: "UpdateProjectRequest" });
   }
 }
-function __c75(j: number): any {
+function __c76(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11602,7 +11770,7 @@ function __c75(j: number): any {
       ).annotate({ identifier: "UpdateProjectAutomationRequest" });
   }
 }
-function __c76(j: number): any {
+function __c77(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11610,15 +11778,15 @@ function __c76(j: number): any {
           project_group_id: S.String.pipe(T.Label()),
           name: S.optional(S.NullOr(S.String)),
           description: S.optional(S.NullOr(S.String)),
-          add_member_projects: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          remove_member_projects: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          add_member_projects: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          remove_member_projects: S.optional(S.NullOr(__S(2752, __c172, 0))),
         }).pipe(
           T.Http({ method: "PATCH", uri: "/v1/project_group/{project_group_id}", code: 200 }),
         ),
       ).annotate({ identifier: "UpdateProjectGroupRequest" });
   }
 }
-function __c77(j: number): any {
+function __c78(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11635,7 +11803,39 @@ function __c77(j: number): any {
       ).annotate({ identifier: "UpdateProjectScoreRequest" });
   }
 }
-function __c78(j: number): any {
+function __c79(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          member_users: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          member_groups: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          org_name: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/group", code: 200 })),
+      ).annotate({ identifier: "CreateGroupRequest" });
+  }
+}
+function __c80(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          org_id: S.String,
+          user_id: S.optional(S.NullOr(S.String)),
+          created: S.optional(S.NullOr(S.String)),
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          deleted_at: S.optional(S.NullOr(S.String)),
+          member_users: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          member_groups: S.optional(S.NullOr(__S(2752, __c172, 0))),
+        }),
+      ).annotate({ identifier: "Group" });
+  }
+}
+function __c81(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11648,7 +11848,71 @@ function __c78(j: number): any {
       ).annotate({ identifier: "UpdateProjectTagRequest" });
   }
 }
-function __c79(j: number): any {
+function __c82(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          prompt_id: S.String.pipe(T.Label()),
+          name: S.optional(S.NullOr(S.String)),
+          slug: S.optional(S.NullOr(S.String)),
+          description: S.optional(S.NullOr(S.String)),
+          prompt_data: S.optional(S.NullOr(__S(1073, __c67, 1))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/prompt/{prompt_id}", code: 200 })),
+      ).annotate({ identifier: "UpdatePromptRequest" });
+  }
+}
+function __c83(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          role_id: S.String.pipe(T.Label()),
+          description: S.optional(S.NullOr(S.String)),
+          name: S.optional(S.NullOr(S.String)),
+          add_member_permissions: S.optional(S.NullOr(__S(1825, __c114, 1))),
+          remove_member_permissions: S.optional(S.NullOr(__S(1825, __c114, 1))),
+          add_member_roles: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          remove_member_roles: S.optional(S.NullOr(__S(2752, __c172, 0))),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/role/{role_id}", code: 200 })),
+      ).annotate({ identifier: "UpdateRoleRequest" });
+  }
+}
+function __c84(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          span_iframe_id: S.String.pipe(T.Label()),
+          name: S.optional(S.NullOr(S.String)),
+          url: S.optional(S.NullOr(S.String)),
+          post_message: S.optional(S.NullOr(S.Boolean)),
+          description: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/span_iframe/{span_iframe_id}", code: 200 })),
+      ).annotate({ identifier: "UpdateSpanIframeRequest" });
+  }
+}
+function __c85(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          view_id: S.String.pipe(T.Label()),
+          object_type: S.String,
+          object_id: S.String,
+          view_type: S.optional(S.NullOr(S.String)),
+          name: S.optional(S.NullOr(S.String)),
+          description: S.optional(S.NullOr(S.String)),
+          starred: S.optional(S.Boolean),
+          view_data: S.optional(S.NullOr(__S(1937, __c121, 1))),
+          options: S.optional(S.NullOr(S.Unknown)),
+          user_id: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/view/{view_id}", code: 200 })),
+      ).annotate({ identifier: "UpdateViewRequest" });
+  }
+}
+function __c86(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11671,71 +11935,7 @@ function __c79(j: number): any {
       ).annotate({ identifier: "CreateIngestKeyResponse" });
   }
 }
-function __c80(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          prompt_id: S.String.pipe(T.Label()),
-          name: S.optional(S.NullOr(S.String)),
-          slug: S.optional(S.NullOr(S.String)),
-          description: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(881, __c55, 1))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/prompt/{prompt_id}", code: 200 })),
-      ).annotate({ identifier: "UpdatePromptRequest" });
-  }
-}
-function __c81(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          role_id: S.String.pipe(T.Label()),
-          description: S.optional(S.NullOr(S.String)),
-          name: S.optional(S.NullOr(S.String)),
-          add_member_permissions: S.optional(S.NullOr(__S(1793, __c112, 1))),
-          remove_member_permissions: S.optional(S.NullOr(__S(1793, __c112, 1))),
-          add_member_roles: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          remove_member_roles: S.optional(S.NullOr(__S(2544, __c159, 0))),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/role/{role_id}", code: 200 })),
-      ).annotate({ identifier: "UpdateRoleRequest" });
-  }
-}
-function __c82(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          span_iframe_id: S.String.pipe(T.Label()),
-          name: S.optional(S.NullOr(S.String)),
-          url: S.optional(S.NullOr(S.String)),
-          post_message: S.optional(S.NullOr(S.Boolean)),
-          description: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/span_iframe/{span_iframe_id}", code: 200 })),
-      ).annotate({ identifier: "UpdateSpanIframeRequest" });
-  }
-}
-function __c83(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          view_id: S.String.pipe(T.Label()),
-          object_type: S.String,
-          object_id: S.String,
-          view_type: S.optional(S.NullOr(S.String)),
-          name: S.optional(S.NullOr(S.String)),
-          description: S.optional(S.NullOr(S.String)),
-          starred: S.optional(S.Boolean),
-          view_data: S.optional(S.NullOr(__S(1905, __c119, 1))),
-          options: S.optional(S.NullOr(S.Unknown)),
-          user_id: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/view/{view_id}", code: 200 })),
-      ).annotate({ identifier: "UpdateViewRequest" });
-  }
-}
-function __c84(j: number): any {
+function __c87(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11748,7 +11948,7 @@ function __c84(j: number): any {
       ).annotate({ identifier: "CreateMcpServerRequest" });
   }
 }
-function __c85(j: number): any {
+function __c88(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11765,7 +11965,7 @@ function __c85(j: number): any {
       ).annotate({ identifier: "MCPServer" });
   }
 }
-function __c86(j: number): any {
+function __c89(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11778,7 +11978,7 @@ function __c86(j: number): any {
       ).annotate({ identifier: "CreateProjectRequest" });
   }
 }
-function __c87(j: number): any {
+function __c90(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11790,7 +11990,7 @@ function __c87(j: number): any {
         }),
       ).annotate({ identifier: "ProjectSettingsSpanFieldOrderItem" });
     case 1:
-      return S.Array(__S(1392, __c87, 0));
+      return S.Array(__S(1440, __c90, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
@@ -11800,7 +12000,7 @@ function __c87(j: number): any {
         }),
       ).annotate({ identifier: "ProjectSettingsRemoteEvalSourcesItem" });
     case 3:
-      return S.Array(__S(1394, __c87, 2));
+      return S.Array(__S(1442, __c90, 2));
     case 4:
       return S.Array(S.Unknown);
     case 5:
@@ -11808,16 +12008,16 @@ function __c87(j: number): any {
         S.Struct({
           comparison_key: S.optional(S.NullOr(S.String)),
           baseline_experiment_id: S.optional(S.NullOr(S.String)),
-          spanFieldOrder: S.optional(S.NullOr(__S(1393, __c87, 1))),
-          remote_eval_sources: S.optional(S.NullOr(__S(1395, __c87, 3))),
+          spanFieldOrder: S.optional(S.NullOr(__S(1441, __c90, 1))),
+          remote_eval_sources: S.optional(S.NullOr(__S(1443, __c90, 3))),
           disable_realtime_queries: S.optional(S.NullOr(S.Boolean)),
           monitor_charts_use_metrics_start: S.optional(S.NullOr(S.Boolean)),
           coding_agent_insights_dashboard: S.optional(S.NullOr(S.Boolean)),
           blind_reviews: S.optional(S.NullOr(S.Boolean)),
           require_all_human_review_scores: S.optional(S.NullOr(S.Boolean)),
-          user_id_fields: S.optional(S.NullOr(__S(1408, __c88, 0))),
-          pattern_alert_destinations: S.optional(S.NullOr(__S(1396, __c87, 4))),
-          session_id_fields: S.optional(S.NullOr(__S(1408, __c88, 0))),
+          user_id_fields: S.optional(S.NullOr(__S(1456, __c91, 0))),
+          pattern_alert_destinations: S.optional(S.NullOr(__S(1444, __c90, 4))),
+          session_id_fields: S.optional(S.NullOr(__S(1456, __c91, 0))),
           default_preprocessor: S.optional(S.NullOr(S.Unknown)),
         }),
       ).annotate({ identifier: "ProjectSettings" });
@@ -11831,18 +12031,18 @@ function __c87(j: number): any {
           created: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
           user_id: S.optional(S.NullOr(S.String)),
-          settings: S.optional(S.NullOr(__S(1397, __c87, 5))),
+          settings: S.optional(S.NullOr(__S(1445, __c90, 5))),
         }),
       ).annotate({ identifier: "Project" });
   }
 }
-function __c88(j: number): any {
+function __c91(j: number): any {
   switch (j) {
     case 0:
-      return S.Array(__S(2544, __c159, 0));
+      return S.Array(__S(2752, __c172, 0));
   }
 }
-function __c89(j: number): any {
+function __c92(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11855,7 +12055,7 @@ function __c89(j: number): any {
       ).annotate({ identifier: "CreateProjectAutomationRequest" });
   }
 }
-function __c90(j: number): any {
+function __c93(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11874,66 +12074,9 @@ function __c90(j: number): any {
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
           config: S.Unknown,
-          runtime_block: S.optional(__S(1440, __c90, 0)),
+          runtime_block: S.optional(__S(1488, __c93, 0)),
         }),
       ).annotate({ identifier: "ProjectAutomation" });
-  }
-}
-function __c91(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          object_type: S.String,
-          object_id: S.String,
-          user_id: S.optional(S.NullOr(S.String)),
-          group_id: S.optional(S.NullOr(S.String)),
-          permission: S.optional(S.NullOr(S.String)),
-          restrict_object_type: S.optional(S.NullOr(S.String)),
-          role_id: S.optional(S.NullOr(S.String)),
-        }),
-      ).annotate({ identifier: "AclItem" });
-    case 1:
-      return S.Array(__S(1456, __c91, 0));
-    case 2:
-      return S.suspend(() =>
-        S.Struct({
-          add_acls: S.optional(S.NullOr(__S(1457, __c91, 1))),
-          remove_acls: S.optional(S.NullOr(__S(1457, __c91, 1))),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/acl/batch_update", code: 200 })),
-      ).annotate({ identifier: "BatchUpdateAclsRequest" });
-    case 3:
-      return S.suspend(() =>
-        S.Struct({
-          added_acls: __S(1488, __c93, 0),
-          removed_acls: __S(1488, __c93, 0),
-        }),
-      ).annotate({ identifier: "AclBatchUpdateResponse" });
-  }
-}
-function __c92(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          object_type: S.String,
-          object_id: S.String,
-          user_id: S.optional(S.NullOr(S.String)),
-          group_id: S.optional(S.NullOr(S.String)),
-          permission: S.optional(S.NullOr(S.String)),
-          restrict_object_type: S.optional(S.NullOr(S.String)),
-          role_id: S.optional(S.NullOr(S.String)),
-          _object_org_id: S.String,
-          created: S.optional(S.NullOr(S.String)),
-        }),
-      ).annotate({ identifier: "Acl" });
-  }
-}
-function __c93(j: number): any {
-  switch (j) {
-    case 0:
-      return S.Array(__S(1472, __c92, 0));
   }
 }
 function __c94(j: number): any {
@@ -11960,7 +12103,7 @@ function __c95(j: number): any {
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
-          member_projects: __S(2544, __c159, 0),
+          member_projects: __S(2752, __c172, 0),
         }),
       ).annotate({ identifier: "ProjectGroup" });
   }
@@ -11971,7 +12114,7 @@ function __c96(j: number): any {
       return S.suspend(() =>
         S.Struct({
           project_id: S.String.pipe(T.Label()),
-          feedback: __S(689, __c43, 1),
+          feedback: __S(881, __c55, 1),
         }).pipe(
           T.Http({ method: "POST", uri: "/v1/project_logs/{project_id}/feedback", code: 200 }),
         ),
@@ -11998,8 +12141,8 @@ function __c98(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          users: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          groups: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          users: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          groups: S.optional(S.NullOr(__S(2752, __c172, 0))),
         }),
       ).annotate({ identifier: "ProjectScoreConfigVisibility" });
     case 1:
@@ -12008,10 +12151,10 @@ function __c98(j: number): any {
           status: S.optional(S.String),
           service_tier: S.optional(S.String),
           sampling_rate: S.Number,
-          scorers: __S(225, __c14, 1),
+          scorers: __S(433, __c27, 1),
           btql_filter: S.optional(S.NullOr(S.String)),
           apply_to_root_span: S.optional(S.NullOr(S.Boolean)),
-          apply_to_span_names: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          apply_to_span_names: S.optional(S.NullOr(__S(2752, __c172, 0))),
           skip_logging: S.optional(S.NullOr(S.Boolean)),
           scope: S.optional(S.NullOr(S.Unknown)),
         }),
@@ -12019,9 +12162,9 @@ function __c98(j: number): any {
     case 2:
       return S.suspend(() =>
         S.Struct({
-          clauses: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          subspan_clauses: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          trace_clauses: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          clauses: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          subspan_clauses: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          trace_clauses: S.optional(S.NullOr(__S(2752, __c172, 0))),
         }),
       ).annotate({ identifier: "ProjectScoreConditionWhen" });
     case 3:
@@ -12039,7 +12182,7 @@ function __c98(j: number): any {
           visibility: S.optional(S.NullOr(__S(1568, __c98, 0))),
           online: S.optional(S.NullOr(__S(1569, __c98, 1))),
           condition: S.optional(S.NullOr(__S(1571, __c98, 3))),
-          object_types: S.optional(S.NullOr(__S(272, __c17, 0))),
+          object_types: S.optional(S.NullOr(__S(464, __c29, 0))),
         }),
       ).annotate({ identifier: "ProjectScoreConfig" });
     case 5:
@@ -12098,10 +12241,10 @@ function __c101(j: number): any {
           name: S.String,
           slug: S.String,
           description: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(881, __c55, 1))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          prompt_data: S.optional(S.NullOr(__S(1073, __c67, 1))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
           function_type: S.optional(S.NullOr(S.String)),
-          environment_slugs: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          environment_slugs: S.optional(S.NullOr(__S(2752, __c172, 0))),
         }).pipe(T.Http({ method: "POST", uri: "/v1/prompt", code: 200 })),
       ).annotate({ identifier: "CreatePromptRequest" });
   }
@@ -12120,9 +12263,9 @@ function __c102(j: number): any {
           slug: S.String,
           description: S.optional(S.NullOr(S.String)),
           created: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(881, __c55, 1))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
+          prompt_data: S.optional(S.NullOr(__S(1073, __c67, 1))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
           function_type: S.optional(S.NullOr(S.String)),
         }),
       ).annotate({ identifier: "Prompt" });
@@ -12175,6 +12318,63 @@ function __c108(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
+          object_type: S.String,
+          object_id: S.String,
+          user_id: S.optional(S.NullOr(S.String)),
+          group_id: S.optional(S.NullOr(S.String)),
+          permission: S.optional(S.NullOr(S.String)),
+          restrict_object_type: S.optional(S.NullOr(S.String)),
+          role_id: S.optional(S.NullOr(S.String)),
+        }),
+      ).annotate({ identifier: "AclItem" });
+    case 1:
+      return S.Array(__S(1728, __c108, 0));
+    case 2:
+      return S.suspend(() =>
+        S.Struct({
+          add_acls: S.optional(S.NullOr(__S(1729, __c108, 1))),
+          remove_acls: S.optional(S.NullOr(__S(1729, __c108, 1))),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/acl/batch_update", code: 200 })),
+      ).annotate({ identifier: "BatchUpdateAclsRequest" });
+    case 3:
+      return S.suspend(() =>
+        S.Struct({
+          added_acls: __S(1760, __c110, 0),
+          removed_acls: __S(1760, __c110, 0),
+        }),
+      ).annotate({ identifier: "AclBatchUpdateResponse" });
+  }
+}
+function __c109(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          object_type: S.String,
+          object_id: S.String,
+          user_id: S.optional(S.NullOr(S.String)),
+          group_id: S.optional(S.NullOr(S.String)),
+          permission: S.optional(S.NullOr(S.String)),
+          restrict_object_type: S.optional(S.NullOr(S.String)),
+          role_id: S.optional(S.NullOr(S.String)),
+          _object_org_id: S.String,
+          created: S.optional(S.NullOr(S.String)),
+        }),
+      ).annotate({ identifier: "Acl" });
+  }
+}
+function __c110(j: number): any {
+  switch (j) {
+    case 0:
+      return S.Array(__S(1744, __c109, 0));
+  }
+}
+function __c111(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
           project_name: S.String,
           compress_audio: S.optional(S.Boolean),
         }),
@@ -12184,7 +12384,7 @@ function __c108(j: number): any {
         S.Struct({
           model: S.optional(S.NullOr(S.String)),
           ttl_seconds: S.optional(S.Number),
-          logging: S.optional(S.NullOr(__S(1728, __c108, 0))),
+          logging: S.optional(S.NullOr(__S(1776, __c111, 0))),
         }).pipe(T.Http({ method: "POST", uri: "/v1/proxy/credentials", code: 200 })),
       ).annotate({ identifier: "CreateProxyCredentialsRequest" });
     case 2:
@@ -12195,23 +12395,7 @@ function __c108(j: number): any {
       ).annotate({ identifier: "CreateProxyCredentialsResponse" });
   }
 }
-function __c109(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          object_type: S.String,
-          object_id: S.String,
-          user_id: S.optional(S.NullOr(S.String)),
-          group_id: S.optional(S.NullOr(S.String)),
-          permission: S.optional(S.NullOr(S.String)),
-          restrict_object_type: S.optional(S.NullOr(S.String)),
-          role_id: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/acl", code: 200 })),
-      ).annotate({ identifier: "CreateAclRequest" });
-  }
-}
-function __c110(j: number): any {
+function __c112(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12219,21 +12403,21 @@ function __c110(j: number): any {
       ).annotate({ identifier: "CreateProxyEmbeddingRequest" });
   }
 }
-function __c111(j: number): any {
+function __c113(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
         S.Struct({
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
-          member_permissions: S.optional(S.NullOr(__S(1793, __c112, 1))),
-          member_roles: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          member_permissions: S.optional(S.NullOr(__S(1825, __c114, 1))),
+          member_roles: S.optional(S.NullOr(__S(2752, __c172, 0))),
           org_name: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "POST", uri: "/v1/role", code: 200 })),
       ).annotate({ identifier: "CreateRoleRequest" });
   }
 }
-function __c112(j: number): any {
+function __c114(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12243,7 +12427,7 @@ function __c112(j: number): any {
         }),
       ).annotate({ identifier: "CreateRoleRequestMemberPermissionsItem" });
     case 1:
-      return S.Array(__S(1792, __c112, 0));
+      return S.Array(__S(1824, __c114, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
@@ -12254,13 +12438,13 @@ function __c112(j: number): any {
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
-          member_permissions: S.optional(S.NullOr(__S(1793, __c112, 1))),
-          member_roles: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          member_permissions: S.optional(S.NullOr(__S(1825, __c114, 1))),
+          member_roles: S.optional(S.NullOr(__S(2752, __c172, 0))),
         }),
       ).annotate({ identifier: "Role" });
   }
 }
-function __c113(j: number): any {
+function __c115(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12273,7 +12457,7 @@ function __c113(j: number): any {
       ).annotate({ identifier: "CreateServiceTokenRequest" });
   }
 }
-function __c114(j: number): any {
+function __c116(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12292,7 +12476,7 @@ function __c114(j: number): any {
       ).annotate({ identifier: "CreateServiceTokenOutput" });
   }
 }
-function __c115(j: number): any {
+function __c117(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12306,7 +12490,7 @@ function __c115(j: number): any {
       ).annotate({ identifier: "CreateSpanIframeRequest" });
   }
 }
-function __c116(j: number): any {
+function __c118(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12324,7 +12508,7 @@ function __c116(j: number): any {
       ).annotate({ identifier: "SpanIFrame" });
   }
 }
-function __c117(j: number): any {
+function __c119(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12334,7 +12518,7 @@ function __c117(j: number): any {
           view_type: S.String,
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
-          view_data: S.optional(S.NullOr(__S(1905, __c119, 1))),
+          view_data: S.optional(S.NullOr(__S(1937, __c121, 1))),
           options: S.optional(S.NullOr(S.Unknown)),
           user_id: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
@@ -12342,27 +12526,27 @@ function __c117(j: number): any {
       ).annotate({ identifier: "CreateViewRequest" });
   }
 }
-function __c118(j: number): any {
+function __c120(j: number): any {
   switch (j) {
     case 0:
       return S.Array(S.Unknown);
   }
 }
-function __c119(j: number): any {
+function __c121(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          filter: S.optional(S.NullOr(__S(1888, __c118, 0))),
-          tag: S.optional(S.NullOr(__S(1888, __c118, 0))),
-          match: S.optional(S.NullOr(__S(1888, __c118, 0))),
-          sort: S.optional(S.NullOr(__S(1888, __c118, 0))),
+          filter: S.optional(S.NullOr(__S(1920, __c120, 0))),
+          tag: S.optional(S.NullOr(__S(1920, __c120, 0))),
+          match: S.optional(S.NullOr(__S(1920, __c120, 0))),
+          sort: S.optional(S.NullOr(__S(1920, __c120, 0))),
         }),
       ).annotate({ identifier: "ViewDataSearch" });
     case 1:
       return S.suspend(() =>
         S.Struct({
-          search: S.optional(S.NullOr(__S(1904, __c119, 0))),
+          search: S.optional(S.NullOr(__S(1936, __c121, 0))),
           custom_charts: S.optional(S.Unknown),
         }),
       ).annotate({ identifier: "ViewData" });
@@ -12378,7 +12562,7 @@ function __c119(j: number): any {
           starred: S.optional(S.Boolean),
           created: S.optional(S.NullOr(S.String)),
           updated_at: S.optional(S.NullOr(S.String)),
-          view_data: S.optional(S.NullOr(__S(1905, __c119, 1))),
+          view_data: S.optional(S.NullOr(__S(1937, __c121, 1))),
           options: S.optional(S.NullOr(S.Unknown)),
           user_id: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
@@ -12386,7 +12570,7 @@ function __c119(j: number): any {
       ).annotate({ identifier: "View" });
   }
 }
-function __c120(j: number): any {
+function __c122(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12396,7 +12580,7 @@ function __c120(j: number): any {
       ).annotate({ identifier: "DeleteAclRequest" });
   }
 }
-function __c121(j: number): any {
+function __c123(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12406,7 +12590,7 @@ function __c121(j: number): any {
       ).annotate({ identifier: "DeleteAiSecretRequest" });
   }
 }
-function __c122(j: number): any {
+function __c124(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12416,7 +12600,7 @@ function __c122(j: number): any {
       ).annotate({ identifier: "DeleteApiKeyRequest" });
   }
 }
-function __c123(j: number): any {
+function __c125(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12435,7 +12619,7 @@ function __c123(j: number): any {
       ).annotate({ identifier: "ApiKey" });
   }
 }
-function __c124(j: number): any {
+function __c126(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12445,7 +12629,23 @@ function __c124(j: number): any {
       ).annotate({ identifier: "DeleteColumnRequest" });
   }
 }
-function __c125(j: number): any {
+function __c127(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          object_type: S.String,
+          object_id: S.String,
+          user_id: S.optional(S.NullOr(S.String)),
+          group_id: S.optional(S.NullOr(S.String)),
+          permission: S.optional(S.NullOr(S.String)),
+          restrict_object_type: S.optional(S.NullOr(S.String)),
+          role_id: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/acl", code: 200 })),
+      ).annotate({ identifier: "CreateAclRequest" });
+  }
+}
+function __c128(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12453,45 +12653,6 @@ function __c125(j: number): any {
           dataset_id: S.String.pipe(T.Label()),
         }).pipe(T.Http({ method: "DELETE", uri: "/v1/dataset/{dataset_id}", code: 200 })),
       ).annotate({ identifier: "DeleteDatasetRequest" });
-  }
-}
-function __c126(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          name: S.String,
-          type: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
-          org_name: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/ai_secret", code: 200 })),
-      ).annotate({ identifier: "CreateAiSecretRequest" });
-  }
-}
-function __c127(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          created: S.optional(S.NullOr(S.String)),
-          updated_at: S.optional(S.NullOr(S.String)),
-          secret_updated_at: S.optional(S.NullOr(S.String)),
-          org_id: S.String,
-          name: S.String,
-          type: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          secret_updated_by_user_id: S.optional(S.NullOr(S.String)),
-          preview_secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
-        }),
-      ).annotate({ identifier: "AISecret" });
-  }
-}
-function __c128(j: number): any {
-  switch (j) {
-    case 0:
-      return S.Record(S.String, S.Unknown);
   }
 }
 function __c129(j: number): any {
@@ -12606,6 +12767,45 @@ function __c138(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
+          name: S.String,
+          type: S.optional(S.NullOr(S.String)),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
+          org_name: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/ai_secret", code: 200 })),
+      ).annotate({ identifier: "CreateAiSecretRequest" });
+  }
+}
+function __c139(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          created: S.optional(S.NullOr(S.String)),
+          updated_at: S.optional(S.NullOr(S.String)),
+          secret_updated_at: S.optional(S.NullOr(S.String)),
+          org_id: S.String,
+          name: S.String,
+          type: S.optional(S.NullOr(S.String)),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          secret_updated_by_user_id: S.optional(S.NullOr(S.String)),
+          preview_secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
+        }),
+      ).annotate({ identifier: "AISecret" });
+  }
+}
+function __c140(j: number): any {
+  switch (j) {
+    case 0:
+      return S.Record(S.String, S.Unknown);
+  }
+}
+function __c141(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
           project_automation_id: S.String.pipe(T.Label()),
         }).pipe(
           T.Http({
@@ -12617,39 +12817,7 @@ function __c138(j: number): any {
       ).annotate({ identifier: "DeleteProjectAutomationRequest" });
   }
 }
-function __c139(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          object_type: S.Unknown,
-          object_id: S.String,
-          subtype: S.Unknown,
-          variant: S.optional(S.Unknown),
-          name: S.String,
-          expr: S.String,
-        }).pipe(T.Http({ method: "POST", uri: "/v1/column", code: 200 })),
-      ).annotate({ identifier: "CreateColumnRequest" });
-  }
-}
-function __c140(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          object_type: S.String,
-          object_id: S.String,
-          subtype: S.Unknown,
-          variant: S.String,
-          name: S.String,
-          expr: S.String,
-          created: S.optional(S.NullOr(S.String)),
-        }),
-      ).annotate({ identifier: "CustomColumn" });
-  }
-}
-function __c141(j: number): any {
+function __c142(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12661,7 +12829,7 @@ function __c141(j: number): any {
       ).annotate({ identifier: "DeleteProjectGroupRequest" });
   }
 }
-function __c142(j: number): any {
+function __c143(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12673,7 +12841,7 @@ function __c142(j: number): any {
       ).annotate({ identifier: "DeleteProjectScoreRequest" });
   }
 }
-function __c143(j: number): any {
+function __c144(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12683,7 +12851,7 @@ function __c143(j: number): any {
       ).annotate({ identifier: "DeleteProjectTagRequest" });
   }
 }
-function __c144(j: number): any {
+function __c145(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12693,7 +12861,7 @@ function __c144(j: number): any {
       ).annotate({ identifier: "DeletePromptRequest" });
   }
 }
-function __c145(j: number): any {
+function __c146(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12703,7 +12871,7 @@ function __c145(j: number): any {
       ).annotate({ identifier: "DeleteRoleRequest" });
   }
 }
-function __c146(j: number): any {
+function __c147(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12715,7 +12883,7 @@ function __c146(j: number): any {
       ).annotate({ identifier: "DeleteServiceTokenRequest" });
   }
 }
-function __c147(j: number): any {
+function __c148(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12733,7 +12901,7 @@ function __c147(j: number): any {
       ).annotate({ identifier: "ServiceToken" });
   }
 }
-function __c148(j: number): any {
+function __c149(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12743,7 +12911,7 @@ function __c148(j: number): any {
       ).annotate({ identifier: "DeleteSpanIframeRequest" });
   }
 }
-function __c149(j: number): any {
+function __c150(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12755,7 +12923,7 @@ function __c149(j: number): any {
       ).annotate({ identifier: "DeleteViewRequest" });
   }
 }
-function __c150(j: number): any {
+function __c151(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12770,7 +12938,7 @@ function __c150(j: number): any {
       ).annotate({ identifier: "FetchDatasetEventsRequest" });
   }
 }
-function __c151(j: number): any {
+function __c152(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12778,17 +12946,17 @@ function __c151(j: number): any {
           id: S.String,
           label: S.optional(S.String),
           confidence: S.optional(S.NullOr(S.Number)),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
           source: S.optional(S.NullOr(S.Unknown)),
         }),
       ).annotate({ identifier: "DatasetEventClassificationsValueItem" });
     case 1:
-      return S.Array(__S(2416, __c151, 0));
+      return S.Array(__S(2432, __c152, 0));
     case 2:
-      return S.Record(S.String, __S(2417, __c151, 1));
+      return S.Record(S.String, __S(2433, __c152, 1));
   }
 }
-function __c152(j: number): any {
+function __c153(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12813,7 +12981,7 @@ function __c152(j: number): any {
       return S.Record(S.String, /*@__PURE__*/ S.NullOr(S.String));
   }
 }
-function __c153(j: number): any {
+function __c154(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12826,30 +12994,62 @@ function __c153(j: number): any {
           dataset_id: S.String,
           input: S.optional(S.Unknown),
           expected: S.optional(S.Unknown),
-          metadata: S.optional(S.NullOr(__S(2432, __c152, 0))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          metadata: S.optional(S.NullOr(__S(2448, __c153, 0))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
           span_id: S.String,
           root_span_id: S.String,
           is_root: S.optional(S.NullOr(S.Boolean)),
-          origin: S.optional(S.NullOr(__S(2433, __c152, 1))),
-          comments: S.optional(S.NullOr(__S(1888, __c118, 0))),
-          audit_data: S.optional(S.NullOr(__S(1888, __c118, 0))),
-          facets: S.optional(S.NullOr(__S(2434, __c152, 2))),
-          classifications: S.optional(S.NullOr(__S(2418, __c151, 2))),
+          origin: S.optional(S.NullOr(__S(2449, __c153, 1))),
+          comments: S.optional(S.NullOr(__S(1920, __c120, 0))),
+          audit_data: S.optional(S.NullOr(__S(1920, __c120, 0))),
+          facets: S.optional(S.NullOr(__S(2450, __c153, 2))),
+          classifications: S.optional(S.NullOr(__S(2434, __c152, 2))),
         }),
       ).annotate({ identifier: "DatasetEvent" });
     case 1:
-      return S.Array(__S(2448, __c153, 0));
+      return S.Array(__S(2464, __c154, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          events: __S(2449, __c153, 1),
+          events: __S(2465, __c154, 1),
           cursor: S.optional(S.NullOr(S.String)),
         }),
       ).annotate({ identifier: "FetchDatasetEventsResponse" });
   }
 }
-function __c154(j: number): any {
+function __c155(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          object_type: S.Unknown,
+          object_id: S.String,
+          subtype: S.Unknown,
+          variant: S.optional(S.Unknown),
+          name: S.String,
+          expr: S.String,
+        }).pipe(T.Http({ method: "POST", uri: "/v1/column", code: 200 })),
+      ).annotate({ identifier: "CreateColumnRequest" });
+  }
+}
+function __c156(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          object_type: S.String,
+          object_id: S.String,
+          subtype: S.Unknown,
+          variant: S.String,
+          name: S.String,
+          expr: S.String,
+          created: S.optional(S.NullOr(S.String)),
+        }),
+      ).annotate({ identifier: "CustomColumn" });
+  }
+}
+function __c157(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12864,7 +13064,7 @@ function __c154(j: number): any {
       ).annotate({ identifier: "FetchExperimentEventsRequest" });
   }
 }
-function __c155(j: number): any {
+function __c158(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12907,7 +13107,7 @@ function __c155(j: number): any {
       ).annotate({ identifier: "SpanAttributes" });
   }
 }
-function __c156(j: number): any {
+function __c159(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12922,71 +13122,32 @@ function __c156(j: number): any {
           output: S.optional(S.Unknown),
           expected: S.optional(S.Unknown),
           error: S.optional(S.Unknown),
-          scores: S.optional(S.NullOr(__S(672, __c42, 0))),
-          metadata: S.optional(S.NullOr(__S(2432, __c152, 0))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          metrics: S.optional(S.NullOr(__S(2480, __c155, 0))),
-          context: S.optional(S.NullOr(__S(2481, __c155, 1))),
+          scores: S.optional(S.NullOr(__S(864, __c54, 0))),
+          metadata: S.optional(S.NullOr(__S(2448, __c153, 0))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          metrics: S.optional(S.NullOr(__S(2528, __c158, 0))),
+          context: S.optional(S.NullOr(__S(2529, __c158, 1))),
           span_id: S.String,
-          span_parents: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          span_parents: S.optional(S.NullOr(__S(2752, __c172, 0))),
           root_span_id: S.String,
-          span_attributes: S.optional(S.NullOr(__S(2482, __c155, 2))),
+          span_attributes: S.optional(S.NullOr(__S(2530, __c158, 2))),
           is_root: S.optional(S.NullOr(S.Boolean)),
-          origin: S.optional(S.NullOr(__S(2433, __c152, 1))),
-          comments: S.optional(S.NullOr(__S(1888, __c118, 0))),
-          audit_data: S.optional(S.NullOr(__S(1888, __c118, 0))),
-          facets: S.optional(S.NullOr(__S(2434, __c152, 2))),
-          classifications: S.optional(S.NullOr(__S(2418, __c151, 2))),
+          origin: S.optional(S.NullOr(__S(2449, __c153, 1))),
+          comments: S.optional(S.NullOr(__S(1920, __c120, 0))),
+          audit_data: S.optional(S.NullOr(__S(1920, __c120, 0))),
+          facets: S.optional(S.NullOr(__S(2450, __c153, 2))),
+          classifications: S.optional(S.NullOr(__S(2434, __c152, 2))),
         }),
       ).annotate({ identifier: "ExperimentEvent" });
     case 1:
-      return S.Array(__S(2496, __c156, 0));
+      return S.Array(__S(2544, __c159, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          events: __S(2497, __c156, 1),
+          events: __S(2545, __c159, 1),
           cursor: S.optional(S.NullOr(S.String)),
         }),
       ).annotate({ identifier: "FetchExperimentEventsResponse" });
-  }
-}
-function __c157(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String,
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset", code: 200 })),
-      ).annotate({ identifier: "CreateDatasetRequest" });
-  }
-}
-function __c158(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          project_id: S.String,
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          created: S.optional(S.NullOr(S.String)),
-          deleted_at: S.optional(S.NullOr(S.String)),
-          user_id: S.optional(S.NullOr(S.String)),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          url_slug: S.String,
-        }),
-      ).annotate({ identifier: "Dataset" });
-  }
-}
-function __c159(j: number): any {
-  switch (j) {
-    case 0:
-      return S.Array(S.String);
   }
 }
 function __c160(j: number): any {
@@ -13020,22 +13181,22 @@ function __c161(j: number): any {
           output: S.optional(S.Unknown),
           expected: S.optional(S.Unknown),
           error: S.optional(S.Unknown),
-          scores: S.optional(S.NullOr(__S(672, __c42, 0))),
-          metadata: S.optional(S.NullOr(__S(2432, __c152, 0))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          metrics: S.optional(S.NullOr(__S(2480, __c155, 0))),
-          context: S.optional(S.NullOr(__S(2481, __c155, 1))),
+          scores: S.optional(S.NullOr(__S(864, __c54, 0))),
+          metadata: S.optional(S.NullOr(__S(2448, __c153, 0))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          metrics: S.optional(S.NullOr(__S(2528, __c158, 0))),
+          context: S.optional(S.NullOr(__S(2529, __c158, 1))),
           span_id: S.String,
-          span_parents: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          span_parents: S.optional(S.NullOr(__S(2752, __c172, 0))),
           root_span_id: S.String,
           is_root: S.optional(S.NullOr(S.Boolean)),
-          span_attributes: S.optional(S.NullOr(__S(2482, __c155, 2))),
-          origin: S.optional(S.NullOr(__S(2433, __c152, 1))),
-          comments: S.optional(S.NullOr(__S(1888, __c118, 0))),
-          audit_data: S.optional(S.NullOr(__S(1888, __c118, 0))),
+          span_attributes: S.optional(S.NullOr(__S(2530, __c158, 2))),
+          origin: S.optional(S.NullOr(__S(2449, __c153, 1))),
+          comments: S.optional(S.NullOr(__S(1920, __c120, 0))),
+          audit_data: S.optional(S.NullOr(__S(1920, __c120, 0))),
           _async_scoring_state: S.optional(S.Unknown),
-          facets: S.optional(S.NullOr(__S(2434, __c152, 2))),
-          classifications: S.optional(S.NullOr(__S(2418, __c151, 2))),
+          facets: S.optional(S.NullOr(__S(2450, __c153, 2))),
+          classifications: S.optional(S.NullOr(__S(2434, __c152, 2))),
         }),
       ).annotate({ identifier: "ProjectLogsEvent" });
     case 1:
@@ -13145,11 +13306,13 @@ function __c170(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          dataset_snapshot_id: S.String.pipe(T.Label()),
-        }).pipe(
-          T.Http({ method: "GET", uri: "/v1/dataset_snapshot/{dataset_snapshot_id}", code: 200 }),
-        ),
-      ).annotate({ identifier: "GetDatasetSnapshotRequest" });
+          project_id: S.String,
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset", code: 200 })),
+      ).annotate({ identifier: "CreateDatasetRequest" });
   }
 }
 function __c171(j: number): any {
@@ -13157,20 +13320,24 @@ function __c171(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          dataset_id: S.String.pipe(T.Label()),
-          feedback: __S(2769, __c173, 1),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset/{dataset_id}/feedback", code: 200 })),
-      ).annotate({ identifier: "CreateDatasetFeedbackRequest" });
+          id: S.String,
+          project_id: S.String,
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          created: S.optional(S.NullOr(S.String)),
+          deleted_at: S.optional(S.NullOr(S.String)),
+          user_id: S.optional(S.NullOr(S.String)),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          url_slug: S.String,
+        }),
+      ).annotate({ identifier: "Dataset" });
   }
 }
 function __c172(j: number): any {
   switch (j) {
     case 0:
-      return S.suspend(() =>
-        S.Struct({
-          status: S.String,
-        }),
-      ).annotate({ identifier: "FeedbackResponseSchema" });
+      return S.Array(S.String);
   }
 }
 function __c173(j: number): any {
@@ -13178,15 +13345,11 @@ function __c173(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          id: S.String,
-          comment: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          source: S.optional(S.NullOr(S.String)),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-        }),
-      ).annotate({ identifier: "FeedbackDatasetItem" });
-    case 1:
-      return S.Array(__S(2768, __c173, 0));
+          dataset_snapshot_id: S.String.pipe(T.Label()),
+        }).pipe(
+          T.Http({ method: "GET", uri: "/v1/dataset_snapshot/{dataset_snapshot_id}", code: 200 }),
+        ),
+      ).annotate({ identifier: "GetDatasetSnapshotRequest" });
   }
 }
 function __c174(j: number): any {
@@ -13310,6 +13473,43 @@ function __c184(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
+          dataset_id: S.String.pipe(T.Label()),
+          feedback: __S(2977, __c186, 1),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset/{dataset_id}/feedback", code: 200 })),
+      ).annotate({ identifier: "CreateDatasetFeedbackRequest" });
+  }
+}
+function __c185(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          status: S.String,
+        }),
+      ).annotate({ identifier: "FeedbackResponseSchema" });
+  }
+}
+function __c186(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          comment: S.optional(S.NullOr(S.String)),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          source: S.optional(S.NullOr(S.String)),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+        }),
+      ).annotate({ identifier: "FeedbackDatasetItem" });
+    case 1:
+      return S.Array(__S(2976, __c186, 0));
+  }
+}
+function __c187(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
           project_automation_id: S.String.pipe(T.Label()),
         }).pipe(
           T.Http({
@@ -13321,7 +13521,103 @@ function __c184(j: number): any {
       ).annotate({ identifier: "GetProjectAutomationRequest" });
   }
 }
-function __c185(j: number): any {
+function __c188(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_group_id: S.String.pipe(T.Label()),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/project_group/{project_group_id}", code: 200 })),
+      ).annotate({ identifier: "GetProjectGroupRequest" });
+  }
+}
+function __c189(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_id: S.String.pipe(T.Label()),
+          limit: S.optional(S.Number.pipe(T.Query())),
+          max_xact_id: S.optional(S.String.pipe(T.Query())),
+          max_root_span_id: S.optional(S.String.pipe(T.Query())),
+          version: S.optional(S.String.pipe(T.Query())),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/project_logs/{project_id}/fetch", code: 200 })),
+      ).annotate({ identifier: "GetProjectLogEventsRequest" });
+  }
+}
+function __c190(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_score_id: S.String.pipe(T.Label()),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/project_score/{project_score_id}", code: 200 })),
+      ).annotate({ identifier: "GetProjectScoreRequest" });
+  }
+}
+function __c191(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_tag_id: S.String.pipe(T.Label()),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/project_tag/{project_tag_id}", code: 200 })),
+      ).annotate({ identifier: "GetProjectTagRequest" });
+  }
+}
+function __c192(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          prompt_id: S.String.pipe(T.Label()),
+          version: S.optional(S.String.pipe(T.Query())),
+          environment: S.optional(S.String.pipe(T.Query())),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/prompt/{prompt_id}", code: 200 })),
+      ).annotate({ identifier: "GetPromptRequest" });
+  }
+}
+function __c193(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          role_id: S.String.pipe(T.Label()),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/role/{role_id}", code: 200 })),
+      ).annotate({ identifier: "GetRoleRequest" });
+  }
+}
+function __c194(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({}).pipe(T.Http({ method: "GET", uri: "/v1", code: 200 })),
+      ).annotate({ identifier: "GetRootRequest" });
+    case 1:
+      return S.suspend(() => S.Struct({})).annotate({ identifier: "GetRootResponse" });
+  }
+}
+function __c195(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          service_token_id: S.String.pipe(T.Label()),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/service_token/{service_token_id}", code: 200 })),
+      ).annotate({ identifier: "GetServiceTokenRequest" });
+  }
+}
+function __c196(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          span_iframe_id: S.String.pipe(T.Label()),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/span_iframe/{span_iframe_id}", code: 200 })),
+      ).annotate({ identifier: "GetSpanIframeRequest" });
+  }
+}
+function __c197(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13334,7 +13630,7 @@ function __c185(j: number): any {
       ).annotate({ identifier: "CreateDatasetSnapshotRequest" });
   }
 }
-function __c186(j: number): any {
+function __c198(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13349,103 +13645,7 @@ function __c186(j: number): any {
       ).annotate({ identifier: "DatasetSnapshot" });
   }
 }
-function __c187(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_group_id: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/project_group/{project_group_id}", code: 200 })),
-      ).annotate({ identifier: "GetProjectGroupRequest" });
-  }
-}
-function __c188(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String.pipe(T.Label()),
-          limit: S.optional(S.Number.pipe(T.Query())),
-          max_xact_id: S.optional(S.String.pipe(T.Query())),
-          max_root_span_id: S.optional(S.String.pipe(T.Query())),
-          version: S.optional(S.String.pipe(T.Query())),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/project_logs/{project_id}/fetch", code: 200 })),
-      ).annotate({ identifier: "GetProjectLogEventsRequest" });
-  }
-}
-function __c189(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_score_id: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/project_score/{project_score_id}", code: 200 })),
-      ).annotate({ identifier: "GetProjectScoreRequest" });
-  }
-}
-function __c190(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_tag_id: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/project_tag/{project_tag_id}", code: 200 })),
-      ).annotate({ identifier: "GetProjectTagRequest" });
-  }
-}
-function __c191(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          prompt_id: S.String.pipe(T.Label()),
-          version: S.optional(S.String.pipe(T.Query())),
-          environment: S.optional(S.String.pipe(T.Query())),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/prompt/{prompt_id}", code: 200 })),
-      ).annotate({ identifier: "GetPromptRequest" });
-  }
-}
-function __c192(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          role_id: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/role/{role_id}", code: 200 })),
-      ).annotate({ identifier: "GetRoleRequest" });
-  }
-}
-function __c193(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({}).pipe(T.Http({ method: "GET", uri: "/v1", code: 200 })),
-      ).annotate({ identifier: "GetRootRequest" });
-    case 1:
-      return S.suspend(() => S.Struct({})).annotate({ identifier: "GetRootResponse" });
-  }
-}
-function __c194(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          service_token_id: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/service_token/{service_token_id}", code: 200 })),
-      ).annotate({ identifier: "GetServiceTokenRequest" });
-  }
-}
-function __c195(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          span_iframe_id: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/span_iframe/{span_iframe_id}", code: 200 })),
-      ).annotate({ identifier: "GetSpanIframeRequest" });
-  }
-}
-function __c196(j: number): any {
+function __c199(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13455,7 +13655,7 @@ function __c196(j: number): any {
       ).annotate({ identifier: "GetUserRequest" });
   }
 }
-function __c197(j: number): any {
+function __c200(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13470,36 +13670,7 @@ function __c197(j: number): any {
       ).annotate({ identifier: "User" });
   }
 }
-function __c198(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          name: S.String,
-          slug: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          org_name: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "POST", uri: "/environment", code: 200 })),
-      ).annotate({ identifier: "CreateEnvironmentRequest" });
-  }
-}
-function __c199(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          org_id: S.String,
-          name: S.String,
-          slug: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          created: S.optional(S.NullOr(S.String)),
-          deleted_at: S.optional(S.NullOr(S.String)),
-        }),
-      ).annotate({ identifier: "Environment" });
-  }
-}
-function __c200(j: number): any {
+function __c201(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13511,71 +13682,44 @@ function __c200(j: number): any {
       ).annotate({ identifier: "GetViewRequest" });
   }
 }
-function __c201(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          events: S.optional(S.NullOr(__S(3265, __c204, 1))),
-          feedback: S.optional(S.NullOr(__S(689, __c43, 1))),
-        }),
-      ).annotate({ identifier: "InsertCrossObjectRequestExperimentValue" });
-    case 1:
-      return S.Record(S.String, __S(3216, __c201, 0));
-    case 2:
-      return S.suspend(() =>
-        S.Struct({
-          events: S.optional(S.NullOr(__S(3233, __c202, 1))),
-          feedback: S.optional(S.NullOr(__S(2769, __c173, 1))),
-        }),
-      ).annotate({ identifier: "InsertCrossObjectRequestDatasetValue" });
-    case 3:
-      return S.Record(S.String, __S(3218, __c201, 2));
-    case 4:
-      return S.suspend(() =>
-        S.Struct({
-          experiment: S.optional(S.NullOr(__S(3217, __c201, 1))),
-          dataset: S.optional(S.NullOr(__S(3219, __c201, 3))),
-          project_logs: S.optional(S.NullOr(__S(3217, __c201, 1))),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/insert", code: 200 })),
-      ).annotate({ identifier: "InsertCrossObjectRequest" });
-    case 5:
-      return S.Record(S.String, __S(3250, __c203, 2));
-    case 6:
-      return S.suspend(() =>
-        S.Struct({
-          experiment: S.optional(S.NullOr(__S(3221, __c201, 5))),
-          dataset: S.optional(S.NullOr(__S(3221, __c201, 5))),
-          project_logs: S.optional(S.NullOr(__S(3221, __c201, 5))),
-        }),
-      ).annotate({ identifier: "CrossObjectInsertResponse" });
-  }
-}
 function __c202(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          input: S.optional(S.Unknown),
-          expected: S.optional(S.Unknown),
-          metadata: S.optional(S.NullOr(__S(2432, __c152, 0))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          id: S.optional(S.NullOr(S.String)),
-          created: S.optional(S.NullOr(S.String)),
-          origin: S.optional(S.NullOr(__S(2433, __c152, 1))),
-          facets: S.optional(S.NullOr(__S(2434, __c152, 2))),
-          _object_delete: S.optional(S.NullOr(S.Boolean)),
-          _is_merge: S.optional(S.NullOr(S.Boolean)),
-          _merge_paths: S.optional(S.NullOr(__S(1408, __c88, 0))),
-          _array_delete: S.optional(S.NullOr(__S(3249, __c203, 1))),
-          _parent_id: S.optional(S.NullOr(S.String)),
-          span_id: S.optional(S.NullOr(S.String)),
-          root_span_id: S.optional(S.NullOr(S.String)),
-          span_parents: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          events: S.optional(S.NullOr(__S(3281, __c205, 1))),
+          feedback: S.optional(S.NullOr(__S(881, __c55, 1))),
         }),
-      ).annotate({ identifier: "InsertDatasetEvent" });
+      ).annotate({ identifier: "InsertCrossObjectRequestExperimentValue" });
     case 1:
-      return S.Array(__S(3232, __c202, 0));
+      return S.Record(S.String, __S(3232, __c202, 0));
+    case 2:
+      return S.suspend(() =>
+        S.Struct({
+          events: S.optional(S.NullOr(__S(3249, __c203, 1))),
+          feedback: S.optional(S.NullOr(__S(2977, __c186, 1))),
+        }),
+      ).annotate({ identifier: "InsertCrossObjectRequestDatasetValue" });
+    case 3:
+      return S.Record(S.String, __S(3234, __c202, 2));
+    case 4:
+      return S.suspend(() =>
+        S.Struct({
+          experiment: S.optional(S.NullOr(__S(3233, __c202, 1))),
+          dataset: S.optional(S.NullOr(__S(3235, __c202, 3))),
+          project_logs: S.optional(S.NullOr(__S(3233, __c202, 1))),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/insert", code: 200 })),
+      ).annotate({ identifier: "InsertCrossObjectRequest" });
+    case 5:
+      return S.Record(S.String, __S(3266, __c204, 2));
+    case 6:
+      return S.suspend(() =>
+        S.Struct({
+          experiment: S.optional(S.NullOr(__S(3237, __c202, 5))),
+          dataset: S.optional(S.NullOr(__S(3237, __c202, 5))),
+          project_logs: S.optional(S.NullOr(__S(3237, __c202, 5))),
+        }),
+      ).annotate({ identifier: "CrossObjectInsertResponse" });
   }
 }
 function __c203(j: number): any {
@@ -13583,21 +13727,48 @@ function __c203(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          path: __S(2544, __c159, 0),
-          delete: __S(1888, __c118, 0),
+          input: S.optional(S.Unknown),
+          expected: S.optional(S.Unknown),
+          metadata: S.optional(S.NullOr(__S(2448, __c153, 0))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          id: S.optional(S.NullOr(S.String)),
+          created: S.optional(S.NullOr(S.String)),
+          origin: S.optional(S.NullOr(__S(2449, __c153, 1))),
+          facets: S.optional(S.NullOr(__S(2450, __c153, 2))),
+          _object_delete: S.optional(S.NullOr(S.Boolean)),
+          _is_merge: S.optional(S.NullOr(S.Boolean)),
+          _merge_paths: S.optional(S.NullOr(__S(1456, __c91, 0))),
+          _array_delete: S.optional(S.NullOr(__S(3265, __c204, 1))),
+          _parent_id: S.optional(S.NullOr(S.String)),
+          span_id: S.optional(S.NullOr(S.String)),
+          root_span_id: S.optional(S.NullOr(S.String)),
+          span_parents: S.optional(S.NullOr(__S(2752, __c172, 0))),
+        }),
+      ).annotate({ identifier: "InsertDatasetEvent" });
+    case 1:
+      return S.Array(__S(3248, __c203, 0));
+  }
+}
+function __c204(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          path: __S(2752, __c172, 0),
+          delete: __S(1920, __c120, 0),
         }),
       ).annotate({ identifier: "InsertExperimentEventArrayDeleteItem" });
     case 1:
-      return S.Array(__S(3248, __c203, 0));
+      return S.Array(__S(3264, __c204, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          row_ids: __S(2544, __c159, 0),
+          row_ids: __S(2752, __c172, 0),
         }),
       ).annotate({ identifier: "InsertEventsResponse" });
   }
 }
-function __c204(j: number): any {
+function __c205(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13606,39 +13777,28 @@ function __c204(j: number): any {
           output: S.optional(S.Unknown),
           expected: S.optional(S.Unknown),
           error: S.optional(S.Unknown),
-          scores: S.optional(S.NullOr(__S(672, __c42, 0))),
-          metadata: S.optional(S.NullOr(__S(2432, __c152, 0))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          metrics: S.optional(S.NullOr(__S(2480, __c155, 0))),
-          context: S.optional(S.NullOr(__S(2481, __c155, 1))),
-          span_attributes: S.optional(S.NullOr(__S(2482, __c155, 2))),
+          scores: S.optional(S.NullOr(__S(864, __c54, 0))),
+          metadata: S.optional(S.NullOr(__S(2448, __c153, 0))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          metrics: S.optional(S.NullOr(__S(2528, __c158, 0))),
+          context: S.optional(S.NullOr(__S(2529, __c158, 1))),
+          span_attributes: S.optional(S.NullOr(__S(2530, __c158, 2))),
           id: S.optional(S.NullOr(S.String)),
           created: S.optional(S.NullOr(S.String)),
-          origin: S.optional(S.NullOr(__S(2433, __c152, 1))),
-          facets: S.optional(S.NullOr(__S(2434, __c152, 2))),
+          origin: S.optional(S.NullOr(__S(2449, __c153, 1))),
+          facets: S.optional(S.NullOr(__S(2450, __c153, 2))),
           _object_delete: S.optional(S.NullOr(S.Boolean)),
           _is_merge: S.optional(S.NullOr(S.Boolean)),
-          _merge_paths: S.optional(S.NullOr(__S(1408, __c88, 0))),
-          _array_delete: S.optional(S.NullOr(__S(3249, __c203, 1))),
+          _merge_paths: S.optional(S.NullOr(__S(1456, __c91, 0))),
+          _array_delete: S.optional(S.NullOr(__S(3265, __c204, 1))),
           _parent_id: S.optional(S.NullOr(S.String)),
           span_id: S.optional(S.NullOr(S.String)),
           root_span_id: S.optional(S.NullOr(S.String)),
-          span_parents: S.optional(S.NullOr(__S(2544, __c159, 0))),
+          span_parents: S.optional(S.NullOr(__S(2752, __c172, 0))),
         }),
       ).annotate({ identifier: "InsertExperimentEvent" });
     case 1:
-      return S.Array(__S(3264, __c204, 0));
-  }
-}
-function __c205(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          dataset_id: S.String.pipe(T.Label()),
-          events: __S(3233, __c202, 1),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset/{dataset_id}/insert", code: 200 })),
-      ).annotate({ identifier: "InsertDatasetEventsRequest" });
+      return S.Array(__S(3280, __c205, 0));
   }
 }
 function __c206(j: number): any {
@@ -13646,12 +13806,10 @@ function __c206(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          experiment_id: S.String.pipe(T.Label()),
-          events: __S(3265, __c204, 1),
-        }).pipe(
-          T.Http({ method: "POST", uri: "/v1/experiment/{experiment_id}/insert", code: 200 }),
-        ),
-      ).annotate({ identifier: "InsertExperimentEventsRequest" });
+          dataset_id: S.String.pipe(T.Label()),
+          events: __S(3249, __c203, 1),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset/{dataset_id}/insert", code: 200 })),
+      ).annotate({ identifier: "InsertDatasetEventsRequest" });
   }
 }
 function __c207(j: number): any {
@@ -13659,13 +13817,26 @@ function __c207(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
+          experiment_id: S.String.pipe(T.Label()),
+          events: __S(3281, __c205, 1),
+        }).pipe(
+          T.Http({ method: "POST", uri: "/v1/experiment/{experiment_id}/insert", code: 200 }),
+        ),
+      ).annotate({ identifier: "InsertExperimentEventsRequest" });
+  }
+}
+function __c208(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
           project_id: S.String.pipe(T.Label()),
-          events: __S(3265, __c204, 1),
+          events: __S(3281, __c205, 1),
         }).pipe(T.Http({ method: "POST", uri: "/v1/project_logs/{project_id}/insert", code: 200 })),
       ).annotate({ identifier: "InsertProjectLogEventsRequest" });
   }
 }
-function __c208(j: number): any {
+function __c209(j: number): any {
   switch (j) {
     case 0:
       return S.Array(S.Unknown);
@@ -13676,22 +13847,22 @@ function __c208(j: number): any {
           request_source: S.optional(S.String),
           input: S.optional(S.Unknown),
           expected: S.optional(S.Unknown),
-          metadata: S.optional(S.NullOr(__S(2048, __c128, 0))),
-          tags: S.optional(S.NullOr(__S(2544, __c159, 0))),
-          messages: S.optional(__S(3328, __c208, 0)),
+          metadata: S.optional(S.NullOr(__S(2240, __c140, 0))),
+          tags: S.optional(S.NullOr(__S(2752, __c172, 0))),
+          messages: S.optional(__S(3344, __c209, 0)),
           parent: S.optional(S.Unknown),
           stream: S.optional(S.NullOr(S.Boolean)),
           mode: S.optional(S.NullOr(S.String)),
           strict: S.optional(S.NullOr(S.Boolean)),
-          mcp_auth: S.optional(__S(289, __c18, 1)),
-          overrides: S.optional(S.NullOr(__S(2048, __c128, 0))),
+          mcp_auth: S.optional(__S(481, __c30, 1)),
+          overrides: S.optional(S.NullOr(__S(2240, __c140, 0))),
           endpoint_name: S.optional(S.NullOr(S.String)),
           version: S.optional(S.String),
         }).pipe(T.Http({ method: "POST", uri: "/v1/function/{function_id}/invoke", code: 200 })),
       ).annotate({ identifier: "InvokeFunctionRequest" });
   }
 }
-function __c209(j: number): any {
+function __c210(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13712,12 +13883,12 @@ function __c209(j: number): any {
     case 1:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(1488, __c93, 0),
+          objects: __S(1760, __c110, 0),
         }),
       ).annotate({ identifier: "ListAclsResponse" });
   }
 }
-function __c210(j: number): any {
+function __c211(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13732,16 +13903,16 @@ function __c210(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/ai_secret", code: 200 })),
       ).annotate({ identifier: "ListAiSecretsRequest" });
     case 1:
-      return S.Array(__S(2032, __c127, 0));
+      return S.Array(__S(2224, __c139, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(3361, __c210, 1),
+          objects: __S(3377, __c211, 1),
         }),
       ).annotate({ identifier: "ListAiSecretsResponse" });
   }
 }
-function __c211(j: number): any {
+function __c212(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13756,37 +13927,16 @@ function __c211(j: number): any {
       ).annotate({ identifier: "ListApiKeysRequest" });
   }
 }
-function __c212(j: number): any {
-  switch (j) {
-    case 0:
-      return S.Array(__S(1968, __c123, 0));
-    case 1:
-      return S.suspend(() =>
-        S.Struct({
-          objects: __S(3392, __c212, 0),
-        }),
-      ).annotate({ identifier: "ListApiKeysResponse" });
-  }
-}
 function __c213(j: number): any {
   switch (j) {
     case 0:
-      return S.suspend(() =>
-        S.Struct({
-          object_type: S.String.pipe(T.Query()),
-          object_id: S.String.pipe(T.Query()),
-          subtype: S.optional(S.Unknown.pipe(T.Query())),
-          variant: S.optional(S.Unknown.pipe(T.Query())),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/column", code: 200 })),
-      ).annotate({ identifier: "ListColumnsRequest" });
+      return S.Array(__S(2000, __c125, 0));
     case 1:
-      return S.Array(__S(2240, __c140, 0));
-    case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(3409, __c213, 1),
+          objects: __S(3408, __c213, 0),
         }),
-      ).annotate({ identifier: "ListColumnsResponse" });
+      ).annotate({ identifier: "ListApiKeysResponse" });
   }
 }
 // Schema table: entry i is schema j of builder f, made on first reach.
