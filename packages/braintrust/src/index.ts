@@ -24,5 +24,8 @@ export {
 export { paginateCursor, paginateKeyset } from "./pagination.ts";
 export * as Retry from "./retry.ts";
 // Operations (and their request/response types) are importable straight off
-// the package root.
+// the package root. The service-local typed error classes shadow the
+// same-named shared ones from ./errors.ts -- the ops raise the service-local
+// classes.
 export * from "./services/braintrust.ts";
+export { BadRequest, Forbidden } from "./services/braintrust.ts";
