@@ -4999,9 +4999,9 @@ export interface ListEnvVarsRequest {
   /** Name of the env_var to search for */
   env_var_name?: string | undefined;
   /** The type of the object the environment variable is scoped for */
-  object_type?: EnvVarObjectType | (string & {}) | undefined;
+  object_type: EnvVarObjectType | (string & {});
   /** The id of the object the environment variable is scoped for */
-  object_id?: string | undefined;
+  object_id: string;
 }
 /** A list of env var objects */
 export type ListEnvVarsResponseObjectsList = Array<EnvVar>;
@@ -10252,8 +10252,8 @@ function __c6(j: number): any {
           limit: S.optional(S.Number.pipe(T.Query())),
           ids: S.optional(S.Unknown.pipe(T.Query())),
           env_var_name: S.optional(S.String.pipe(T.Query())),
-          object_type: S.optional(S.String.pipe(T.Query())),
-          object_id: S.optional(S.String.pipe(T.Query())),
+          object_type: S.String.pipe(T.Query()),
+          object_id: S.String.pipe(T.Query()),
         }).pipe(T.Http({ method: "GET", uri: "/v1/env_var", code: 200 })),
       ).annotate({ identifier: "ListEnvVarsRequest" });
     case 1:
