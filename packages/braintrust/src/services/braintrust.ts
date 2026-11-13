@@ -57,7 +57,7 @@ export class NotFoundOrForbidden
     [
       { status: 403, message: { includes: "does not exist" } },
       { status: 400, message: { includes: "does not exist" } },
-      { status: 400, message: { includes: "not found" } },
+      { status: 400, message: { includes: "Service token not found" } },
       { status: 404, message: { includes: "not found" } },
     ],
   ) {}
