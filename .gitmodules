@@ -538,3 +538,8 @@ shallow = true
 	url = https://github.com/distilled-mirror/spec-mirror-mailchimp.git
 	ignore = dirty
 	shallow = true
+[submodule "packages/braintrust/specs/spec-mirror-braintrust"]
+	path = packages/braintrust/specs/spec-mirror-braintrust
+	url = https://github.com/distilled-mirror/spec-mirror-braintrust.git
+	ignore = dirty
+	shallow = true

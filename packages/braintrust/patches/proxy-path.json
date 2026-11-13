@@ -1,0 +1,20 @@
+{
+  "description": "Make the proxy fallback's path a greedy label. The spec routes `POST /v1/proxy/{path+}` with a path parameter literally named `path+` (the API Gateway spelling of a greedy segment: \"Any requests which do not match the above paths will be proxied directly to the OpenAI API\"). The converter reads `path+` as an ordinary name and emits the label `{path_}`, which percent-encodes every `/` in the proxied path. Renaming the member to `path` and the URI label to `{path+}` gives core's greedy-label encoding, so `path: \"responses/abc\"` is sent as `/v1/proxy/responses/abc`. The proxied call's own body (`model`, `messages`, ...) is whatever the upstream endpoint takes, which the spec leaves undeclared, so the request is marked open: `createProxy({ path: \"chat/completions\", model, messages })` sends the extra keys as the JSON body.",
+  "patches": [
+    {
+      "op": "move",
+      "from": "/shapes/com.braintrust#ProxyPathRequest/members/path_",
+      "path": "/shapes/com.braintrust#ProxyPathRequest/members/path"
+    },
+    {
+      "op": "replace",
+      "path": "/shapes/com.braintrust#ProxyPath/traits/smithy.api#http/uri",
+      "value": "/v1/proxy/{path+}"
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#ProxyPathRequest/traits/com.distilled.openapi#additionalProperties",
+      "value": {}
+    }
+  ]
+}

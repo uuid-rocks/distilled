@@ -1,0 +1,50 @@
+{
+  "description": "Mark the secrets the spec leaves as plain strings sensitive. Env var `value` on create, replace and update: the spec calls it \"The value of the environment variable. Will be encrypted at rest\", and reads only return a masked `preview_secret`. Service token `key`: the spec calls it \"The raw service token. It will only be exposed this one time\". Temporary proxy credential `key` (`POST /v1/proxy/credentials`): the spec says it can access the proxy on behalf of the caller for a limited time (the hosted API answered 405 \"Method POST not supported\" on 2026-11-12, so this one is from the spec alone). Ingest key `url` on create and list: observed live 2026-11-12, both responses return `https://bt-ik-<key>@api.braintrust.dev/...`, the ingest key itself as the URL's userinfo. MCP auth `oauth_token` on `POST /v1/eval` and `POST /v1/function/{id}/invoke`: the spec calls it \"The OAuth token to use\".",
+  "patches": [
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PostEnvVarRequest/members/value/traits/smithy.api#sensitive",
+      "value": {}
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PutEnvVarRequest/members/value/traits/smithy.api#sensitive",
+      "value": {}
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchEnvVarIdRequest/members/value/traits/smithy.api#sensitive",
+      "value": {}
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#CreateServiceTokenOutput/members/key/traits/smithy.api#sensitive",
+      "value": {}
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#ProxycredentialsResponse/members/key/traits/smithy.api#sensitive",
+      "value": {}
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#CreateIngestKeyResponse/members/url/traits/smithy.api#sensitive",
+      "value": {}
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#ListIngestKeysResponseObjectsItem/members/url/traits/smithy.api#sensitive",
+      "value": {}
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#EvalLaunchRequestMcpAuthValue/members/oauth_token/traits/smithy.api#sensitive",
+      "value": {}
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PostFunctionIdInvokeRequestMcpAuthValue/members/oauth_token/traits/smithy.api#sensitive",
+      "value": {}
+    }
+  ]
+}

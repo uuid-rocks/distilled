@@ -143,6 +143,7 @@ export const GROUPS: ReadonlyArray<readonly [string, ReadonlyArray<string>]> = [
       "launchdarkly",
       "growthbook",
       "vanta",
+      "braintrust",
     ],
   ],
   [
@@ -229,6 +230,7 @@ export const SEARCH_HINTS: Record<string, string> = {
   posthog: "analytics flags",
   launchdarkly: "feature flags",
   growthbook: "feature flags",
+  braintrust: "llm evals tracing prompts experiments datasets ai observability",
   resend: "email",
   customerio: "email messaging",
   intercom: "support chat",

@@ -1,0 +1,44 @@
+{
+  "description": "Type a taken environment slug. Slugs are unique in an organization, and observed live 2026-11-13 both `POST /environment` with a slug another environment uses and `PATCH /environment/{id}` that sets one answer 400 JSON `{\"Code\":\"BadRequestError\",\"Message\":\"Environment with this slug already exists in organization [...]\"}`. The `Code` is the generic one every 400 carries, so the class matches the message. It declares 409 so it carries the conflict category, the way a 409 would. A deleted environment frees its slug: creating it again answered 200.",
+  "patches": [
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#EnvironmentSlugAlreadyExists",
+      "value": {
+        "type": "structure",
+        "members": {
+          "message": {
+            "target": "smithy.api#String"
+          }
+        },
+        "traits": {
+          "smithy.api#error": "client",
+          "smithy.api#httpError": 409,
+          "smithy.api#documentation": "Another environment in the organization already uses this slug.",
+          "com.distilled.openapi#errorMatchers": [
+            {
+              "status": 400,
+              "message": {
+                "includes": "Environment with this slug already exists"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#CreateEnvironment/errors/-",
+      "value": {
+        "target": "com.braintrust#EnvironmentSlugAlreadyExists"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#UpdateEnvironment/errors/-",
+      "value": {
+        "target": "com.braintrust#EnvironmentSlugAlreadyExists"
+      }
+    }
+  ]
+}

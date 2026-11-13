@@ -1,0 +1,632 @@
+{
+  "description": "Type a missing object. Braintrust never answers 404 for an id it cannot find: observed live 2026-11-12 against api.braintrust.dev with a full-access service key, a random id (and, for projects and env vars, one just deleted) fails with a message that names both causes, under a status and content type that vary by resource and method. GET mostly answers 403 JSON `{\"Code\":\"ForbiddenError\",\"Message\":\"Missing read access to project id <id>, or the project does not exist [...]\"}`; PATCH and DELETE mostly answer 400 text/plain `Missing update access to project id <id>, or the project does not exist [...]` (env vars, columns and environments keep the 403 JSON form); prompts and functions answer 400 JSON `{\"Code\":\"BadRequestError\",\"Message\":\"Prompt does not exist or you do not have access [...]\"}`; ACLs answer 400 text/plain; event insert, fetch, summarize and restore on a missing experiment, dataset or project log answer the 403 JSON form; `DELETE /v1/service_token/{id}` answers 400 text/plain `Service token not found`; `POST /v1/function/{id}/invoke` answers 404 `Function not found (searching for {...})`. An anonymous GET of a project that exists returns the same 403 message, so the class covers a permission denial too and is named for both. The spec declares only status-wide 400 and 403 responses with no schema. `GET /v1/column` on a scoping project that is gone answers the same 403 JSON form (observed 2026-11-13: a random project id, and a just-deleted project with `subtype=experiment`, `Missing read access to project experiment id <id>, or the project experiment does not exist`); other scopes of a just-deleted project answer 200 with no objects. Feedback operations answer 200 for a missing id and are left out.",
+  "patches": [
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#NotFoundOrForbidden",
+      "value": {
+        "type": "structure",
+        "members": {
+          "message": {
+            "target": "smithy.api#String"
+          }
+        },
+        "traits": {
+          "smithy.api#error": "client",
+          "smithy.api#httpError": 404,
+          "smithy.api#documentation": "The object does not exist, or the caller may not access it: Braintrust answers both with the same message (\"\u2026, or the <type> does not exist\").",
+          "com.distilled.openapi#errorMatchers": [
+            {
+              "status": 403,
+              "message": {
+                "includes": "does not exist"
+              }
+            },
+            {
+              "status": 400,
+              "message": {
+                "includes": "does not exist"
+              }
+            },
+            {
+              "status": 400,
+              "message": {
+                "includes": "Service token not found"
+              }
+            },
+            {
+              "status": 404,
+              "message": {
+                "includes": "not found"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteEnvironment/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetEnvironment/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#UpdateEnvironment/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteAcl/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteAclId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetAclId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteAiSecret/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteAiSecretId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetAiSecretId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchAiSecretId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteApiKeyId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetApiKeyId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetCustomColumn/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteCustomColumnId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchCustomColumnId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteDatasetId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetDatasetId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchDatasetId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetDatasetIdFetch/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PostDatasetIdFetch/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PostDatasetIdInsert/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PostDatasetIdRestore/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PostDatasetIdRestorePreview/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetDatasetIdSummarize/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteDatasetSnapshotId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetDatasetSnapshotId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchDatasetSnapshotId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteEnvVarId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetEnvVarId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchEnvVarId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteExperimentId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetExperimentId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchExperimentId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetExperimentIdFetch/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PostExperimentIdFetch/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PostExperimentIdInsert/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetExperimentIdSummarize/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteFunctionId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetFunctionId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchFunctionId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PostFunctionIdInvoke/errors",
+      "before": "traits",
+      "value": [
+        {
+          "target": "com.braintrust#NotFoundOrForbidden"
+        }
+      ]
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteGroupId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetGroupId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchGroupId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteIngestKey/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteMcpServerId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetMcpServerId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchMcpServerId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetOrganizationId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchOrganizationId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteProjectId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetProjectId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchProjectId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteProjectAutomationId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetProjectAutomationId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchProjectAutomationId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteProjectGroupId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetProjectGroupId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchProjectGroupId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetProjectLogsIdFetch/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PostProjectLogsIdFetch/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PostProjectLogsIdInsert/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteProjectScoreId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetProjectScoreId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchProjectScoreId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteProjectTagId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetProjectTagId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchProjectTagId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeletePromptId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetPromptId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchPromptId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteRoleId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetRoleId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchRoleId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteServiceTokenId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetServiceTokenId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteSpanIframeId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetSpanIframeId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchSpanIframeId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetUserId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#DeleteViewId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetViewId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchViewId/errors/-",
+      "value": {
+        "target": "com.braintrust#NotFoundOrForbidden"
+      }
+    }
+  ]
+}
