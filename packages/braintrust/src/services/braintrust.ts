@@ -8815,7 +8815,7 @@ export const listApiKeys: API.PaginatedOperationMethod<
   } as const,
 })) as any;
 
-export type ListColumnsError = BadRequest | Forbidden | BraintrustOpError;
+export type ListColumnsError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** List custom columns List the custom columns defined for a table. Requires read permission on the scoping object. Custom columns are scoped to a specific table by the combination of `object_type`, `object_id`, `subtype`, and `variant`. Use the same scope when creating and listing columns. Use these combinations to display columns in the corresponding UI table: Experiment span columns apply across experiments in the project. */
 export const listColumns: API.OperationMethod<
   ListColumnsRequest,
@@ -8825,7 +8825,7 @@ export const listColumns: API.OperationMethod<
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(32, __c2, 0) as any as S.Schema<ListColumnsRequest>,
   output: __S(34, __c2, 2) as any as S.Schema<ListColumnsResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
