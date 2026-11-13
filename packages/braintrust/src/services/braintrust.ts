@@ -3336,6 +3336,7 @@ export interface Prompt {
 export interface CreateProxyRequest {
   /** The path to proxy */
   path: string;
+  [key: string]: unknown;
 }
 export type CreateProxyResponse = unknown;
 export interface CreateProxyAutoRequest {}
@@ -12281,9 +12282,12 @@ function __c103(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
-        S.Struct({
-          path: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/proxy/{path+}", code: 200 })),
+        S.StructWithRest(
+          S.Struct({
+            path: S.String.pipe(T.Label()),
+          }),
+          [S.Record(S.String, S.Unknown)],
+        ).pipe(T.Http({ method: "POST", uri: "/v1/proxy/{path+}", code: 200 })),
       ).annotate({ identifier: "CreateProxyRequest" });
   }
 }
