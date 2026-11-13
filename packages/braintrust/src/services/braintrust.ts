@@ -1084,7 +1084,7 @@ export interface CreateEvalRequestRepoInfo {
 export type CreateEvalRequestTagsList = Array<string>;
 export interface CreateEvalRequestMcpAuthValue {
   /** The OAuth token to use */
-  oauth_token?: string | undefined;
+  oauth_token?: string | Redacted.Redacted<string> | undefined;
 }
 export type CreateEvalRequestMcpAuthMap = {
   [key: string]: CreateEvalRequestMcpAuthValue | undefined;
@@ -10895,7 +10895,7 @@ function __c30(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          oauth_token: S.optional(S.String),
+          oauth_token: S.optional(S.String.pipe(T.SensitiveValue({}))),
         }),
       ).annotate({ identifier: "CreateEvalRequestMcpAuthValue" });
     case 1:
