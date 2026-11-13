@@ -10514,7 +10514,7 @@ function __c17(j: number): any {
           starting_after: S.optional(S.String.pipe(T.Query())),
           ending_before: S.optional(S.String.pipe(T.Query())),
           ids: S.optional(S.Unknown.pipe(T.Query())),
-          project_automation_name: S.optional(S.String.pipe(T.Query())),
+          project_automation_name: S.optional(S.String.pipe(T.Query("name"))),
           org_name: S.optional(S.String.pipe(T.Query())),
         }).pipe(T.Http({ method: "GET", uri: "/v1/project_automation", code: 200 })),
       ).annotate({ identifier: "ListProjectAutomationsRequest" });
