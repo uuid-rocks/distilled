@@ -88,6 +88,9 @@ match Braintrust's official SDK. To pass a key directly, use
 - **Proxy bodies are untyped.** The proxy operations forward an OpenAI-shaped request: pass its
   fields as the input (`createProxyChatCompletion({ model, messages })`), and read the response as
   `unknown`.
+- **`findAndDeleteServiceToken`.** The hosted API answers `DELETE /v1/service_token` with a 404 HTML
+  page. Use `deleteServiceToken` with the token's id.
+- **`createProxyCredentials`.** The hosted API answers 405.
 
 ## Errors
 
