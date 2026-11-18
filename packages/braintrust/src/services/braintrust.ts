@@ -6464,6 +6464,8 @@ export interface UpdateFunctionRequest {
   function_id: string;
   /** Name of the prompt */
   name?: string | null | undefined;
+  /** Unique identifier for the function within its project */
+  slug?: string | undefined;
   /** Textual description of the prompt */
   description?: string | null | undefined;
   prompt_data?: PromptDataNullish | null | undefined;
@@ -11663,6 +11665,7 @@ function __c72(j: number): any {
         S.Struct({
           function_id: S.String.pipe(T.Label()),
           name: S.optional(S.NullOr(S.String)),
+          slug: S.optional(S.String),
           description: S.optional(S.NullOr(S.String)),
           prompt_data: S.optional(S.NullOr(__S(1441, __c90, 1))),
           function_data: S.optional(S.NullOr(S.Unknown)),
