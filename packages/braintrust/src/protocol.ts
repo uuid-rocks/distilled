@@ -16,7 +16,8 @@ import type { SdkError } from "@distilled.cloud/core/sdk-error";
  *             fiber on every request
  *
  *   response: 2xx JSON is the payload; non-2xx `{ Code, Message }` bodies (or
- *             `text/plain` messages) map to the operation's typed error
+ *             proxied `{ error: { message } }` bodies, or `text/plain`
+ *             messages) map to the operation's typed error
  *             classes, then the shared HTTP-status classes (plus 402 ->
  *             PaymentRequired), then {@link UnknownBraintrustError}.
  */
@@ -50,12 +51,18 @@ export type BraintrustOpContext = Credentials | HttpClient.HttpClient;
 const str = (value: unknown): string | undefined => (typeof value === "string" ? value : undefined);
 
 // Braintrust spells the envelope keys in PascalCase, which core's default
-// envelope (`code` / `message`) does not read.
+// envelope (`code` / `message`) does not read. The proxy passes an upstream
+// provider's failure through as `{ error: { message } }` (OpenAI's shape).
 const errorEnvelope = (body: unknown): RestErrorEnvelope | undefined => {
   if (body === null || typeof body !== "object") return undefined;
   const rec = body as Record<string, unknown>;
+  const upstream = rec.error;
   const code = str(rec.Code);
-  const message = str(rec.Message);
+  const message =
+    str(rec.Message) ??
+    (upstream !== null && typeof upstream === "object"
+      ? str((upstream as Record<string, unknown>).message)
+      : undefined);
   if (code === undefined && message === undefined) return undefined;
   return { code, message };
 };
