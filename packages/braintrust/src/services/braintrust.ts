@@ -836,6 +836,7 @@ export interface ModelParamsCase0 {
   reasoning_effort?: ModelParamsCase0ReasoningEffort | (string & {}) | undefined;
   chat_template_kwargs?: ModelParamsCase0ChatTemplateKwargs | undefined;
   verbosity?: ModelParamsCase0Verbosity | (string & {}) | undefined;
+  service_tier?: string | undefined;
   [key: string]: unknown;
 }
 export type ModelParamsCase1StopSequencesList = Array<string>;
@@ -1888,7 +1889,7 @@ export interface FunctionDataCase8 {
   /** Automation-level BTQL filter that was applied when this version was generated. Absent on versions generated before this was recorded. */
   automation_btql_filter?: string | undefined;
 }
-export type FunctionDataCase9Type = "simulation";
+export type FunctionDataCase9Type = "conversation";
 /** Who speaks first in the conversation */
 export type FunctionDataCase9ConfigCase0Initiator = "agent" | "simulated_user";
 export type FunctionDataCase9ConfigCase0Modality = "voice";
@@ -2170,6 +2171,16 @@ export type ProjectSettingsRemoteEvalSourcesList = Array<ProjectSettingsRemoteEv
 /** Path to the application's end-user identifier in metadata or span_attributes, for example ["metadata", "customer_id"]. This identifies an end user, not a session, request, organization, or the Braintrust user who created the project. */
 export type ProjectSettingsUserIdFieldsItemList = Array<string>;
 export type ProjectSettingsUserIdFieldsList = Array<ProjectSettingsUserIdFieldsItemList>;
+/** Project-wide Slack user or agent and prompt for Pattern alert threads. Applies only to destinations in the selected workspace. Unset or null disables mentions. */
+export interface ProjectSettingsPatternAlertMention {
+  workspace_id: string;
+  /** Slack member ID of the user or agent to mention in a Pattern alert's thread to investigate the pattern. */
+  mention_user_id: string;
+  /** Username shown for the selected user or agent. Mentions use mention_user_id. */
+  mention_handle?: string | undefined;
+  /** Message posted after the mention in a Pattern alert's thread. {{pattern}} is replaced with a link to the pattern. Defaults to "Please investigate this pattern: {{pattern}}. Review the evidence, identify the root cause, and suggest a fix." */
+  mention_prompt?: string | undefined;
+}
 /** The type of action to take */
 export type ProjectSettingsPatternAlertDestinationsItemCase0Type = "webhook";
 export interface ProjectSettingsPatternAlertDestinationsItemCase0 {
@@ -2256,6 +2267,8 @@ export interface ProjectSettings {
   /** If true, automatically complete a review after every assigned reviewer fills all human review scores visible to them. */
   require_all_human_review_scores?: boolean | null | undefined;
   user_id_fields?: ProjectSettingsUserIdFieldsList | null | undefined;
+  /** Project-wide Slack user or agent and prompt for Pattern alert threads. Applies only to destinations in the selected workspace. Unset or null disables mentions. */
+  pattern_alert_mention?: ProjectSettingsPatternAlertMention | null | undefined;
   /** Project-wide Slack, webhook, and PagerDuty destinations for new and reactivated Pattern alerts. An empty array disables alerts. */
   pattern_alert_destinations?: ProjectSettingsPatternAlertDestinationsList | null | undefined;
   session_id_fields?: ProjectSettingsSessionIdFieldsList | null | undefined;
@@ -3461,6 +3474,8 @@ export interface CreateServiceTokenOutput {
   service_account_name?: string | null | undefined;
   /** Unique identifier for the organization */
   org_id?: string | null | undefined;
+  /** Approximate time this credential was last used to authenticate. Updates are limited to once every 10 minutes and may be delayed by authorization caches. If null, no usage has been recorded. */
+  last_used_at?: string | null | undefined;
   /** Date and time at which the service token expires. If null, the token never expires. */
   expires_at?: string | null | undefined;
   /** The raw service token. It will only be exposed this one time */
@@ -3710,6 +3725,8 @@ export interface ApiKey {
   user_family_name?: string | null | undefined;
   /** Unique identifier for the organization */
   org_id?: string | null | undefined;
+  /** Approximate time this credential was last used to authenticate. Updates are limited to once every 10 minutes and may be delayed by authorization caches. If null, no usage has been recorded. */
+  last_used_at?: string | null | undefined;
   /** Date at which the API key expires. If null, the key never expires. */
   expires_at?: string | null | undefined;
 }
@@ -3812,6 +3829,8 @@ export interface ServiceToken {
   service_account_name?: string | null | undefined;
   /** Unique identifier for the organization */
   org_id?: string | null | undefined;
+  /** Approximate time this credential was last used to authenticate. Updates are limited to once every 10 minutes and may be delayed by authorization caches. If null, no usage has been recorded. */
+  last_used_at?: string | null | undefined;
   /** Date and time at which the service token expires. If null, the token never expires. */
   expires_at?: string | null | undefined;
 }
@@ -6363,7 +6382,7 @@ export interface FunctionDataNullishCase8 {
   /** Automation-level BTQL filter that was applied when this version was generated. Absent on versions generated before this was recorded. */
   automation_btql_filter?: string | undefined;
 }
-export type FunctionDataNullishCase9Type = "simulation";
+export type FunctionDataNullishCase9Type = "conversation";
 /** Who speaks first in the conversation */
 export type FunctionDataNullishCase9ConfigCase0Initiator = "agent" | "simulated_user";
 export type FunctionDataNullishCase9ConfigCase0Modality = "voice";
@@ -6629,6 +6648,8 @@ export type UpdateProjectRequestSettingsRemoteEvalSourcesList =
 export type UpdateProjectRequestSettingsUserIdFieldsItemList = Array<string>;
 export type UpdateProjectRequestSettingsUserIdFieldsList =
   Array<UpdateProjectRequestSettingsUserIdFieldsItemList>;
+/** Project-wide Slack user or agent and prompt for Pattern alert threads. Applies only to destinations in the selected workspace. Unset or null disables mentions. */
+export type UpdateProjectRequestSettingsPatternAlertMention = ProjectSettingsPatternAlertMention;
 /** The type of action to take */
 export type UpdateProjectRequestSettingsPatternAlertDestinationsItemCase0Type = "webhook";
 export interface UpdateProjectRequestSettingsPatternAlertDestinationsItemCase0 {
@@ -6702,6 +6723,8 @@ export interface UpdateProjectRequestSettings {
   /** If true, automatically complete a review after every assigned reviewer fills all human review scores visible to them. */
   require_all_human_review_scores?: boolean | null | undefined;
   user_id_fields?: UpdateProjectRequestSettingsUserIdFieldsList | null | undefined;
+  /** Project-wide Slack user or agent and prompt for Pattern alert threads. Applies only to destinations in the selected workspace. Unset or null disables mentions. */
+  pattern_alert_mention?: ProjectSettingsPatternAlertMention | null | undefined;
   /** Project-wide Slack, webhook, and PagerDuty destinations for new and reactivated Pattern alerts. An empty array disables alerts. */
   pattern_alert_destinations?:
     | UpdateProjectRequestSettingsPatternAlertDestinationsList
@@ -7372,7 +7395,7 @@ export const createProject: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(1552, __c97, 0) as any as S.Schema<CreateProjectRequest>,
-  output: __S(1574, __c98, 6) as any as S.Schema<Project>,
+  output: __S(1575, __c98, 7) as any as S.Schema<Project>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7898,7 +7921,7 @@ export const deleteProject: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(2304, __c144, 0) as any as S.Schema<DeleteProjectRequest>,
-  output: __S(1574, __c98, 6) as any as S.Schema<Project>,
+  output: __S(1575, __c98, 7) as any as S.Schema<Project>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8484,7 +8507,7 @@ export const getProject: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(3008, __c188, 0) as any as S.Schema<GetProjectRequest>,
-  output: __S(1574, __c98, 6) as any as S.Schema<Project>,
+  output: __S(1575, __c98, 7) as any as S.Schema<Project>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10016,7 +10039,7 @@ export const updateProject: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(1236, __c77, 4) as any as S.Schema<UpdateProjectRequest>,
-  output: __S(1574, __c98, 6) as any as S.Schema<Project>,
+  output: __S(1575, __c98, 7) as any as S.Schema<Project>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10660,7 +10683,7 @@ function __c23(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/project", code: 200 })),
       ).annotate({ identifier: "ListProjectsRequest" });
     case 1:
-      return S.Array(__S(1574, __c98, 6));
+      return S.Array(__S(1575, __c98, 7));
     case 2:
       return S.suspend(() =>
         S.Struct({
@@ -11800,6 +11823,7 @@ function __c77(j: number): any {
           blind_reviews: S.optional(S.NullOr(S.Boolean)),
           require_all_human_review_scores: S.optional(S.NullOr(S.Boolean)),
           user_id_fields: S.optional(S.NullOr(__S(1584, __c99, 0))),
+          pattern_alert_mention: S.optional(S.NullOr(__S(1572, __c98, 4))),
           pattern_alert_destinations: S.optional(S.NullOr(__S(1234, __c77, 2))),
           session_id_fields: S.optional(S.NullOr(__S(1584, __c99, 0))),
           default_preprocessor: S.optional(S.NullOr(S.Unknown)),
@@ -12184,8 +12208,17 @@ function __c98(j: number): any {
     case 3:
       return S.Array(__S(1570, __c98, 2));
     case 4:
-      return S.Array(S.Unknown);
+      return S.suspend(() =>
+        S.Struct({
+          workspace_id: S.String,
+          mention_user_id: S.String,
+          mention_handle: S.optional(S.String),
+          mention_prompt: S.optional(S.String),
+        }),
+      ).annotate({ identifier: "ProjectSettingsPatternAlertMention" });
     case 5:
+      return S.Array(S.Unknown);
+    case 6:
       return S.suspend(() =>
         S.Struct({
           comparison_key: S.optional(S.NullOr(S.String)),
@@ -12198,12 +12231,13 @@ function __c98(j: number): any {
           blind_reviews: S.optional(S.NullOr(S.Boolean)),
           require_all_human_review_scores: S.optional(S.NullOr(S.Boolean)),
           user_id_fields: S.optional(S.NullOr(__S(1584, __c99, 0))),
-          pattern_alert_destinations: S.optional(S.NullOr(__S(1572, __c98, 4))),
+          pattern_alert_mention: S.optional(S.NullOr(__S(1572, __c98, 4))),
+          pattern_alert_destinations: S.optional(S.NullOr(__S(1573, __c98, 5))),
           session_id_fields: S.optional(S.NullOr(__S(1584, __c99, 0))),
           default_preprocessor: S.optional(S.NullOr(S.Unknown)),
         }),
       ).annotate({ identifier: "ProjectSettings" });
-    case 6:
+    case 7:
       return S.suspend(() =>
         S.Struct({
           id: S.String,
@@ -12213,7 +12247,7 @@ function __c98(j: number): any {
           created: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
           user_id: S.optional(S.NullOr(S.String)),
-          settings: S.optional(S.NullOr(__S(1573, __c98, 5))),
+          settings: S.optional(S.NullOr(__S(1574, __c98, 6))),
         }),
       ).annotate({ identifier: "Project" });
   }
@@ -12598,6 +12632,7 @@ function __c121(j: number): any {
           service_account_email: S.optional(S.NullOr(S.String)),
           service_account_name: S.optional(S.NullOr(S.String)),
           org_id: S.optional(S.NullOr(S.String)),
+          last_used_at: S.optional(S.NullOr(S.String)),
           expires_at: S.optional(S.NullOr(S.String)),
           key: S.String.pipe(T.SensitiveValue({})),
         }),
@@ -12742,6 +12777,7 @@ function __c130(j: number): any {
           user_given_name: S.optional(S.NullOr(S.String)),
           user_family_name: S.optional(S.NullOr(S.String)),
           org_id: S.optional(S.NullOr(S.String)),
+          last_used_at: S.optional(S.NullOr(S.String)),
           expires_at: S.optional(S.NullOr(S.String)),
         }),
       ).annotate({ identifier: "ApiKey" });
@@ -13026,6 +13062,7 @@ function __c152(j: number): any {
           service_account_email: S.optional(S.NullOr(S.String)),
           service_account_name: S.optional(S.NullOr(S.String)),
           org_id: S.optional(S.NullOr(S.String)),
+          last_used_at: S.optional(S.NullOr(S.String)),
           expires_at: S.optional(S.NullOr(S.String)),
         }),
       ).annotate({ identifier: "ServiceToken" });
