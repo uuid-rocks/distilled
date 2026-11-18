@@ -1175,22 +1175,26 @@ export interface MetricSummary {
 }
 /** Summary of the experiment's metrics */
 export type SummarizeExperimentResponseMetricsMap = { [key: string]: MetricSummary | undefined };
-/** Summary of an experiment */
-export interface SummarizeExperimentResponse {
+/** Summary of the experiment an eval created */
+export interface CreateEvalResponse {
   /** Name of the project that the experiment belongs to */
-  project_name: string;
+  projectName: string;
   /** Name of the experiment */
-  experiment_name: string;
+  experimentName: string;
+  /** Id of the project */
+  projectId: string;
+  /** Id of the experiment the eval created */
+  experimentId: string;
   /** URL to the project's page in the Braintrust app */
-  project_url: string;
+  projectUrl: string;
   /** URL to the experiment's page in the Braintrust app */
-  experiment_url: string;
+  experimentUrl: string;
   /** The experiment which scores are baselined against */
-  comparison_experiment_name?: string | null | undefined;
+  comparisonExperimentName?: string | undefined;
   /** Summary of the experiment's scores */
-  scores?: SummarizeExperimentResponseScoresMap | null | undefined;
+  scores: SummarizeExperimentResponseScoresMap;
   /** Summary of the experiment's metrics */
-  metrics?: SummarizeExperimentResponseMetricsMap | null | undefined;
+  metrics: SummarizeExperimentResponseMetricsMap;
 }
 /** Metadata about the state of the repo when the experiment was created */
 export type RepoInfo = CreateEvalRequestRepoInfo;
@@ -6030,6 +6034,23 @@ export interface SummarizeExperimentRequest {
   /** The experiment to compare against, if summarizing scores and metrics. If omitted, will fall back to the `base_exp_id` stored in the experiment metadata, and then to the most recent experiment run in the same project. Must pass `summarize_scores=true` for this id to be used */
   comparison_experiment_id?: string | undefined;
 }
+/** Summary of an experiment */
+export interface SummarizeExperimentResponse {
+  /** Name of the project that the experiment belongs to */
+  project_name: string;
+  /** Name of the experiment */
+  experiment_name: string;
+  /** URL to the project's page in the Braintrust app */
+  project_url: string;
+  /** URL to the experiment's page in the Braintrust app */
+  experiment_url: string;
+  /** The experiment which scores are baselined against */
+  comparison_experiment_name?: string | null | undefined;
+  /** Summary of the experiment's scores */
+  scores?: SummarizeExperimentResponseScoresMap | null | undefined;
+  /** Summary of the experiment's metrics */
+  metrics?: SummarizeExperimentResponseMetricsMap | null | undefined;
+}
 export type UpdateAiSecretRequestMetadataMap = { [key: string]: unknown | undefined };
 export interface UpdateAiSecretRequest {
   /** AiSecret id */
@@ -7216,12 +7237,12 @@ export type CreateEvalError = BraintrustOpError;
 /** Launch an eval Launch an evaluation. This is the API-equivalent of the `Eval` function that is built into the Braintrust SDK. In the Eval API, you provide pointers to a dataset, task function, and scoring functions. The API will then run the evaluation, create an experiment, and return the results along with a link to the experiment. To learn more about evals, see the [Evals guide](https://docs.braintrust.dev/evaluate). */
 export const createEval: API.OperationMethod<
   CreateEvalRequest,
-  SummarizeExperimentResponse,
+  CreateEvalResponse,
   CreateEvalError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(600, __c37, 8) as any as S.Schema<CreateEvalRequest>,
-  output: __S(628, __c39, 4) as any as S.Schema<SummarizeExperimentResponse>,
+  output: __S(601, __c37, 9) as any as S.Schema<CreateEvalResponse>,
   errors: [UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9748,7 +9769,7 @@ export const summarizeExperiment: API.OperationMethod<
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(960, __c60, 0) as any as S.Schema<SummarizeExperimentRequest>,
-  output: __S(628, __c39, 4) as any as S.Schema<SummarizeExperimentResponse>,
+  output: __S(961, __c60, 1) as any as S.Schema<SummarizeExperimentResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -11021,6 +11042,20 @@ function __c37(j: number): any {
           endpoint_name: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "POST", uri: "/v1/eval", code: 200 })),
       ).annotate({ identifier: "CreateEvalRequest" });
+    case 9:
+      return S.suspend(() =>
+        S.Struct({
+          projectName: S.String,
+          experimentName: S.String,
+          projectId: S.String,
+          experimentId: S.String,
+          projectUrl: S.String,
+          experimentUrl: S.String,
+          comparisonExperimentName: S.optional(S.String),
+          scores: __S(625, __c39, 1),
+          metrics: __S(627, __c39, 3),
+        }),
+      ).annotate({ identifier: "CreateEvalResponse" });
   }
 }
 function __c38(j: number): any {
@@ -11068,18 +11103,6 @@ function __c39(j: number): any {
       ).annotate({ identifier: "MetricSummary" });
     case 3:
       return S.Record(S.String, __S(626, __c39, 2));
-    case 4:
-      return S.suspend(() =>
-        S.Struct({
-          project_name: S.String,
-          experiment_name: S.String,
-          project_url: S.String,
-          experiment_url: S.String,
-          comparison_experiment_name: S.optional(S.NullOr(S.String)),
-          scores: S.optional(S.NullOr(__S(625, __c39, 1))),
-          metrics: S.optional(S.NullOr(__S(627, __c39, 3))),
-        }),
-      ).annotate({ identifier: "SummarizeExperimentResponse" });
   }
 }
 function __c40(j: number): any {
@@ -11442,6 +11465,18 @@ function __c60(j: number): any {
           T.Http({ method: "GET", uri: "/v1/experiment/{experiment_id}/summarize", code: 200 }),
         ),
       ).annotate({ identifier: "SummarizeExperimentRequest" });
+    case 1:
+      return S.suspend(() =>
+        S.Struct({
+          project_name: S.String,
+          experiment_name: S.String,
+          project_url: S.String,
+          experiment_url: S.String,
+          comparison_experiment_name: S.optional(S.NullOr(S.String)),
+          scores: S.optional(S.NullOr(__S(625, __c39, 1))),
+          metrics: S.optional(S.NullOr(__S(627, __c39, 3))),
+        }),
+      ).annotate({ identifier: "SummarizeExperimentResponse" });
   }
 }
 function __c61(j: number): any {

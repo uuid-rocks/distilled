@@ -1,0 +1,84 @@
+{
+  "description": "Read `POST /v1/eval` as the camelCase summary it returns. The spec points the response at `SummarizeExperimentResponse` (`project_name`, `experiment_name`, `project_url`, `experiment_url`, ...), but observed live 2026-11-18 the 200 body is `{\"projectName\",\"experimentName\",\"projectId\",\"experimentId\",\"projectUrl\",\"experimentUrl\",\"scores\",\"metrics\"}`, plus `comparisonExperimentName` when `base_experiment_name` is set. `GET /v1/experiment/{id}/summarize` on the same experiment still answers snake_case, so only the eval operation gets the new shape. The official `braintrust` npm client (3.44.0) declares the same `ExperimentSummary` (`projectName`, `experimentName`, `projectId?`, `experimentId?`, `projectUrl?`, `experimentUrl?`, `comparisonExperimentName?`, `scores`, `metrics?`) and builds it in `Experiment.summarize`. The Python client's dev server sends its snake_case summary through `snake_to_camel` (`braintrust/devserver/server.py`, 0.51.0). Members are required when both live calls returned them. The `scores` and `metrics` values keep the spec's `ScoreSummary` and `MetricSummary`, which match the wire.",
+  "patches": [
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#CreateEvalResponse",
+      "value": {
+        "type": "structure",
+        "members": {
+          "projectName": {
+            "target": "smithy.api#String",
+            "traits": {
+              "smithy.api#documentation": "Name of the project that the experiment belongs to",
+              "smithy.api#required": {}
+            }
+          },
+          "experimentName": {
+            "target": "smithy.api#String",
+            "traits": {
+              "smithy.api#documentation": "Name of the experiment",
+              "smithy.api#required": {}
+            }
+          },
+          "projectId": {
+            "target": "smithy.api#String",
+            "traits": {
+              "smithy.api#documentation": "Id of the project",
+              "smithy.api#required": {}
+            }
+          },
+          "experimentId": {
+            "target": "smithy.api#String",
+            "traits": {
+              "smithy.api#documentation": "Id of the experiment the eval created",
+              "smithy.api#required": {}
+            }
+          },
+          "projectUrl": {
+            "target": "smithy.api#String",
+            "traits": {
+              "smithy.api#documentation": "URL to the project's page in the Braintrust app",
+              "smithy.api#required": {}
+            }
+          },
+          "experimentUrl": {
+            "target": "smithy.api#String",
+            "traits": {
+              "smithy.api#documentation": "URL to the experiment's page in the Braintrust app",
+              "smithy.api#required": {}
+            }
+          },
+          "comparisonExperimentName": {
+            "target": "smithy.api#String",
+            "traits": {
+              "smithy.api#documentation": "The experiment which scores are baselined against"
+            }
+          },
+          "scores": {
+            "target": "com.braintrust#SummarizeExperimentResponseScoresMap",
+            "traits": {
+              "smithy.api#documentation": "Summary of the experiment's scores",
+              "smithy.api#required": {}
+            }
+          },
+          "metrics": {
+            "target": "com.braintrust#SummarizeExperimentResponseMetricsMap",
+            "traits": {
+              "smithy.api#documentation": "Summary of the experiment's metrics",
+              "smithy.api#required": {}
+            }
+          }
+        },
+        "traits": {
+          "smithy.api#documentation": "Summary of the experiment an eval created"
+        }
+      }
+    },
+    {
+      "op": "replace",
+      "path": "/shapes/com.braintrust#EvalLaunch/output/target",
+      "value": "com.braintrust#CreateEvalResponse"
+    }
+  ]
+}
