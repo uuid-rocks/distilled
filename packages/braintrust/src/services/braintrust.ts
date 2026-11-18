@@ -71,6 +71,15 @@ export class NotFoundOrForbidden
     ],
   ) {}
 
+/** The calling token expires, and the requested token would outlive it. The message ends with "Set expires_in_seconds to at most <seconds>.", the seconds left on the calling token. */
+export class ServiceTokenOutlivesCaller
+  extends /*@__PURE__*/ T.applyErrorMatchers(
+    /*@__PURE__*/ S.TaggedError<ServiceTokenOutlivesCaller>()("ServiceTokenOutlivesCaller", {
+      message: S.String,
+    }).pipe(C.withBadRequestError),
+    [{ status: 403, message: { includes: "cannot create a service token that outlives it" } }],
+  ) {}
+
 /** The object type that the ACL applies to */
 export type AclObjectType =
   | "organization"
@@ -7084,8 +7093,8 @@ export const batchUpdateAcls: API.OperationMethod<
   BatchUpdateAclsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2034, __c127, 2) as any as S.Schema<BatchUpdateAclsRequest>,
-  output: __S(2035, __c127, 3) as any as S.Schema<AclBatchUpdateResponse>,
+  input: __S(2242, __c140, 2) as any as S.Schema<BatchUpdateAclsRequest>,
+  output: __S(2243, __c140, 3) as any as S.Schema<AclBatchUpdateResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7101,8 +7110,8 @@ export const createAcl: API.OperationMethod<
   CreateAclError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2240, __c140, 0) as any as S.Schema<CreateAclRequest>,
-  output: __S(2048, __c128, 0) as any as S.Schema<Acl>,
+  input: __S(2464, __c154, 0) as any as S.Schema<CreateAclRequest>,
+  output: __S(2256, __c141, 0) as any as S.Schema<Acl>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7118,8 +7127,8 @@ export const createAiSecret: API.OperationMethod<
   CreateAiSecretError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2432, __c152, 0) as any as S.Schema<CreateAiSecretRequest>,
-  output: __S(2448, __c153, 0) as any as S.Schema<AISecret>,
+  input: __S(2736, __c171, 0) as any as S.Schema<CreateAiSecretRequest>,
+  output: __S(2752, __c172, 0) as any as S.Schema<AISecret>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7135,8 +7144,8 @@ export const createColumn: API.OperationMethod<
   CreateColumnError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2736, __c171, 0) as any as S.Schema<CreateColumnRequest>,
-  output: __S(2752, __c172, 0) as any as S.Schema<CustomColumn>,
+  input: __S(2944, __c184, 0) as any as S.Schema<CreateColumnRequest>,
+  output: __S(2960, __c185, 0) as any as S.Schema<CustomColumn>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7152,8 +7161,8 @@ export const createDataset: API.OperationMethod<
   CreateDatasetError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2944, __c184, 0) as any as S.Schema<CreateDatasetRequest>,
-  output: __S(2960, __c185, 0) as any as S.Schema<Dataset>,
+  input: __S(3152, __c197, 0) as any as S.Schema<CreateDatasetRequest>,
+  output: __S(3184, __c199, 0) as any as S.Schema<Dataset>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7169,8 +7178,8 @@ export const createDatasetFeedback: API.OperationMethod<
   CreateDatasetFeedbackError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3152, __c197, 0) as any as S.Schema<CreateDatasetFeedbackRequest>,
-  output: __S(3168, __c198, 0) as any as S.Schema<FeedbackResponseSchema>,
+  input: __S(0, __c0, 0) as any as S.Schema<CreateDatasetFeedbackRequest>,
+  output: __S(16, __c1, 0) as any as S.Schema<FeedbackResponseSchema>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7186,8 +7195,8 @@ export const createDatasetSnapshot: API.OperationMethod<
   CreateDatasetSnapshotError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(0, __c0, 0) as any as S.Schema<CreateDatasetSnapshotRequest>,
-  output: __S(16, __c1, 0) as any as S.Schema<DatasetSnapshot>,
+  input: __S(224, __c14, 0) as any as S.Schema<CreateDatasetSnapshotRequest>,
+  output: __S(240, __c15, 0) as any as S.Schema<DatasetSnapshot>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7207,8 +7216,8 @@ export const createEnvironment: API.OperationMethod<
   CreateEnvironmentError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(208, __c13, 0) as any as S.Schema<CreateEnvironmentRequest>,
-  output: __S(224, __c14, 0) as any as S.Schema<Environment>,
+  input: __S(416, __c26, 0) as any as S.Schema<CreateEnvironmentRequest>,
+  output: __S(432, __c27, 0) as any as S.Schema<Environment>,
   errors: [BadRequest, Forbidden, EnvironmentSlugAlreadyExists, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7224,8 +7233,8 @@ export const createEnvVar: API.OperationMethod<
   CreateEnvVarError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(400, __c25, 0) as any as S.Schema<CreateEnvVarRequest>,
-  output: __S(416, __c26, 0) as any as S.Schema<EnvVar>,
+  input: __S(608, __c38, 0) as any as S.Schema<CreateEnvVarRequest>,
+  output: __S(624, __c39, 0) as any as S.Schema<EnvVar>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7241,8 +7250,8 @@ export const createEval: API.OperationMethod<
   CreateEvalError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(600, __c37, 8) as any as S.Schema<CreateEvalRequest>,
-  output: __S(601, __c37, 9) as any as S.Schema<CreateEvalResponse>,
+  input: __S(808, __c50, 8) as any as S.Schema<CreateEvalRequest>,
+  output: __S(809, __c50, 9) as any as S.Schema<CreateEvalResponse>,
   errors: [UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7258,8 +7267,8 @@ export const createExperiment: API.OperationMethod<
   CreateExperimentError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(864, __c54, 0) as any as S.Schema<CreateExperimentRequest>,
-  output: __S(881, __c55, 1) as any as S.Schema<Experiment>,
+  input: __S(1072, __c67, 0) as any as S.Schema<CreateExperimentRequest>,
+  output: __S(1089, __c68, 1) as any as S.Schema<Experiment>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7275,8 +7284,8 @@ export const createExperimentFeedback: API.OperationMethod<
   CreateExperimentFeedbackError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1056, __c66, 0) as any as S.Schema<CreateExperimentFeedbackRequest>,
-  output: __S(3168, __c198, 0) as any as S.Schema<FeedbackResponseSchema>,
+  input: __S(1264, __c79, 0) as any as S.Schema<CreateExperimentFeedbackRequest>,
+  output: __S(16, __c1, 0) as any as S.Schema<FeedbackResponseSchema>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7292,8 +7301,8 @@ export const createFunction: API.OperationMethod<
   CreateFunctionError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1264, __c79, 0) as any as S.Schema<CreateFunctionRequest>,
-  output: __S(1298, __c81, 2) as any as S.Schema<Function>,
+  input: __S(1424, __c89, 0) as any as S.Schema<CreateFunctionRequest>,
+  output: __S(1458, __c91, 2) as any as S.Schema<Function>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7309,8 +7318,8 @@ export const createGroup: API.OperationMethod<
   CreateGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1408, __c88, 0) as any as S.Schema<CreateGroupRequest>,
-  output: __S(1424, __c89, 0) as any as S.Schema<Group>,
+  input: __S(1472, __c92, 0) as any as S.Schema<CreateGroupRequest>,
+  output: __S(1488, __c93, 0) as any as S.Schema<Group>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7326,8 +7335,8 @@ export const createIngestKey: API.OperationMethod<
   CreateIngestKeyError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1440, __c90, 0) as any as S.Schema<CreateIngestKeyRequest>,
-  output: __S(1441, __c90, 1) as any as S.Schema<CreateIngestKeyResponse>,
+  input: __S(1504, __c94, 0) as any as S.Schema<CreateIngestKeyRequest>,
+  output: __S(1505, __c94, 1) as any as S.Schema<CreateIngestKeyResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7343,8 +7352,8 @@ export const createMcpServer: API.OperationMethod<
   CreateMcpServerError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1456, __c91, 0) as any as S.Schema<CreateMcpServerRequest>,
-  output: __S(1472, __c92, 0) as any as S.Schema<MCPServer>,
+  input: __S(1520, __c95, 0) as any as S.Schema<CreateMcpServerRequest>,
+  output: __S(1536, __c96, 0) as any as S.Schema<MCPServer>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7360,8 +7369,8 @@ export const createProject: API.OperationMethod<
   CreateProjectError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1488, __c93, 0) as any as S.Schema<CreateProjectRequest>,
-  output: __S(1510, __c94, 6) as any as S.Schema<Project>,
+  input: __S(1552, __c97, 0) as any as S.Schema<CreateProjectRequest>,
+  output: __S(1574, __c98, 6) as any as S.Schema<Project>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7377,8 +7386,8 @@ export const createProjectAutomation: API.OperationMethod<
   CreateProjectAutomationError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1536, __c96, 0) as any as S.Schema<CreateProjectAutomationRequest>,
-  output: __S(1553, __c97, 1) as any as S.Schema<ProjectAutomation>,
+  input: __S(1600, __c100, 0) as any as S.Schema<CreateProjectAutomationRequest>,
+  output: __S(1617, __c101, 1) as any as S.Schema<ProjectAutomation>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7394,8 +7403,8 @@ export const createProjectGroup: API.OperationMethod<
   CreateProjectGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1568, __c98, 0) as any as S.Schema<CreateProjectGroupRequest>,
-  output: __S(1584, __c99, 0) as any as S.Schema<ProjectGroup>,
+  input: __S(1632, __c102, 0) as any as S.Schema<CreateProjectGroupRequest>,
+  output: __S(1648, __c103, 0) as any as S.Schema<ProjectGroup>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7411,8 +7420,8 @@ export const createProjectLogFeedback: API.OperationMethod<
   CreateProjectLogFeedbackError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1600, __c100, 0) as any as S.Schema<CreateProjectLogFeedbackRequest>,
-  output: __S(3168, __c198, 0) as any as S.Schema<FeedbackResponseSchema>,
+  input: __S(1664, __c104, 0) as any as S.Schema<CreateProjectLogFeedbackRequest>,
+  output: __S(16, __c1, 0) as any as S.Schema<FeedbackResponseSchema>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7428,8 +7437,8 @@ export const createProjectScore: API.OperationMethod<
   CreateProjectScoreError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1616, __c101, 0) as any as S.Schema<CreateProjectScoreRequest>,
-  output: __S(1637, __c102, 5) as any as S.Schema<ProjectScore>,
+  input: __S(1680, __c105, 0) as any as S.Schema<CreateProjectScoreRequest>,
+  output: __S(1701, __c106, 5) as any as S.Schema<ProjectScore>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7445,8 +7454,8 @@ export const createProjectTag: API.OperationMethod<
   CreateProjectTagError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1648, __c103, 0) as any as S.Schema<CreateProjectTagRequest>,
-  output: __S(1664, __c104, 0) as any as S.Schema<ProjectTag>,
+  input: __S(1712, __c107, 0) as any as S.Schema<CreateProjectTagRequest>,
+  output: __S(1728, __c108, 0) as any as S.Schema<ProjectTag>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7462,8 +7471,8 @@ export const createPrompt: API.OperationMethod<
   CreatePromptError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1680, __c105, 0) as any as S.Schema<CreatePromptRequest>,
-  output: __S(1696, __c106, 0) as any as S.Schema<Prompt>,
+  input: __S(1744, __c109, 0) as any as S.Schema<CreatePromptRequest>,
+  output: __S(1760, __c110, 0) as any as S.Schema<Prompt>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7479,8 +7488,8 @@ export const createProxy: API.OperationMethod<
   CreateProxyError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1712, __c107, 0) as any as S.Schema<CreateProxyRequest>,
-  output: __S(1728, __c108, 0) as any as S.Schema<CreateProxyResponse>,
+  input: __S(1776, __c111, 0) as any as S.Schema<CreateProxyRequest>,
+  output: __S(1792, __c112, 0) as any as S.Schema<CreateProxyResponse>,
   errors: [UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7496,8 +7505,8 @@ export const createProxyAuto: API.OperationMethod<
   CreateProxyAutoError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1744, __c109, 0) as any as S.Schema<CreateProxyAutoRequest>,
-  output: __S(1728, __c108, 0) as any as S.Schema<CreateProxyAutoResponse>,
+  input: __S(1808, __c113, 0) as any as S.Schema<CreateProxyAutoRequest>,
+  output: __S(1792, __c112, 0) as any as S.Schema<CreateProxyAutoResponse>,
   errors: [UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7513,8 +7522,8 @@ export const createProxyChatCompletion: API.OperationMethod<
   CreateProxyChatCompletionError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1760, __c110, 0) as any as S.Schema<CreateProxyChatCompletionRequest>,
-  output: __S(1728, __c108, 0) as any as S.Schema<CreateProxyChatCompletionResponse>,
+  input: __S(1824, __c114, 0) as any as S.Schema<CreateProxyChatCompletionRequest>,
+  output: __S(1792, __c112, 0) as any as S.Schema<CreateProxyChatCompletionResponse>,
   errors: [UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7530,8 +7539,8 @@ export const createProxyCompletion: API.OperationMethod<
   CreateProxyCompletionError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1776, __c111, 0) as any as S.Schema<CreateProxyCompletionRequest>,
-  output: __S(1728, __c108, 0) as any as S.Schema<CreateProxyCompletionResponse>,
+  input: __S(1840, __c115, 0) as any as S.Schema<CreateProxyCompletionRequest>,
+  output: __S(1792, __c112, 0) as any as S.Schema<CreateProxyCompletionResponse>,
   errors: [UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7547,8 +7556,8 @@ export const createProxyCredentials: API.OperationMethod<
   CreateProxyCredentialsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1793, __c112, 1) as any as S.Schema<CreateProxyCredentialsRequest>,
-  output: __S(1794, __c112, 2) as any as S.Schema<CreateProxyCredentialsResponse>,
+  input: __S(1857, __c116, 1) as any as S.Schema<CreateProxyCredentialsRequest>,
+  output: __S(1858, __c116, 2) as any as S.Schema<CreateProxyCredentialsResponse>,
   errors: [BadRequest, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7564,8 +7573,8 @@ export const createProxyEmbedding: API.OperationMethod<
   CreateProxyEmbeddingError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1808, __c113, 0) as any as S.Schema<CreateProxyEmbeddingRequest>,
-  output: __S(1728, __c108, 0) as any as S.Schema<CreateProxyEmbeddingResponse>,
+  input: __S(1872, __c117, 0) as any as S.Schema<CreateProxyEmbeddingRequest>,
+  output: __S(1792, __c112, 0) as any as S.Schema<CreateProxyEmbeddingResponse>,
   errors: [UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7581,8 +7590,8 @@ export const createRole: API.OperationMethod<
   CreateRoleError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1824, __c114, 0) as any as S.Schema<CreateRoleRequest>,
-  output: __S(1842, __c115, 2) as any as S.Schema<Role>,
+  input: __S(1888, __c118, 0) as any as S.Schema<CreateRoleRequest>,
+  output: __S(1906, __c119, 2) as any as S.Schema<Role>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7590,7 +7599,11 @@ export const createRole: API.OperationMethod<
   span: "CreateRole",
 }));
 
-export type CreateServiceTokenError = BadRequest | Forbidden | BraintrustOpError;
+export type CreateServiceTokenError =
+  | BadRequest
+  | Forbidden
+  | ServiceTokenOutlivesCaller
+  | BraintrustOpError;
 /** Create service token Create a new service token. Authenticate with a service token. A service token whose service account is an organization owner can create tokens for any service account. A service token whose service account holds the Owner role on a project group can create tokens for a service account in the same organization when the target account has a permission grant on a project group it owns. The calling service account must also hold all of the target account's permissions in the organization; otherwise the request returns 403. User API keys cannot be used. */
 export const createServiceToken: API.OperationMethod<
   CreateServiceTokenRequest,
@@ -7598,9 +7611,9 @@ export const createServiceToken: API.OperationMethod<
   CreateServiceTokenError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1856, __c116, 0) as any as S.Schema<CreateServiceTokenRequest>,
-  output: __S(1872, __c117, 0) as any as S.Schema<CreateServiceTokenOutput>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  input: __S(1920, __c120, 0) as any as S.Schema<CreateServiceTokenRequest>,
+  output: __S(1936, __c121, 0) as any as S.Schema<CreateServiceTokenOutput>,
+  errors: [BadRequest, Forbidden, ServiceTokenOutlivesCaller, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
@@ -7615,8 +7628,8 @@ export const createSpanIframe: API.OperationMethod<
   CreateSpanIframeError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1888, __c118, 0) as any as S.Schema<CreateSpanIframeRequest>,
-  output: __S(1904, __c119, 0) as any as S.Schema<SpanIFrame>,
+  input: __S(1952, __c122, 0) as any as S.Schema<CreateSpanIframeRequest>,
+  output: __S(1968, __c123, 0) as any as S.Schema<SpanIFrame>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7632,8 +7645,8 @@ export const createView: API.OperationMethod<
   CreateViewError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1920, __c120, 0) as any as S.Schema<CreateViewRequest>,
-  output: __S(1954, __c122, 2) as any as S.Schema<View>,
+  input: __S(1984, __c124, 0) as any as S.Schema<CreateViewRequest>,
+  output: __S(2018, __c126, 2) as any as S.Schema<View>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7649,8 +7662,8 @@ export const deleteAcl: API.OperationMethod<
   DeleteAclError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1968, __c123, 0) as any as S.Schema<DeleteAclRequest>,
-  output: __S(2048, __c128, 0) as any as S.Schema<Acl>,
+  input: __S(2032, __c127, 0) as any as S.Schema<DeleteAclRequest>,
+  output: __S(2256, __c141, 0) as any as S.Schema<Acl>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7666,8 +7679,8 @@ export const deleteAiSecret: API.OperationMethod<
   DeleteAiSecretError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1984, __c124, 0) as any as S.Schema<DeleteAiSecretRequest>,
-  output: __S(2448, __c153, 0) as any as S.Schema<AISecret>,
+  input: __S(2048, __c128, 0) as any as S.Schema<DeleteAiSecretRequest>,
+  output: __S(2752, __c172, 0) as any as S.Schema<AISecret>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7683,8 +7696,8 @@ export const deleteApiKey: API.OperationMethod<
   DeleteApiKeyError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2000, __c125, 0) as any as S.Schema<DeleteApiKeyRequest>,
-  output: __S(2016, __c126, 0) as any as S.Schema<ApiKey>,
+  input: __S(2064, __c129, 0) as any as S.Schema<DeleteApiKeyRequest>,
+  output: __S(2080, __c130, 0) as any as S.Schema<ApiKey>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7700,8 +7713,8 @@ export const deleteColumn: API.OperationMethod<
   DeleteColumnError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2080, __c130, 0) as any as S.Schema<DeleteColumnRequest>,
-  output: __S(2752, __c172, 0) as any as S.Schema<CustomColumn>,
+  input: __S(2096, __c131, 0) as any as S.Schema<DeleteColumnRequest>,
+  output: __S(2960, __c185, 0) as any as S.Schema<CustomColumn>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7717,8 +7730,8 @@ export const deleteDataset: API.OperationMethod<
   DeleteDatasetError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2096, __c131, 0) as any as S.Schema<DeleteDatasetRequest>,
-  output: __S(2960, __c185, 0) as any as S.Schema<Dataset>,
+  input: __S(2112, __c132, 0) as any as S.Schema<DeleteDatasetRequest>,
+  output: __S(3184, __c199, 0) as any as S.Schema<Dataset>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7738,8 +7751,8 @@ export const deleteDatasetSnapshot: API.OperationMethod<
   DeleteDatasetSnapshotError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2112, __c132, 0) as any as S.Schema<DeleteDatasetSnapshotRequest>,
-  output: __S(16, __c1, 0) as any as S.Schema<DatasetSnapshot>,
+  input: __S(2128, __c133, 0) as any as S.Schema<DeleteDatasetSnapshotRequest>,
+  output: __S(240, __c15, 0) as any as S.Schema<DatasetSnapshot>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7759,8 +7772,8 @@ export const deleteEnvironment: API.OperationMethod<
   DeleteEnvironmentError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2128, __c133, 0) as any as S.Schema<DeleteEnvironmentRequest>,
-  output: __S(224, __c14, 0) as any as S.Schema<Environment>,
+  input: __S(2144, __c134, 0) as any as S.Schema<DeleteEnvironmentRequest>,
+  output: __S(432, __c27, 0) as any as S.Schema<Environment>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7776,8 +7789,8 @@ export const deleteEnvVar: API.OperationMethod<
   DeleteEnvVarError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2144, __c134, 0) as any as S.Schema<DeleteEnvVarRequest>,
-  output: __S(416, __c26, 0) as any as S.Schema<EnvVar>,
+  input: __S(2160, __c135, 0) as any as S.Schema<DeleteEnvVarRequest>,
+  output: __S(624, __c39, 0) as any as S.Schema<EnvVar>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7797,8 +7810,8 @@ export const deleteExperiment: API.OperationMethod<
   DeleteExperimentError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2160, __c135, 0) as any as S.Schema<DeleteExperimentRequest>,
-  output: __S(881, __c55, 1) as any as S.Schema<Experiment>,
+  input: __S(2176, __c136, 0) as any as S.Schema<DeleteExperimentRequest>,
+  output: __S(1089, __c68, 1) as any as S.Schema<Experiment>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7814,8 +7827,8 @@ export const deleteFunction: API.OperationMethod<
   DeleteFunctionError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2176, __c136, 0) as any as S.Schema<DeleteFunctionRequest>,
-  output: __S(1298, __c81, 2) as any as S.Schema<Function>,
+  input: __S(2192, __c137, 0) as any as S.Schema<DeleteFunctionRequest>,
+  output: __S(1458, __c91, 2) as any as S.Schema<Function>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7831,8 +7844,8 @@ export const deleteGroup: API.OperationMethod<
   DeleteGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2192, __c137, 0) as any as S.Schema<DeleteGroupRequest>,
-  output: __S(1424, __c89, 0) as any as S.Schema<Group>,
+  input: __S(2208, __c138, 0) as any as S.Schema<DeleteGroupRequest>,
+  output: __S(1488, __c93, 0) as any as S.Schema<Group>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7848,8 +7861,8 @@ export const deleteIngestKey: API.OperationMethod<
   DeleteIngestKeyError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2208, __c138, 0) as any as S.Schema<DeleteIngestKeyRequest>,
-  output: __S(2209, __c138, 1) as any as S.Schema<IngestKey>,
+  input: __S(2224, __c139, 0) as any as S.Schema<DeleteIngestKeyRequest>,
+  output: __S(2225, __c139, 1) as any as S.Schema<IngestKey>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7865,8 +7878,8 @@ export const deleteMcpServer: API.OperationMethod<
   DeleteMcpServerError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2224, __c139, 0) as any as S.Schema<DeleteMcpServerRequest>,
-  output: __S(1472, __c92, 0) as any as S.Schema<MCPServer>,
+  input: __S(2288, __c143, 0) as any as S.Schema<DeleteMcpServerRequest>,
+  output: __S(1536, __c96, 0) as any as S.Schema<MCPServer>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7882,8 +7895,8 @@ export const deleteProject: API.OperationMethod<
   DeleteProjectError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2256, __c141, 0) as any as S.Schema<DeleteProjectRequest>,
-  output: __S(1510, __c94, 6) as any as S.Schema<Project>,
+  input: __S(2304, __c144, 0) as any as S.Schema<DeleteProjectRequest>,
+  output: __S(1574, __c98, 6) as any as S.Schema<Project>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7903,8 +7916,8 @@ export const deleteProjectAutomation: API.OperationMethod<
   DeleteProjectAutomationError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2272, __c142, 0) as any as S.Schema<DeleteProjectAutomationRequest>,
-  output: __S(1553, __c97, 1) as any as S.Schema<ProjectAutomation>,
+  input: __S(2320, __c145, 0) as any as S.Schema<DeleteProjectAutomationRequest>,
+  output: __S(1617, __c101, 1) as any as S.Schema<ProjectAutomation>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7924,8 +7937,8 @@ export const deleteProjectGroup: API.OperationMethod<
   DeleteProjectGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2288, __c143, 0) as any as S.Schema<DeleteProjectGroupRequest>,
-  output: __S(1584, __c99, 0) as any as S.Schema<ProjectGroup>,
+  input: __S(2336, __c146, 0) as any as S.Schema<DeleteProjectGroupRequest>,
+  output: __S(1648, __c103, 0) as any as S.Schema<ProjectGroup>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7945,8 +7958,8 @@ export const deleteProjectScore: API.OperationMethod<
   DeleteProjectScoreError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2304, __c144, 0) as any as S.Schema<DeleteProjectScoreRequest>,
-  output: __S(1637, __c102, 5) as any as S.Schema<ProjectScore>,
+  input: __S(2352, __c147, 0) as any as S.Schema<DeleteProjectScoreRequest>,
+  output: __S(1701, __c106, 5) as any as S.Schema<ProjectScore>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7966,8 +7979,8 @@ export const deleteProjectTag: API.OperationMethod<
   DeleteProjectTagError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2320, __c145, 0) as any as S.Schema<DeleteProjectTagRequest>,
-  output: __S(1664, __c104, 0) as any as S.Schema<ProjectTag>,
+  input: __S(2368, __c148, 0) as any as S.Schema<DeleteProjectTagRequest>,
+  output: __S(1728, __c108, 0) as any as S.Schema<ProjectTag>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -7983,8 +7996,8 @@ export const deletePrompt: API.OperationMethod<
   DeletePromptError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2336, __c146, 0) as any as S.Schema<DeletePromptRequest>,
-  output: __S(1696, __c106, 0) as any as S.Schema<Prompt>,
+  input: __S(2384, __c149, 0) as any as S.Schema<DeletePromptRequest>,
+  output: __S(1760, __c110, 0) as any as S.Schema<Prompt>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8000,8 +8013,8 @@ export const deleteRole: API.OperationMethod<
   DeleteRoleError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2352, __c147, 0) as any as S.Schema<DeleteRoleRequest>,
-  output: __S(1842, __c115, 2) as any as S.Schema<Role>,
+  input: __S(2400, __c150, 0) as any as S.Schema<DeleteRoleRequest>,
+  output: __S(1906, __c119, 2) as any as S.Schema<Role>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8021,8 +8034,8 @@ export const deleteServiceToken: API.OperationMethod<
   DeleteServiceTokenError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2368, __c148, 0) as any as S.Schema<DeleteServiceTokenRequest>,
-  output: __S(2384, __c149, 0) as any as S.Schema<ServiceToken>,
+  input: __S(2416, __c151, 0) as any as S.Schema<DeleteServiceTokenRequest>,
+  output: __S(2432, __c152, 0) as any as S.Schema<ServiceToken>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8042,8 +8055,8 @@ export const deleteSpanIframe: API.OperationMethod<
   DeleteSpanIframeError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2400, __c150, 0) as any as S.Schema<DeleteSpanIframeRequest>,
-  output: __S(1904, __c119, 0) as any as S.Schema<SpanIFrame>,
+  input: __S(2448, __c153, 0) as any as S.Schema<DeleteSpanIframeRequest>,
+  output: __S(1968, __c123, 0) as any as S.Schema<SpanIFrame>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8059,8 +8072,8 @@ export const deleteView: API.OperationMethod<
   DeleteViewError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2416, __c151, 0) as any as S.Schema<DeleteViewRequest>,
-  output: __S(1954, __c122, 2) as any as S.Schema<View>,
+  input: __S(2480, __c155, 0) as any as S.Schema<DeleteViewRequest>,
+  output: __S(2018, __c126, 2) as any as S.Schema<View>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8081,8 +8094,8 @@ export const fetchDatasetEvents: API.PaginatedOperationMethod<
   BraintrustOpContext,
   DatasetEvent
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(2480, __c155, 0) as any as S.Schema<FetchDatasetEventsRequest>,
-  output: __S(2530, __c158, 2) as any as S.Schema<FetchDatasetEventsResponse>,
+  input: __S(2496, __c156, 0) as any as S.Schema<FetchDatasetEventsRequest>,
+  output: __S(2546, __c159, 2) as any as S.Schema<FetchDatasetEventsResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8110,8 +8123,8 @@ export const fetchExperimentEvents: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ExperimentEvent
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(2544, __c159, 0) as any as S.Schema<FetchExperimentEventsRequest>,
-  output: __S(2578, __c161, 2) as any as S.Schema<FetchExperimentEventsResponse>,
+  input: __S(2560, __c160, 0) as any as S.Schema<FetchExperimentEventsRequest>,
+  output: __S(2594, __c162, 2) as any as S.Schema<FetchExperimentEventsResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8139,8 +8152,8 @@ export const fetchProjectLogEvents: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ProjectLogsEvent
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(2592, __c162, 0) as any as S.Schema<FetchProjectLogEventsRequest>,
-  output: __S(2610, __c163, 2) as any as S.Schema<FetchProjectLogsEventsResponse>,
+  input: __S(2608, __c163, 0) as any as S.Schema<FetchProjectLogEventsRequest>,
+  output: __S(2626, __c164, 2) as any as S.Schema<FetchProjectLogsEventsResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8167,8 +8180,8 @@ export const findAndDeleteAcl: API.OperationMethod<
   FindAndDeleteAclError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2624, __c164, 0) as any as S.Schema<FindAndDeleteAclRequest>,
-  output: __S(2048, __c128, 0) as any as S.Schema<Acl>,
+  input: __S(2640, __c165, 0) as any as S.Schema<FindAndDeleteAclRequest>,
+  output: __S(2256, __c141, 0) as any as S.Schema<Acl>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8188,8 +8201,8 @@ export const findAndDeleteAiSecret: API.OperationMethod<
   FindAndDeleteAiSecretError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2640, __c165, 0) as any as S.Schema<FindAndDeleteAiSecretRequest>,
-  output: __S(2448, __c153, 0) as any as S.Schema<AISecret>,
+  input: __S(2656, __c166, 0) as any as S.Schema<FindAndDeleteAiSecretRequest>,
+  output: __S(2752, __c172, 0) as any as S.Schema<AISecret>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8205,8 +8218,8 @@ export const findAndDeleteServiceToken: API.OperationMethod<
   FindAndDeleteServiceTokenError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2656, __c166, 0) as any as S.Schema<FindAndDeleteServiceTokenRequest>,
-  output: __S(2384, __c149, 0) as any as S.Schema<ServiceToken>,
+  input: __S(2672, __c167, 0) as any as S.Schema<FindAndDeleteServiceTokenRequest>,
+  output: __S(2432, __c152, 0) as any as S.Schema<ServiceToken>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8218,8 +8231,8 @@ export type GetAclError = BadRequest | Forbidden | NotFoundOrForbidden | Braintr
 /** Get ACL Get an ACL object by its id */
 export const getAcl: API.OperationMethod<GetAclRequest, Acl, GetAclError, BraintrustOpContext> =
   /*@__PURE__*/ API.make(() => ({
-    input: __S(2672, __c167, 0) as any as S.Schema<GetAclRequest>,
-    output: __S(2048, __c128, 0) as any as S.Schema<Acl>,
+    input: __S(2688, __c168, 0) as any as S.Schema<GetAclRequest>,
+    output: __S(2256, __c141, 0) as any as S.Schema<Acl>,
     errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
     protocol: BraintrustProtocol,
     retry: Retry.Retry,
@@ -8235,8 +8248,8 @@ export const getAiSecret: API.OperationMethod<
   GetAiSecretError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2688, __c168, 0) as any as S.Schema<GetAiSecretRequest>,
-  output: __S(2448, __c153, 0) as any as S.Schema<AISecret>,
+  input: __S(2704, __c169, 0) as any as S.Schema<GetAiSecretRequest>,
+  output: __S(2752, __c172, 0) as any as S.Schema<AISecret>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8252,8 +8265,8 @@ export const getApiKey: API.OperationMethod<
   GetApiKeyError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2704, __c169, 0) as any as S.Schema<GetApiKeyRequest>,
-  output: __S(2016, __c126, 0) as any as S.Schema<ApiKey>,
+  input: __S(2720, __c170, 0) as any as S.Schema<GetApiKeyRequest>,
+  output: __S(2080, __c130, 0) as any as S.Schema<ApiKey>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8269,8 +8282,8 @@ export const getDataset: API.OperationMethod<
   GetDatasetError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2720, __c170, 0) as any as S.Schema<GetDatasetRequest>,
-  output: __S(2960, __c185, 0) as any as S.Schema<Dataset>,
+  input: __S(2784, __c174, 0) as any as S.Schema<GetDatasetRequest>,
+  output: __S(3184, __c199, 0) as any as S.Schema<Dataset>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8290,8 +8303,8 @@ export const getDatasetEvents: API.OperationMethod<
   GetDatasetEventsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2768, __c173, 0) as any as S.Schema<GetDatasetEventsRequest>,
-  output: __S(2530, __c158, 2) as any as S.Schema<FetchDatasetEventsResponse>,
+  input: __S(2800, __c175, 0) as any as S.Schema<GetDatasetEventsRequest>,
+  output: __S(2546, __c159, 2) as any as S.Schema<FetchDatasetEventsResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8311,8 +8324,8 @@ export const getDatasetSnapshot: API.OperationMethod<
   GetDatasetSnapshotError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2784, __c174, 0) as any as S.Schema<GetDatasetSnapshotRequest>,
-  output: __S(16, __c1, 0) as any as S.Schema<DatasetSnapshot>,
+  input: __S(2816, __c176, 0) as any as S.Schema<GetDatasetSnapshotRequest>,
+  output: __S(240, __c15, 0) as any as S.Schema<DatasetSnapshot>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8328,8 +8341,8 @@ export const getEnvironment: API.OperationMethod<
   GetEnvironmentError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2800, __c175, 0) as any as S.Schema<GetEnvironmentRequest>,
-  output: __S(224, __c14, 0) as any as S.Schema<Environment>,
+  input: __S(2832, __c177, 0) as any as S.Schema<GetEnvironmentRequest>,
+  output: __S(432, __c27, 0) as any as S.Schema<Environment>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8345,8 +8358,8 @@ export const getEnvVar: API.OperationMethod<
   GetEnvVarError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2816, __c176, 0) as any as S.Schema<GetEnvVarRequest>,
-  output: __S(416, __c26, 0) as any as S.Schema<EnvVar>,
+  input: __S(2848, __c178, 0) as any as S.Schema<GetEnvVarRequest>,
+  output: __S(624, __c39, 0) as any as S.Schema<EnvVar>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8362,8 +8375,8 @@ export const getExperiment: API.OperationMethod<
   GetExperimentError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2832, __c177, 0) as any as S.Schema<GetExperimentRequest>,
-  output: __S(881, __c55, 1) as any as S.Schema<Experiment>,
+  input: __S(2864, __c179, 0) as any as S.Schema<GetExperimentRequest>,
+  output: __S(1089, __c68, 1) as any as S.Schema<Experiment>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8383,8 +8396,8 @@ export const getExperimentEvents: API.OperationMethod<
   GetExperimentEventsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2848, __c178, 0) as any as S.Schema<GetExperimentEventsRequest>,
-  output: __S(2578, __c161, 2) as any as S.Schema<FetchExperimentEventsResponse>,
+  input: __S(2880, __c180, 0) as any as S.Schema<GetExperimentEventsRequest>,
+  output: __S(2594, __c162, 2) as any as S.Schema<FetchExperimentEventsResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8400,8 +8413,8 @@ export const getFunction: API.OperationMethod<
   GetFunctionError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2864, __c179, 0) as any as S.Schema<GetFunctionRequest>,
-  output: __S(1298, __c81, 2) as any as S.Schema<Function>,
+  input: __S(2896, __c181, 0) as any as S.Schema<GetFunctionRequest>,
+  output: __S(1458, __c91, 2) as any as S.Schema<Function>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8417,8 +8430,8 @@ export const getGroup: API.OperationMethod<
   GetGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2880, __c180, 0) as any as S.Schema<GetGroupRequest>,
-  output: __S(1424, __c89, 0) as any as S.Schema<Group>,
+  input: __S(2912, __c182, 0) as any as S.Schema<GetGroupRequest>,
+  output: __S(1488, __c93, 0) as any as S.Schema<Group>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8434,8 +8447,8 @@ export const getMcpServer: API.OperationMethod<
   GetMcpServerError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2896, __c181, 0) as any as S.Schema<GetMcpServerRequest>,
-  output: __S(1472, __c92, 0) as any as S.Schema<MCPServer>,
+  input: __S(2928, __c183, 0) as any as S.Schema<GetMcpServerRequest>,
+  output: __S(1536, __c96, 0) as any as S.Schema<MCPServer>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8451,8 +8464,8 @@ export const getOrganization: API.OperationMethod<
   GetOrganizationError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2912, __c182, 0) as any as S.Schema<GetOrganizationRequest>,
-  output: __S(2928, __c183, 0) as any as S.Schema<Organization>,
+  input: __S(2976, __c186, 0) as any as S.Schema<GetOrganizationRequest>,
+  output: __S(2992, __c187, 0) as any as S.Schema<Organization>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8468,8 +8481,8 @@ export const getProject: API.OperationMethod<
   GetProjectError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(2992, __c187, 0) as any as S.Schema<GetProjectRequest>,
-  output: __S(1510, __c94, 6) as any as S.Schema<Project>,
+  input: __S(3008, __c188, 0) as any as S.Schema<GetProjectRequest>,
+  output: __S(1574, __c98, 6) as any as S.Schema<Project>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8489,8 +8502,8 @@ export const getProjectAutomation: API.OperationMethod<
   GetProjectAutomationError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3008, __c188, 0) as any as S.Schema<GetProjectAutomationRequest>,
-  output: __S(1553, __c97, 1) as any as S.Schema<ProjectAutomation>,
+  input: __S(3024, __c189, 0) as any as S.Schema<GetProjectAutomationRequest>,
+  output: __S(1617, __c101, 1) as any as S.Schema<ProjectAutomation>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8506,8 +8519,8 @@ export const getProjectGroup: API.OperationMethod<
   GetProjectGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3024, __c189, 0) as any as S.Schema<GetProjectGroupRequest>,
-  output: __S(1584, __c99, 0) as any as S.Schema<ProjectGroup>,
+  input: __S(3040, __c190, 0) as any as S.Schema<GetProjectGroupRequest>,
+  output: __S(1648, __c103, 0) as any as S.Schema<ProjectGroup>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8527,8 +8540,8 @@ export const getProjectLogEvents: API.OperationMethod<
   GetProjectLogEventsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3040, __c190, 0) as any as S.Schema<GetProjectLogEventsRequest>,
-  output: __S(2610, __c163, 2) as any as S.Schema<FetchProjectLogsEventsResponse>,
+  input: __S(3056, __c191, 0) as any as S.Schema<GetProjectLogEventsRequest>,
+  output: __S(2626, __c164, 2) as any as S.Schema<FetchProjectLogsEventsResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8544,8 +8557,8 @@ export const getProjectScore: API.OperationMethod<
   GetProjectScoreError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3056, __c191, 0) as any as S.Schema<GetProjectScoreRequest>,
-  output: __S(1637, __c102, 5) as any as S.Schema<ProjectScore>,
+  input: __S(3072, __c192, 0) as any as S.Schema<GetProjectScoreRequest>,
+  output: __S(1701, __c106, 5) as any as S.Schema<ProjectScore>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8561,8 +8574,8 @@ export const getProjectTag: API.OperationMethod<
   GetProjectTagError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3072, __c192, 0) as any as S.Schema<GetProjectTagRequest>,
-  output: __S(1664, __c104, 0) as any as S.Schema<ProjectTag>,
+  input: __S(3088, __c193, 0) as any as S.Schema<GetProjectTagRequest>,
+  output: __S(1728, __c108, 0) as any as S.Schema<ProjectTag>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8578,8 +8591,8 @@ export const getPrompt: API.OperationMethod<
   GetPromptError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3088, __c193, 0) as any as S.Schema<GetPromptRequest>,
-  output: __S(1696, __c106, 0) as any as S.Schema<Prompt>,
+  input: __S(3104, __c194, 0) as any as S.Schema<GetPromptRequest>,
+  output: __S(1760, __c110, 0) as any as S.Schema<Prompt>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8591,8 +8604,8 @@ export type GetRoleError = BadRequest | Forbidden | NotFoundOrForbidden | Braint
 /** Get role Get a role object by its id */
 export const getRole: API.OperationMethod<GetRoleRequest, Role, GetRoleError, BraintrustOpContext> =
   /*@__PURE__*/ API.make(() => ({
-    input: __S(3104, __c194, 0) as any as S.Schema<GetRoleRequest>,
-    output: __S(1842, __c115, 2) as any as S.Schema<Role>,
+    input: __S(3120, __c195, 0) as any as S.Schema<GetRoleRequest>,
+    output: __S(1906, __c119, 2) as any as S.Schema<Role>,
     errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
     protocol: BraintrustProtocol,
     retry: Retry.Retry,
@@ -8608,8 +8621,8 @@ export const getRoot: API.OperationMethod<
   GetRootError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3120, __c195, 0) as any as S.Schema<GetRootRequest>,
-  output: __S(3121, __c195, 1) as any as S.Schema<GetRootResponse>,
+  input: __S(3136, __c196, 0) as any as S.Schema<GetRootRequest>,
+  output: __S(3137, __c196, 1) as any as S.Schema<GetRootResponse>,
   errors: [BadRequest, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8625,8 +8638,8 @@ export const getServiceToken: API.OperationMethod<
   GetServiceTokenError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3136, __c196, 0) as any as S.Schema<GetServiceTokenRequest>,
-  output: __S(2384, __c149, 0) as any as S.Schema<ServiceToken>,
+  input: __S(3200, __c200, 0) as any as S.Schema<GetServiceTokenRequest>,
+  output: __S(2432, __c152, 0) as any as S.Schema<ServiceToken>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8642,8 +8655,8 @@ export const getSpanIframe: API.OperationMethod<
   GetSpanIframeError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3200, __c200, 0) as any as S.Schema<GetSpanIframeRequest>,
-  output: __S(1904, __c119, 0) as any as S.Schema<SpanIFrame>,
+  input: __S(3216, __c201, 0) as any as S.Schema<GetSpanIframeRequest>,
+  output: __S(1968, __c123, 0) as any as S.Schema<SpanIFrame>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8655,8 +8668,8 @@ export type GetUserError = BadRequest | Forbidden | NotFoundOrForbidden | Braint
 /** Get user Get a user object by its id */
 export const getUser: API.OperationMethod<GetUserRequest, User, GetUserError, BraintrustOpContext> =
   /*@__PURE__*/ API.make(() => ({
-    input: __S(3216, __c201, 0) as any as S.Schema<GetUserRequest>,
-    output: __S(3232, __c202, 0) as any as S.Schema<User>,
+    input: __S(3232, __c202, 0) as any as S.Schema<GetUserRequest>,
+    output: __S(3248, __c203, 0) as any as S.Schema<User>,
     errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
     protocol: BraintrustProtocol,
     retry: Retry.Retry,
@@ -8668,8 +8681,8 @@ export type GetViewError = BadRequest | Forbidden | NotFoundOrForbidden | Braint
 /** Get view Get a view object by its id */
 export const getView: API.OperationMethod<GetViewRequest, View, GetViewError, BraintrustOpContext> =
   /*@__PURE__*/ API.make(() => ({
-    input: __S(3248, __c203, 0) as any as S.Schema<GetViewRequest>,
-    output: __S(1954, __c122, 2) as any as S.Schema<View>,
+    input: __S(3264, __c204, 0) as any as S.Schema<GetViewRequest>,
+    output: __S(2018, __c126, 2) as any as S.Schema<View>,
     errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
     protocol: BraintrustProtocol,
     retry: Retry.Retry,
@@ -8685,8 +8698,8 @@ export const insertCrossObject: API.OperationMethod<
   InsertCrossObjectError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3268, __c204, 4) as any as S.Schema<InsertCrossObjectRequest>,
-  output: __S(3270, __c204, 6) as any as S.Schema<CrossObjectInsertResponse>,
+  input: __S(3284, __c205, 4) as any as S.Schema<InsertCrossObjectRequest>,
+  output: __S(3286, __c205, 6) as any as S.Schema<CrossObjectInsertResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8706,8 +8719,8 @@ export const insertDatasetEvents: API.OperationMethod<
   InsertDatasetEventsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3328, __c208, 0) as any as S.Schema<InsertDatasetEventsRequest>,
-  output: __S(3298, __c206, 2) as any as S.Schema<InsertEventsResponse>,
+  input: __S(3344, __c209, 0) as any as S.Schema<InsertDatasetEventsRequest>,
+  output: __S(3314, __c207, 2) as any as S.Schema<InsertEventsResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8727,8 +8740,8 @@ export const insertExperimentEvents: API.OperationMethod<
   InsertExperimentEventsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3344, __c209, 0) as any as S.Schema<InsertExperimentEventsRequest>,
-  output: __S(3298, __c206, 2) as any as S.Schema<InsertEventsResponse>,
+  input: __S(3360, __c210, 0) as any as S.Schema<InsertExperimentEventsRequest>,
+  output: __S(3314, __c207, 2) as any as S.Schema<InsertEventsResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8748,8 +8761,8 @@ export const insertProjectLogEvents: API.OperationMethod<
   InsertProjectLogEventsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3360, __c210, 0) as any as S.Schema<InsertProjectLogEventsRequest>,
-  output: __S(3298, __c206, 2) as any as S.Schema<InsertEventsResponse>,
+  input: __S(3376, __c211, 0) as any as S.Schema<InsertProjectLogEventsRequest>,
+  output: __S(3314, __c207, 2) as any as S.Schema<InsertEventsResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8765,8 +8778,8 @@ export const invokeFunction: API.OperationMethod<
   InvokeFunctionError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(3377, __c211, 1) as any as S.Schema<InvokeFunctionRequest>,
-  output: __S(1728, __c108, 0) as any as S.Schema<InvokeFunctionResponse>,
+  input: __S(3393, __c212, 1) as any as S.Schema<InvokeFunctionRequest>,
+  output: __S(1792, __c112, 0) as any as S.Schema<InvokeFunctionResponse>,
   errors: [NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8783,8 +8796,8 @@ export const listAcls: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Acl
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(3392, __c212, 0) as any as S.Schema<ListAclsRequest>,
-  output: __S(3408, __c213, 0) as any as S.Schema<ListAclsResponse>,
+  input: __S(3408, __c213, 0) as any as S.Schema<ListAclsRequest>,
+  output: __S(3424, __c214, 0) as any as S.Schema<ListAclsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8808,8 +8821,8 @@ export const listAiSecrets: API.PaginatedOperationMethod<
   BraintrustOpContext,
   AISecret
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(3424, __c214, 0) as any as S.Schema<ListAiSecretsRequest>,
-  output: __S(3426, __c214, 2) as any as S.Schema<ListAiSecretsResponse>,
+  input: __S(48, __c3, 0) as any as S.Schema<ListAiSecretsRequest>,
+  output: __S(50, __c3, 2) as any as S.Schema<ListAiSecretsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8833,8 +8846,8 @@ export const listApiKeys: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ApiKey
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(32, __c2, 0) as any as S.Schema<ListApiKeysRequest>,
-  output: __S(49, __c3, 1) as any as S.Schema<ListApiKeysResponse>,
+  input: __S(64, __c4, 0) as any as S.Schema<ListApiKeysRequest>,
+  output: __S(81, __c5, 1) as any as S.Schema<ListApiKeysResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8857,8 +8870,8 @@ export const listColumns: API.OperationMethod<
   ListColumnsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(64, __c4, 0) as any as S.Schema<ListColumnsRequest>,
-  output: __S(66, __c4, 2) as any as S.Schema<ListColumnsResponse>,
+  input: __S(96, __c6, 0) as any as S.Schema<ListColumnsRequest>,
+  output: __S(98, __c6, 2) as any as S.Schema<ListColumnsResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8875,8 +8888,8 @@ export const listDatasets: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Dataset
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(80, __c5, 0) as any as S.Schema<ListDatasetsRequest>,
-  output: __S(82, __c5, 2) as any as S.Schema<ListDatasetsResponse>,
+  input: __S(112, __c7, 0) as any as S.Schema<ListDatasetsRequest>,
+  output: __S(114, __c7, 2) as any as S.Schema<ListDatasetsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8900,8 +8913,8 @@ export const listDatasetSnapshots: API.PaginatedOperationMethod<
   BraintrustOpContext,
   DatasetSnapshot
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(96, __c6, 0) as any as S.Schema<ListDatasetSnapshotsRequest>,
-  output: __S(98, __c6, 2) as any as S.Schema<ListDatasetSnapshotsResponse>,
+  input: __S(128, __c8, 0) as any as S.Schema<ListDatasetSnapshotsRequest>,
+  output: __S(130, __c8, 2) as any as S.Schema<ListDatasetSnapshotsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8924,8 +8937,8 @@ export const listEnvironments: API.OperationMethod<
   ListEnvironmentsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(112, __c7, 0) as any as S.Schema<ListEnvironmentsRequest>,
-  output: __S(114, __c7, 2) as any as S.Schema<ListEnvironmentsResponse>,
+  input: __S(144, __c9, 0) as any as S.Schema<ListEnvironmentsRequest>,
+  output: __S(146, __c9, 2) as any as S.Schema<ListEnvironmentsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8941,8 +8954,8 @@ export const listEnvVars: API.OperationMethod<
   ListEnvVarsError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(128, __c8, 0) as any as S.Schema<ListEnvVarsRequest>,
-  output: __S(130, __c8, 2) as any as S.Schema<ListEnvVarsResponse>,
+  input: __S(160, __c10, 0) as any as S.Schema<ListEnvVarsRequest>,
+  output: __S(162, __c10, 2) as any as S.Schema<ListEnvVarsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8959,8 +8972,8 @@ export const listExperiments: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Experiment
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(144, __c9, 0) as any as S.Schema<ListExperimentsRequest>,
-  output: __S(146, __c9, 2) as any as S.Schema<ListExperimentsResponse>,
+  input: __S(176, __c11, 0) as any as S.Schema<ListExperimentsRequest>,
+  output: __S(178, __c11, 2) as any as S.Schema<ListExperimentsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -8984,8 +8997,8 @@ export const listFunctions: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Function
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(160, __c10, 0) as any as S.Schema<ListFunctionsRequest>,
-  output: __S(162, __c10, 2) as any as S.Schema<ListFunctionsResponse>,
+  input: __S(192, __c12, 0) as any as S.Schema<ListFunctionsRequest>,
+  output: __S(194, __c12, 2) as any as S.Schema<ListFunctionsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9009,8 +9022,8 @@ export const listGroups: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Group
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(176, __c11, 0) as any as S.Schema<ListGroupsRequest>,
-  output: __S(178, __c11, 2) as any as S.Schema<ListGroupsResponse>,
+  input: __S(208, __c13, 0) as any as S.Schema<ListGroupsRequest>,
+  output: __S(210, __c13, 2) as any as S.Schema<ListGroupsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9034,8 +9047,8 @@ export const listIngestKeys: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ListIngestKeysResponseObjectsItem
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(192, __c12, 0) as any as S.Schema<ListIngestKeysRequest>,
-  output: __S(195, __c12, 3) as any as S.Schema<ListIngestKeysResponse>,
+  input: __S(256, __c16, 0) as any as S.Schema<ListIngestKeysRequest>,
+  output: __S(259, __c16, 3) as any as S.Schema<ListIngestKeysResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9059,8 +9072,8 @@ export const listMcpServers: API.PaginatedOperationMethod<
   BraintrustOpContext,
   MCPServer
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(240, __c15, 0) as any as S.Schema<ListMcpServersRequest>,
-  output: __S(242, __c15, 2) as any as S.Schema<ListMcpServersResponse>,
+  input: __S(272, __c17, 0) as any as S.Schema<ListMcpServersRequest>,
+  output: __S(274, __c17, 2) as any as S.Schema<ListMcpServersResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9084,8 +9097,8 @@ export const listOrgAcls: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Acl
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(256, __c16, 0) as any as S.Schema<ListOrgAclsRequest>,
-  output: __S(3408, __c213, 0) as any as S.Schema<ListOrgAclsResponse>,
+  input: __S(288, __c18, 0) as any as S.Schema<ListOrgAclsRequest>,
+  output: __S(3424, __c214, 0) as any as S.Schema<ListOrgAclsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9109,8 +9122,8 @@ export const listOrganizationApiKeys: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ApiKey
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(272, __c17, 0) as any as S.Schema<ListOrganizationApiKeysRequest>,
-  output: __S(49, __c3, 1) as any as S.Schema<ListOrganizationApiKeysResponse>,
+  input: __S(304, __c19, 0) as any as S.Schema<ListOrganizationApiKeysRequest>,
+  output: __S(81, __c5, 1) as any as S.Schema<ListOrganizationApiKeysResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9134,8 +9147,8 @@ export const listOrganizations: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Organization
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(288, __c18, 0) as any as S.Schema<ListOrganizationsRequest>,
-  output: __S(290, __c18, 2) as any as S.Schema<ListOrganizationsResponse>,
+  input: __S(320, __c20, 0) as any as S.Schema<ListOrganizationsRequest>,
+  output: __S(322, __c20, 2) as any as S.Schema<ListOrganizationsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9159,8 +9172,8 @@ export const listProjectAutomations: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ProjectAutomation
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(304, __c19, 0) as any as S.Schema<ListProjectAutomationsRequest>,
-  output: __S(306, __c19, 2) as any as S.Schema<ListProjectAutomationsResponse>,
+  input: __S(336, __c21, 0) as any as S.Schema<ListProjectAutomationsRequest>,
+  output: __S(338, __c21, 2) as any as S.Schema<ListProjectAutomationsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9184,8 +9197,8 @@ export const listProjectGroups: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ProjectGroup
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(320, __c20, 0) as any as S.Schema<ListProjectGroupsRequest>,
-  output: __S(322, __c20, 2) as any as S.Schema<ListProjectGroupsResponse>,
+  input: __S(352, __c22, 0) as any as S.Schema<ListProjectGroupsRequest>,
+  output: __S(354, __c22, 2) as any as S.Schema<ListProjectGroupsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9209,8 +9222,8 @@ export const listProjects: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Project
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(336, __c21, 0) as any as S.Schema<ListProjectsRequest>,
-  output: __S(338, __c21, 2) as any as S.Schema<ListProjectsResponse>,
+  input: __S(368, __c23, 0) as any as S.Schema<ListProjectsRequest>,
+  output: __S(370, __c23, 2) as any as S.Schema<ListProjectsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9234,8 +9247,8 @@ export const listProjectScores: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ProjectScore
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(352, __c22, 0) as any as S.Schema<ListProjectScoresRequest>,
-  output: __S(354, __c22, 2) as any as S.Schema<ListProjectScoresResponse>,
+  input: __S(384, __c24, 0) as any as S.Schema<ListProjectScoresRequest>,
+  output: __S(386, __c24, 2) as any as S.Schema<ListProjectScoresResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9259,8 +9272,8 @@ export const listProjectTags: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ProjectTag
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(368, __c23, 0) as any as S.Schema<ListProjectTagsRequest>,
-  output: __S(370, __c23, 2) as any as S.Schema<ListProjectTagsResponse>,
+  input: __S(400, __c25, 0) as any as S.Schema<ListProjectTagsRequest>,
+  output: __S(402, __c25, 2) as any as S.Schema<ListProjectTagsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9284,8 +9297,8 @@ export const listPrompts: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Prompt
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(384, __c24, 0) as any as S.Schema<ListPromptsRequest>,
-  output: __S(386, __c24, 2) as any as S.Schema<ListPromptsResponse>,
+  input: __S(448, __c28, 0) as any as S.Schema<ListPromptsRequest>,
+  output: __S(450, __c28, 2) as any as S.Schema<ListPromptsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9309,8 +9322,8 @@ export const listRoles: API.PaginatedOperationMethod<
   BraintrustOpContext,
   Role
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(432, __c27, 0) as any as S.Schema<ListRolesRequest>,
-  output: __S(434, __c27, 2) as any as S.Schema<ListRolesResponse>,
+  input: __S(464, __c29, 0) as any as S.Schema<ListRolesRequest>,
+  output: __S(466, __c29, 2) as any as S.Schema<ListRolesResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9334,8 +9347,8 @@ export const listServiceTokens: API.PaginatedOperationMethod<
   BraintrustOpContext,
   ServiceToken
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(448, __c28, 0) as any as S.Schema<ListServiceTokensRequest>,
-  output: __S(450, __c28, 2) as any as S.Schema<ListServiceTokensResponse>,
+  input: __S(480, __c30, 0) as any as S.Schema<ListServiceTokensRequest>,
+  output: __S(482, __c30, 2) as any as S.Schema<ListServiceTokensResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9359,8 +9372,8 @@ export const listSpanIframes: API.PaginatedOperationMethod<
   BraintrustOpContext,
   SpanIFrame
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(464, __c29, 0) as any as S.Schema<ListSpanIframesRequest>,
-  output: __S(466, __c29, 2) as any as S.Schema<ListSpanIframesResponse>,
+  input: __S(496, __c31, 0) as any as S.Schema<ListSpanIframesRequest>,
+  output: __S(498, __c31, 2) as any as S.Schema<ListSpanIframesResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9384,8 +9397,8 @@ export const listUsers: API.PaginatedOperationMethod<
   BraintrustOpContext,
   User
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(480, __c30, 0) as any as S.Schema<ListUsersRequest>,
-  output: __S(482, __c30, 2) as any as S.Schema<ListUsersResponse>,
+  input: __S(512, __c32, 0) as any as S.Schema<ListUsersRequest>,
+  output: __S(514, __c32, 2) as any as S.Schema<ListUsersResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9409,8 +9422,8 @@ export const listViews: API.PaginatedOperationMethod<
   BraintrustOpContext,
   View
 > = /*@__PURE__*/ API.makePaginated(() => ({
-  input: __S(496, __c31, 0) as any as S.Schema<ListViewsRequest>,
-  output: __S(498, __c31, 2) as any as S.Schema<ListViewsResponse>,
+  input: __S(528, __c33, 0) as any as S.Schema<ListViewsRequest>,
+  output: __S(530, __c33, 2) as any as S.Schema<ListViewsResponse>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9437,8 +9450,8 @@ export const previewDatasetRestore: API.OperationMethod<
   PreviewDatasetRestoreError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(512, __c32, 0) as any as S.Schema<PreviewDatasetRestoreRequest>,
-  output: __S(513, __c32, 1) as any as S.Schema<DatasetRestorePreviewResponse>,
+  input: __S(544, __c34, 0) as any as S.Schema<PreviewDatasetRestoreRequest>,
+  output: __S(545, __c34, 1) as any as S.Schema<DatasetRestorePreviewResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9454,8 +9467,8 @@ export const replaceAiSecret: API.OperationMethod<
   ReplaceAiSecretError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(528, __c33, 0) as any as S.Schema<ReplaceAiSecretRequest>,
-  output: __S(2448, __c153, 0) as any as S.Schema<AISecret>,
+  input: __S(560, __c35, 0) as any as S.Schema<ReplaceAiSecretRequest>,
+  output: __S(2752, __c172, 0) as any as S.Schema<AISecret>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9471,8 +9484,8 @@ export const replaceColumn: API.OperationMethod<
   ReplaceColumnError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(544, __c34, 0) as any as S.Schema<ReplaceColumnRequest>,
-  output: __S(2752, __c172, 0) as any as S.Schema<CustomColumn>,
+  input: __S(576, __c36, 0) as any as S.Schema<ReplaceColumnRequest>,
+  output: __S(2960, __c185, 0) as any as S.Schema<CustomColumn>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9488,8 +9501,8 @@ export const replaceDatasetSnapshot: API.OperationMethod<
   ReplaceDatasetSnapshotError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(560, __c35, 0) as any as S.Schema<ReplaceDatasetSnapshotRequest>,
-  output: __S(16, __c1, 0) as any as S.Schema<DatasetSnapshot>,
+  input: __S(592, __c37, 0) as any as S.Schema<ReplaceDatasetSnapshotRequest>,
+  output: __S(240, __c15, 0) as any as S.Schema<DatasetSnapshot>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9505,8 +9518,8 @@ export const replaceEnvVar: API.OperationMethod<
   ReplaceEnvVarError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(576, __c36, 0) as any as S.Schema<ReplaceEnvVarRequest>,
-  output: __S(416, __c26, 0) as any as S.Schema<EnvVar>,
+  input: __S(640, __c40, 0) as any as S.Schema<ReplaceEnvVarRequest>,
+  output: __S(624, __c39, 0) as any as S.Schema<EnvVar>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9522,8 +9535,8 @@ export const replaceFunction: API.OperationMethod<
   ReplaceFunctionError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(704, __c44, 0) as any as S.Schema<ReplaceFunctionRequest>,
-  output: __S(1298, __c81, 2) as any as S.Schema<Function>,
+  input: __S(656, __c41, 0) as any as S.Schema<ReplaceFunctionRequest>,
+  output: __S(1458, __c91, 2) as any as S.Schema<Function>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9539,8 +9552,8 @@ export const replaceGroup: API.OperationMethod<
   ReplaceGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(720, __c45, 0) as any as S.Schema<ReplaceGroupRequest>,
-  output: __S(1424, __c89, 0) as any as S.Schema<Group>,
+  input: __S(672, __c42, 0) as any as S.Schema<ReplaceGroupRequest>,
+  output: __S(1488, __c93, 0) as any as S.Schema<Group>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9556,8 +9569,8 @@ export const replaceMcpServer: API.OperationMethod<
   ReplaceMcpServerError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(736, __c46, 0) as any as S.Schema<ReplaceMcpServerRequest>,
-  output: __S(1472, __c92, 0) as any as S.Schema<MCPServer>,
+  input: __S(688, __c43, 0) as any as S.Schema<ReplaceMcpServerRequest>,
+  output: __S(1536, __c96, 0) as any as S.Schema<MCPServer>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9573,8 +9586,8 @@ export const replaceProjectAutomation: API.OperationMethod<
   ReplaceProjectAutomationError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(752, __c47, 0) as any as S.Schema<ReplaceProjectAutomationRequest>,
-  output: __S(1553, __c97, 1) as any as S.Schema<ProjectAutomation>,
+  input: __S(704, __c44, 0) as any as S.Schema<ReplaceProjectAutomationRequest>,
+  output: __S(1617, __c101, 1) as any as S.Schema<ProjectAutomation>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9590,8 +9603,8 @@ export const replaceProjectGroup: API.OperationMethod<
   ReplaceProjectGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(768, __c48, 0) as any as S.Schema<ReplaceProjectGroupRequest>,
-  output: __S(1584, __c99, 0) as any as S.Schema<ProjectGroup>,
+  input: __S(720, __c45, 0) as any as S.Schema<ReplaceProjectGroupRequest>,
+  output: __S(1648, __c103, 0) as any as S.Schema<ProjectGroup>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9607,8 +9620,8 @@ export const replaceProjectScore: API.OperationMethod<
   ReplaceProjectScoreError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(784, __c49, 0) as any as S.Schema<ReplaceProjectScoreRequest>,
-  output: __S(1637, __c102, 5) as any as S.Schema<ProjectScore>,
+  input: __S(736, __c46, 0) as any as S.Schema<ReplaceProjectScoreRequest>,
+  output: __S(1701, __c106, 5) as any as S.Schema<ProjectScore>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9624,8 +9637,8 @@ export const replaceProjectTag: API.OperationMethod<
   ReplaceProjectTagError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(800, __c50, 0) as any as S.Schema<ReplaceProjectTagRequest>,
-  output: __S(1664, __c104, 0) as any as S.Schema<ProjectTag>,
+  input: __S(752, __c47, 0) as any as S.Schema<ReplaceProjectTagRequest>,
+  output: __S(1728, __c108, 0) as any as S.Schema<ProjectTag>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9641,8 +9654,8 @@ export const replacePrompt: API.OperationMethod<
   ReplacePromptError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(816, __c51, 0) as any as S.Schema<ReplacePromptRequest>,
-  output: __S(1696, __c106, 0) as any as S.Schema<Prompt>,
+  input: __S(768, __c48, 0) as any as S.Schema<ReplacePromptRequest>,
+  output: __S(1760, __c110, 0) as any as S.Schema<Prompt>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9658,8 +9671,8 @@ export const replaceRole: API.OperationMethod<
   ReplaceRoleError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(832, __c52, 0) as any as S.Schema<ReplaceRoleRequest>,
-  output: __S(1842, __c115, 2) as any as S.Schema<Role>,
+  input: __S(784, __c49, 0) as any as S.Schema<ReplaceRoleRequest>,
+  output: __S(1906, __c119, 2) as any as S.Schema<Role>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9675,8 +9688,8 @@ export const replaceServiceToken: API.OperationMethod<
   ReplaceServiceTokenError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(848, __c53, 0) as any as S.Schema<ReplaceServiceTokenRequest>,
-  output: __S(1872, __c117, 0) as any as S.Schema<CreateServiceTokenOutput>,
+  input: __S(912, __c57, 0) as any as S.Schema<ReplaceServiceTokenRequest>,
+  output: __S(1936, __c121, 0) as any as S.Schema<CreateServiceTokenOutput>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9692,8 +9705,8 @@ export const replaceSpanIframe: API.OperationMethod<
   ReplaceSpanIframeError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(896, __c56, 0) as any as S.Schema<ReplaceSpanIframeRequest>,
-  output: __S(1904, __c119, 0) as any as S.Schema<SpanIFrame>,
+  input: __S(928, __c58, 0) as any as S.Schema<ReplaceSpanIframeRequest>,
+  output: __S(1968, __c123, 0) as any as S.Schema<SpanIFrame>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9709,8 +9722,8 @@ export const replaceView: API.OperationMethod<
   ReplaceViewError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(912, __c57, 0) as any as S.Schema<ReplaceViewRequest>,
-  output: __S(1954, __c122, 2) as any as S.Schema<View>,
+  input: __S(944, __c59, 0) as any as S.Schema<ReplaceViewRequest>,
+  output: __S(2018, __c126, 2) as any as S.Schema<View>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9726,8 +9739,8 @@ export const restoreDataset: API.OperationMethod<
   RestoreDatasetError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(928, __c58, 0) as any as S.Schema<RestoreDatasetRequest>,
-  output: __S(929, __c58, 1) as any as S.Schema<DatasetRestoreResponse>,
+  input: __S(960, __c60, 0) as any as S.Schema<RestoreDatasetRequest>,
+  output: __S(961, __c60, 1) as any as S.Schema<DatasetRestoreResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9747,8 +9760,8 @@ export const summarizeDataset: API.OperationMethod<
   SummarizeDatasetError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(944, __c59, 0) as any as S.Schema<SummarizeDatasetRequest>,
-  output: __S(946, __c59, 2) as any as S.Schema<SummarizeDatasetResponse>,
+  input: __S(976, __c61, 0) as any as S.Schema<SummarizeDatasetRequest>,
+  output: __S(978, __c61, 2) as any as S.Schema<SummarizeDatasetResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9768,8 +9781,8 @@ export const summarizeExperiment: API.OperationMethod<
   SummarizeExperimentError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(960, __c60, 0) as any as S.Schema<SummarizeExperimentRequest>,
-  output: __S(961, __c60, 1) as any as S.Schema<SummarizeExperimentResponse>,
+  input: __S(992, __c62, 0) as any as S.Schema<SummarizeExperimentRequest>,
+  output: __S(993, __c62, 1) as any as S.Schema<SummarizeExperimentResponse>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9785,8 +9798,8 @@ export const updateAiSecret: API.OperationMethod<
   UpdateAiSecretError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(976, __c61, 0) as any as S.Schema<UpdateAiSecretRequest>,
-  output: __S(2448, __c153, 0) as any as S.Schema<AISecret>,
+  input: __S(1008, __c63, 0) as any as S.Schema<UpdateAiSecretRequest>,
+  output: __S(2752, __c172, 0) as any as S.Schema<AISecret>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9802,8 +9815,8 @@ export const updateColumn: API.OperationMethod<
   UpdateColumnError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(992, __c62, 0) as any as S.Schema<UpdateColumnRequest>,
-  output: __S(2752, __c172, 0) as any as S.Schema<CustomColumn>,
+  input: __S(1024, __c64, 0) as any as S.Schema<UpdateColumnRequest>,
+  output: __S(2960, __c185, 0) as any as S.Schema<CustomColumn>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9819,8 +9832,8 @@ export const updateDataset: API.OperationMethod<
   UpdateDatasetError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1008, __c63, 0) as any as S.Schema<UpdateDatasetRequest>,
-  output: __S(2960, __c185, 0) as any as S.Schema<Dataset>,
+  input: __S(1040, __c65, 0) as any as S.Schema<UpdateDatasetRequest>,
+  output: __S(3184, __c199, 0) as any as S.Schema<Dataset>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9840,8 +9853,8 @@ export const updateDatasetSnapshot: API.OperationMethod<
   UpdateDatasetSnapshotError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1024, __c64, 0) as any as S.Schema<UpdateDatasetSnapshotRequest>,
-  output: __S(16, __c1, 0) as any as S.Schema<DatasetSnapshot>,
+  input: __S(1056, __c66, 0) as any as S.Schema<UpdateDatasetSnapshotRequest>,
+  output: __S(240, __c15, 0) as any as S.Schema<DatasetSnapshot>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9862,8 +9875,8 @@ export const updateEnvironment: API.OperationMethod<
   UpdateEnvironmentError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1040, __c65, 0) as any as S.Schema<UpdateEnvironmentRequest>,
-  output: __S(224, __c14, 0) as any as S.Schema<Environment>,
+  input: __S(1104, __c69, 0) as any as S.Schema<UpdateEnvironmentRequest>,
+  output: __S(432, __c27, 0) as any as S.Schema<Environment>,
   errors: [
     BadRequest,
     Forbidden,
@@ -9885,8 +9898,8 @@ export const updateEnvVar: API.OperationMethod<
   UpdateEnvVarError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1104, __c69, 0) as any as S.Schema<UpdateEnvVarRequest>,
-  output: __S(416, __c26, 0) as any as S.Schema<EnvVar>,
+  input: __S(1120, __c70, 0) as any as S.Schema<UpdateEnvVarRequest>,
+  output: __S(624, __c39, 0) as any as S.Schema<EnvVar>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9906,8 +9919,8 @@ export const updateExperiment: API.OperationMethod<
   UpdateExperimentError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1120, __c70, 0) as any as S.Schema<UpdateExperimentRequest>,
-  output: __S(881, __c55, 1) as any as S.Schema<Experiment>,
+  input: __S(1136, __c71, 0) as any as S.Schema<UpdateExperimentRequest>,
+  output: __S(1089, __c68, 1) as any as S.Schema<Experiment>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9923,8 +9936,8 @@ export const updateFunction: API.OperationMethod<
   UpdateFunctionError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1136, __c71, 0) as any as S.Schema<UpdateFunctionRequest>,
-  output: __S(1298, __c81, 2) as any as S.Schema<Function>,
+  input: __S(1152, __c72, 0) as any as S.Schema<UpdateFunctionRequest>,
+  output: __S(1458, __c91, 2) as any as S.Schema<Function>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9940,8 +9953,8 @@ export const updateGroup: API.OperationMethod<
   UpdateGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1152, __c72, 0) as any as S.Schema<UpdateGroupRequest>,
-  output: __S(1424, __c89, 0) as any as S.Schema<Group>,
+  input: __S(1168, __c73, 0) as any as S.Schema<UpdateGroupRequest>,
+  output: __S(1488, __c93, 0) as any as S.Schema<Group>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9957,8 +9970,8 @@ export const updateMcpServer: API.OperationMethod<
   UpdateMcpServerError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1168, __c73, 0) as any as S.Schema<UpdateMcpServerRequest>,
-  output: __S(1472, __c92, 0) as any as S.Schema<MCPServer>,
+  input: __S(1184, __c74, 0) as any as S.Schema<UpdateMcpServerRequest>,
+  output: __S(1536, __c96, 0) as any as S.Schema<MCPServer>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9978,8 +9991,8 @@ export const updateOrganization: API.OperationMethod<
   UpdateOrganizationError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1184, __c74, 0) as any as S.Schema<UpdateOrganizationRequest>,
-  output: __S(2928, __c183, 0) as any as S.Schema<Organization>,
+  input: __S(1200, __c75, 0) as any as S.Schema<UpdateOrganizationRequest>,
+  output: __S(2992, __c187, 0) as any as S.Schema<Organization>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -9995,8 +10008,8 @@ export const updateOrganizationMembers: API.OperationMethod<
   UpdateOrganizationMembersError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1204, __c75, 4) as any as S.Schema<UpdateOrganizationMembersRequest>,
-  output: __S(1207, __c75, 7) as any as S.Schema<PatchOrganizationMembersOutput>,
+  input: __S(1220, __c76, 4) as any as S.Schema<UpdateOrganizationMembersRequest>,
+  output: __S(1223, __c76, 7) as any as S.Schema<PatchOrganizationMembersOutput>,
   errors: [BadRequest, Forbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10012,8 +10025,8 @@ export const updateProject: API.OperationMethod<
   UpdateProjectError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1220, __c76, 4) as any as S.Schema<UpdateProjectRequest>,
-  output: __S(1510, __c94, 6) as any as S.Schema<Project>,
+  input: __S(1236, __c77, 4) as any as S.Schema<UpdateProjectRequest>,
+  output: __S(1574, __c98, 6) as any as S.Schema<Project>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10033,8 +10046,8 @@ export const updateProjectAutomation: API.OperationMethod<
   UpdateProjectAutomationError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1232, __c77, 0) as any as S.Schema<UpdateProjectAutomationRequest>,
-  output: __S(1553, __c97, 1) as any as S.Schema<ProjectAutomation>,
+  input: __S(1248, __c78, 0) as any as S.Schema<UpdateProjectAutomationRequest>,
+  output: __S(1617, __c101, 1) as any as S.Schema<ProjectAutomation>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10054,8 +10067,8 @@ export const updateProjectGroup: API.OperationMethod<
   UpdateProjectGroupError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1248, __c78, 0) as any as S.Schema<UpdateProjectGroupRequest>,
-  output: __S(1584, __c99, 0) as any as S.Schema<ProjectGroup>,
+  input: __S(1312, __c82, 0) as any as S.Schema<UpdateProjectGroupRequest>,
+  output: __S(1648, __c103, 0) as any as S.Schema<ProjectGroup>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10075,8 +10088,8 @@ export const updateProjectScore: API.OperationMethod<
   UpdateProjectScoreError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1312, __c82, 0) as any as S.Schema<UpdateProjectScoreRequest>,
-  output: __S(1637, __c102, 5) as any as S.Schema<ProjectScore>,
+  input: __S(1328, __c83, 0) as any as S.Schema<UpdateProjectScoreRequest>,
+  output: __S(1701, __c106, 5) as any as S.Schema<ProjectScore>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10096,8 +10109,8 @@ export const updateProjectTag: API.OperationMethod<
   UpdateProjectTagError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1328, __c83, 0) as any as S.Schema<UpdateProjectTagRequest>,
-  output: __S(1664, __c104, 0) as any as S.Schema<ProjectTag>,
+  input: __S(1344, __c84, 0) as any as S.Schema<UpdateProjectTagRequest>,
+  output: __S(1728, __c108, 0) as any as S.Schema<ProjectTag>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10113,8 +10126,8 @@ export const updatePrompt: API.OperationMethod<
   UpdatePromptError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1344, __c84, 0) as any as S.Schema<UpdatePromptRequest>,
-  output: __S(1696, __c106, 0) as any as S.Schema<Prompt>,
+  input: __S(1360, __c85, 0) as any as S.Schema<UpdatePromptRequest>,
+  output: __S(1760, __c110, 0) as any as S.Schema<Prompt>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10130,8 +10143,8 @@ export const updateRole: API.OperationMethod<
   UpdateRoleError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1360, __c85, 0) as any as S.Schema<UpdateRoleRequest>,
-  output: __S(1842, __c115, 2) as any as S.Schema<Role>,
+  input: __S(1376, __c86, 0) as any as S.Schema<UpdateRoleRequest>,
+  output: __S(1906, __c119, 2) as any as S.Schema<Role>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10151,8 +10164,8 @@ export const updateSpanIframe: API.OperationMethod<
   UpdateSpanIframeError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1376, __c86, 0) as any as S.Schema<UpdateSpanIframeRequest>,
-  output: __S(1904, __c119, 0) as any as S.Schema<SpanIFrame>,
+  input: __S(1392, __c87, 0) as any as S.Schema<UpdateSpanIframeRequest>,
+  output: __S(1968, __c123, 0) as any as S.Schema<SpanIFrame>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10168,8 +10181,8 @@ export const updateView: API.OperationMethod<
   UpdateViewError,
   BraintrustOpContext
 > = /*@__PURE__*/ API.make(() => ({
-  input: __S(1392, __c87, 0) as any as S.Schema<UpdateViewRequest>,
-  output: __S(1954, __c122, 2) as any as S.Schema<View>,
+  input: __S(1408, __c88, 0) as any as S.Schema<UpdateViewRequest>,
+  output: __S(2018, __c126, 2) as any as S.Schema<View>,
   errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
@@ -10183,12 +10196,10 @@ function __c0(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          dataset_id: S.String,
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          xact_id: S.String,
-        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset_snapshot", code: 200 })),
-      ).annotate({ identifier: "CreateDatasetSnapshotRequest" });
+          dataset_id: S.String.pipe(T.Label()),
+          feedback: __S(33, __c2, 1),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset/{dataset_id}/feedback", code: 200 })),
+      ).annotate({ identifier: "CreateDatasetFeedbackRequest" });
   }
 }
 function __c1(j: number): any {
@@ -10196,17 +10207,52 @@ function __c1(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          id: S.String,
-          dataset_id: S.String,
-          name: S.String,
-          description: S.NullOr(S.String),
-          xact_id: S.String,
-          created: S.NullOr(S.String),
+          status: S.String,
         }),
-      ).annotate({ identifier: "DatasetSnapshot" });
+      ).annotate({ identifier: "FeedbackResponseSchema" });
   }
 }
 function __c2(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          comment: S.optional(S.NullOr(S.String)),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
+          source: S.optional(S.NullOr(S.String)),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+        }),
+      ).annotate({ identifier: "FeedbackDatasetItem" });
+    case 1:
+      return S.Array(__S(32, __c2, 0));
+  }
+}
+function __c3(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          limit: S.optional(S.Number.pipe(T.Query())),
+          starting_after: S.optional(S.String.pipe(T.Query())),
+          ending_before: S.optional(S.String.pipe(T.Query())),
+          ids: S.optional(S.Unknown.pipe(T.Query())),
+          ai_secret_name: S.optional(S.String.pipe(T.Query())),
+          org_name: S.optional(S.String.pipe(T.Query())),
+          ai_secret_type: S.optional(S.Unknown.pipe(T.Query())),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/ai_secret", code: 200 })),
+      ).annotate({ identifier: "ListAiSecretsRequest" });
+    case 1:
+      return S.Array(__S(2752, __c172, 0));
+    case 2:
+      return S.suspend(() =>
+        S.Struct({
+          objects: __S(49, __c3, 1),
+        }),
+      ).annotate({ identifier: "ListAiSecretsResponse" });
+  }
+}
+function __c4(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10221,19 +10267,19 @@ function __c2(j: number): any {
       ).annotate({ identifier: "ListApiKeysRequest" });
   }
 }
-function __c3(j: number): any {
+function __c5(j: number): any {
   switch (j) {
     case 0:
-      return S.Array(__S(2016, __c126, 0));
+      return S.Array(__S(2080, __c130, 0));
     case 1:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(48, __c3, 0),
+          objects: __S(80, __c5, 0),
         }),
       ).annotate({ identifier: "ListApiKeysResponse" });
   }
 }
-function __c4(j: number): any {
+function __c6(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10245,16 +10291,16 @@ function __c4(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/column", code: 200 })),
       ).annotate({ identifier: "ListColumnsRequest" });
     case 1:
-      return S.Array(__S(2752, __c172, 0));
+      return S.Array(__S(2960, __c185, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(65, __c4, 1),
+          objects: __S(97, __c6, 1),
         }),
       ).annotate({ identifier: "ListColumnsResponse" });
   }
 }
-function __c5(j: number): any {
+function __c7(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10270,16 +10316,16 @@ function __c5(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/dataset", code: 200 })),
       ).annotate({ identifier: "ListDatasetsRequest" });
     case 1:
-      return S.Array(__S(2960, __c185, 0));
+      return S.Array(__S(3184, __c199, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(81, __c5, 1),
+          objects: __S(113, __c7, 1),
         }),
       ).annotate({ identifier: "ListDatasetsResponse" });
   }
 }
-function __c6(j: number): any {
+function __c8(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10293,16 +10339,16 @@ function __c6(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/dataset_snapshot", code: 200 })),
       ).annotate({ identifier: "ListDatasetSnapshotsRequest" });
     case 1:
-      return S.Array(__S(16, __c1, 0));
+      return S.Array(__S(240, __c15, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(97, __c6, 1),
+          objects: __S(129, __c8, 1),
         }),
       ).annotate({ identifier: "ListDatasetSnapshotsResponse" });
   }
 }
-function __c7(j: number): any {
+function __c9(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10313,16 +10359,16 @@ function __c7(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/environment", code: 200 })),
       ).annotate({ identifier: "ListEnvironmentsRequest" });
     case 1:
-      return S.Array(__S(224, __c14, 0));
+      return S.Array(__S(432, __c27, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(113, __c7, 1),
+          objects: __S(145, __c9, 1),
         }),
       ).annotate({ identifier: "ListEnvironmentsResponse" });
   }
 }
-function __c8(j: number): any {
+function __c10(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10335,16 +10381,16 @@ function __c8(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/env_var", code: 200 })),
       ).annotate({ identifier: "ListEnvVarsRequest" });
     case 1:
-      return S.Array(__S(416, __c26, 0));
+      return S.Array(__S(624, __c39, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(129, __c8, 1),
+          objects: __S(161, __c10, 1),
         }),
       ).annotate({ identifier: "ListEnvVarsResponse" });
   }
 }
-function __c9(j: number): any {
+function __c11(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10360,16 +10406,16 @@ function __c9(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/experiment", code: 200 })),
       ).annotate({ identifier: "ListExperimentsRequest" });
     case 1:
-      return S.Array(__S(881, __c55, 1));
+      return S.Array(__S(1089, __c68, 1));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(145, __c9, 1),
+          objects: __S(177, __c11, 1),
         }),
       ).annotate({ identifier: "ListExperimentsResponse" });
   }
 }
-function __c10(j: number): any {
+function __c12(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10388,16 +10434,16 @@ function __c10(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/function", code: 200 })),
       ).annotate({ identifier: "ListFunctionsRequest" });
     case 1:
-      return S.Array(__S(1298, __c81, 2));
+      return S.Array(__S(1458, __c91, 2));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(161, __c10, 1),
+          objects: __S(193, __c12, 1),
         }),
       ).annotate({ identifier: "ListFunctionsResponse" });
   }
 }
-function __c11(j: number): any {
+function __c13(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10411,16 +10457,44 @@ function __c11(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/group", code: 200 })),
       ).annotate({ identifier: "ListGroupsRequest" });
     case 1:
-      return S.Array(__S(1424, __c89, 0));
+      return S.Array(__S(1488, __c93, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(177, __c11, 1),
+          objects: __S(209, __c13, 1),
         }),
       ).annotate({ identifier: "ListGroupsResponse" });
   }
 }
-function __c12(j: number): any {
+function __c14(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          dataset_id: S.String,
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          xact_id: S.String,
+        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset_snapshot", code: 200 })),
+      ).annotate({ identifier: "CreateDatasetSnapshotRequest" });
+  }
+}
+function __c15(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          dataset_id: S.String,
+          name: S.String,
+          description: S.NullOr(S.String),
+          xact_id: S.String,
+          created: S.NullOr(S.String),
+        }),
+      ).annotate({ identifier: "DatasetSnapshot" });
+  }
+}
+function __c16(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10444,45 +10518,16 @@ function __c12(j: number): any {
         }),
       ).annotate({ identifier: "ListIngestKeysResponseObjectsItem" });
     case 2:
-      return S.Array(__S(193, __c12, 1));
+      return S.Array(__S(257, __c16, 1));
     case 3:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(194, __c12, 2),
+          objects: __S(258, __c16, 2),
         }),
       ).annotate({ identifier: "ListIngestKeysResponse" });
   }
 }
-function __c13(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          name: S.String,
-          slug: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          org_name: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "POST", uri: "/environment", code: 200 })),
-      ).annotate({ identifier: "CreateEnvironmentRequest" });
-  }
-}
-function __c14(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          org_id: S.String,
-          name: S.String,
-          slug: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          created: S.optional(S.NullOr(S.String)),
-          deleted_at: S.optional(S.NullOr(S.String)),
-        }),
-      ).annotate({ identifier: "Environment" });
-  }
-}
-function __c15(j: number): any {
+function __c17(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10496,16 +10541,16 @@ function __c15(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/mcp_server", code: 200 })),
       ).annotate({ identifier: "ListMcpServersRequest" });
     case 1:
-      return S.Array(__S(1472, __c92, 0));
+      return S.Array(__S(1536, __c96, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(241, __c15, 1),
+          objects: __S(273, __c17, 1),
         }),
       ).annotate({ identifier: "ListMcpServersResponse" });
   }
 }
-function __c16(j: number): any {
+function __c18(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10526,7 +10571,7 @@ function __c16(j: number): any {
       ).annotate({ identifier: "ListOrgAclsRequest" });
   }
 }
-function __c17(j: number): any {
+function __c19(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10543,7 +10588,7 @@ function __c17(j: number): any {
       ).annotate({ identifier: "ListOrganizationApiKeysRequest" });
   }
 }
-function __c18(j: number): any {
+function __c20(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10556,16 +10601,16 @@ function __c18(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/organization", code: 200 })),
       ).annotate({ identifier: "ListOrganizationsRequest" });
     case 1:
-      return S.Array(__S(2928, __c183, 0));
+      return S.Array(__S(2992, __c187, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(289, __c18, 1),
+          objects: __S(321, __c20, 1),
         }),
       ).annotate({ identifier: "ListOrganizationsResponse" });
   }
 }
-function __c19(j: number): any {
+function __c21(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10579,16 +10624,16 @@ function __c19(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/project_automation", code: 200 })),
       ).annotate({ identifier: "ListProjectAutomationsRequest" });
     case 1:
-      return S.Array(__S(1553, __c97, 1));
+      return S.Array(__S(1617, __c101, 1));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(305, __c19, 1),
+          objects: __S(337, __c21, 1),
         }),
       ).annotate({ identifier: "ListProjectAutomationsResponse" });
   }
 }
-function __c20(j: number): any {
+function __c22(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10602,16 +10647,16 @@ function __c20(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/project_group", code: 200 })),
       ).annotate({ identifier: "ListProjectGroupsRequest" });
     case 1:
-      return S.Array(__S(1584, __c99, 0));
+      return S.Array(__S(1648, __c103, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(321, __c20, 1),
+          objects: __S(353, __c22, 1),
         }),
       ).annotate({ identifier: "ListProjectGroupsResponse" });
   }
 }
-function __c21(j: number): any {
+function __c23(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10625,16 +10670,16 @@ function __c21(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/project", code: 200 })),
       ).annotate({ identifier: "ListProjectsRequest" });
     case 1:
-      return S.Array(__S(1510, __c94, 6));
+      return S.Array(__S(1574, __c98, 6));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(337, __c21, 1),
+          objects: __S(369, __c23, 1),
         }),
       ).annotate({ identifier: "ListProjectsResponse" });
   }
 }
-function __c22(j: number): any {
+function __c24(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10651,16 +10696,16 @@ function __c22(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/project_score", code: 200 })),
       ).annotate({ identifier: "ListProjectScoresRequest" });
     case 1:
-      return S.Array(__S(1637, __c102, 5));
+      return S.Array(__S(1701, __c106, 5));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(353, __c22, 1),
+          objects: __S(385, __c24, 1),
         }),
       ).annotate({ identifier: "ListProjectScoresResponse" });
   }
 }
-function __c23(j: number): any {
+function __c25(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10676,16 +10721,45 @@ function __c23(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/project_tag", code: 200 })),
       ).annotate({ identifier: "ListProjectTagsRequest" });
     case 1:
-      return S.Array(__S(1664, __c104, 0));
+      return S.Array(__S(1728, __c108, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(369, __c23, 1),
+          objects: __S(401, __c25, 1),
         }),
       ).annotate({ identifier: "ListProjectTagsResponse" });
   }
 }
-function __c24(j: number): any {
+function __c26(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          name: S.String,
+          slug: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          org_name: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "POST", uri: "/environment", code: 200 })),
+      ).annotate({ identifier: "CreateEnvironmentRequest" });
+  }
+}
+function __c27(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          org_id: S.String,
+          name: S.String,
+          slug: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          created: S.optional(S.NullOr(S.String)),
+          deleted_at: S.optional(S.NullOr(S.String)),
+        }),
+      ).annotate({ identifier: "Environment" });
+  }
+}
+function __c28(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10704,52 +10778,16 @@ function __c24(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/prompt", code: 200 })),
       ).annotate({ identifier: "ListPromptsRequest" });
     case 1:
-      return S.Array(__S(1696, __c106, 0));
+      return S.Array(__S(1760, __c110, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(385, __c24, 1),
+          objects: __S(449, __c28, 1),
         }),
       ).annotate({ identifier: "ListPromptsResponse" });
   }
 }
-function __c25(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          object_type: S.String,
-          object_id: S.String,
-          name: S.String,
-          value: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
-          secret_type: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/env_var", code: 200 })),
-      ).annotate({ identifier: "CreateEnvVarRequest" });
-  }
-}
-function __c26(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          object_type: S.String,
-          object_id: S.String,
-          name: S.String,
-          created: S.optional(S.NullOr(S.String)),
-          secret_updated_at: S.optional(S.NullOr(S.String)),
-          secret_updated_by_user_id: S.optional(S.NullOr(S.String)),
-          used: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
-          preview_secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
-          secret_type: S.optional(S.NullOr(S.String)),
-          secret_category: S.optional(S.String),
-        }),
-      ).annotate({ identifier: "EnvVar" });
-  }
-}
-function __c27(j: number): any {
+function __c29(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10763,16 +10801,16 @@ function __c27(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/role", code: 200 })),
       ).annotate({ identifier: "ListRolesRequest" });
     case 1:
-      return S.Array(__S(1842, __c115, 2));
+      return S.Array(__S(1906, __c119, 2));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(433, __c27, 1),
+          objects: __S(465, __c29, 1),
         }),
       ).annotate({ identifier: "ListRolesResponse" });
   }
 }
-function __c28(j: number): any {
+function __c30(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10786,16 +10824,16 @@ function __c28(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/service_token", code: 200 })),
       ).annotate({ identifier: "ListServiceTokensRequest" });
     case 1:
-      return S.Array(__S(2384, __c149, 0));
+      return S.Array(__S(2432, __c152, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(449, __c28, 1),
+          objects: __S(481, __c30, 1),
         }),
       ).annotate({ identifier: "ListServiceTokensResponse" });
   }
 }
-function __c29(j: number): any {
+function __c31(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10809,16 +10847,16 @@ function __c29(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/span_iframe", code: 200 })),
       ).annotate({ identifier: "ListSpanIframesRequest" });
     case 1:
-      return S.Array(__S(1904, __c119, 0));
+      return S.Array(__S(1968, __c123, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(465, __c29, 1),
+          objects: __S(497, __c31, 1),
         }),
       ).annotate({ identifier: "ListSpanIframesResponse" });
   }
 }
-function __c30(j: number): any {
+function __c32(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10834,16 +10872,16 @@ function __c30(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/user", code: 200 })),
       ).annotate({ identifier: "ListUsersRequest" });
     case 1:
-      return S.Array(__S(3232, __c202, 0));
+      return S.Array(__S(3248, __c203, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(481, __c30, 1),
+          objects: __S(513, __c32, 1),
         }),
       ).annotate({ identifier: "ListUsersResponse" });
   }
 }
-function __c31(j: number): any {
+function __c33(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10859,16 +10897,16 @@ function __c31(j: number): any {
         }).pipe(T.Http({ method: "GET", uri: "/v1/view", code: 200 })),
       ).annotate({ identifier: "ListViewsRequest" });
     case 1:
-      return S.Array(__S(1954, __c122, 2));
+      return S.Array(__S(2018, __c126, 2));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          objects: __S(497, __c31, 1),
+          objects: __S(529, __c33, 1),
         }),
       ).annotate({ identifier: "ListViewsResponse" });
   }
 }
-function __c32(j: number): any {
+function __c34(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10888,21 +10926,21 @@ function __c32(j: number): any {
       ).annotate({ identifier: "DatasetRestorePreviewResponse" });
   }
 }
-function __c33(j: number): any {
+function __c35(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
         S.Struct({
           name: S.String,
           type: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
           secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
           org_name: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "PUT", uri: "/v1/ai_secret", code: 200 })),
       ).annotate({ identifier: "ReplaceAiSecretRequest" });
   }
 }
-function __c34(j: number): any {
+function __c36(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10917,7 +10955,7 @@ function __c34(j: number): any {
       ).annotate({ identifier: "ReplaceColumnRequest" });
   }
 }
-function __c35(j: number): any {
+function __c37(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10930,7 +10968,7 @@ function __c35(j: number): any {
       ).annotate({ identifier: "ReplaceDatasetSnapshotRequest" });
   }
 }
-function __c36(j: number): any {
+function __c38(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10939,13 +10977,179 @@ function __c36(j: number): any {
           object_id: S.String,
           name: S.String,
           value: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
+          secret_type: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/env_var", code: 200 })),
+      ).annotate({ identifier: "CreateEnvVarRequest" });
+  }
+}
+function __c39(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          object_type: S.String,
+          object_id: S.String,
+          name: S.String,
+          created: S.optional(S.NullOr(S.String)),
+          secret_updated_at: S.optional(S.NullOr(S.String)),
+          secret_updated_by_user_id: S.optional(S.NullOr(S.String)),
+          used: S.optional(S.NullOr(S.String)),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
+          preview_secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
+          secret_type: S.optional(S.NullOr(S.String)),
+          secret_category: S.optional(S.String),
+        }),
+      ).annotate({ identifier: "EnvVar" });
+  }
+}
+function __c40(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          object_type: S.String,
+          object_id: S.String,
+          name: S.String,
+          value: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
           secret_type: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "PUT", uri: "/v1/env_var", code: 200 })),
       ).annotate({ identifier: "ReplaceEnvVarRequest" });
   }
 }
-function __c37(j: number): any {
+function __c41(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_id: S.String,
+          name: S.String,
+          slug: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          prompt_data: S.optional(S.NullOr(__S(1441, __c90, 1))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          function_type: S.optional(S.NullOr(S.String)),
+          function_data: S.Unknown,
+          origin: S.optional(S.NullOr(__S(1456, __c91, 0))),
+          function_schema: S.optional(S.NullOr(__S(1457, __c91, 1))),
+        }).pipe(T.Http({ method: "PUT", uri: "/v1/function", code: 200 })),
+      ).annotate({ identifier: "ReplaceFunctionRequest" });
+  }
+}
+function __c42(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          member_users: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          member_groups: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          org_name: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "PUT", uri: "/v1/group", code: 200 })),
+      ).annotate({ identifier: "ReplaceGroupRequest" });
+  }
+}
+function __c43(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_id: S.String,
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          url: S.String,
+        }).pipe(T.Http({ method: "PUT", uri: "/v1/mcp_server", code: 200 })),
+      ).annotate({ identifier: "ReplaceMcpServerRequest" });
+  }
+}
+function __c44(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_id: S.String,
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          config: S.Unknown,
+        }).pipe(T.Http({ method: "PUT", uri: "/v1/project_automation", code: 200 })),
+      ).annotate({ identifier: "ReplaceProjectAutomationRequest" });
+  }
+}
+function __c45(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          org_name: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "PUT", uri: "/v1/project_group", code: 200 })),
+      ).annotate({ identifier: "ReplaceProjectGroupRequest" });
+  }
+}
+function __c46(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_id: S.String,
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          score_type: S.String,
+          categories: S.optional(S.NullOr(S.Unknown)),
+          config: S.optional(S.NullOr(__S(1700, __c106, 4))),
+        }).pipe(T.Http({ method: "PUT", uri: "/v1/project_score", code: 200 })),
+      ).annotate({ identifier: "ReplaceProjectScoreRequest" });
+  }
+}
+function __c47(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_id: S.String,
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          color: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "PUT", uri: "/v1/project_tag", code: 200 })),
+      ).annotate({ identifier: "ReplaceProjectTagRequest" });
+  }
+}
+function __c48(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_id: S.String,
+          name: S.String,
+          slug: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          prompt_data: S.optional(S.NullOr(__S(1441, __c90, 1))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          function_type: S.optional(S.NullOr(S.String)),
+          environment_slugs: S.optional(S.NullOr(__S(3168, __c198, 0))),
+        }).pipe(T.Http({ method: "PUT", uri: "/v1/prompt", code: 200 })),
+      ).annotate({ identifier: "ReplacePromptRequest" });
+  }
+}
+function __c49(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          member_permissions: S.optional(S.NullOr(__S(1905, __c119, 1))),
+          member_roles: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          org_name: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "PUT", uri: "/v1/role", code: 200 })),
+      ).annotate({ identifier: "ReplaceRoleRequest" });
+  }
+}
+function __c50(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -10960,13 +11164,13 @@ function __c37(j: number): any {
       return S.suspend(() =>
         S.Struct({
           prompt: S.optional(S.NullOr(S.Unknown)),
-          options: S.optional(S.NullOr(__S(656, __c41, 0))),
-          parser: S.optional(S.NullOr(__S(658, __c41, 2))),
+          options: S.optional(S.NullOr(__S(864, __c54, 0))),
+          parser: S.optional(S.NullOr(__S(866, __c54, 2))),
           preprocessor: S.optional(S.NullOr(S.Unknown)),
-          tool_functions: S.optional(S.NullOr(__S(641, __c40, 1))),
+          tool_functions: S.optional(S.NullOr(__S(849, __c53, 1))),
           template_format: S.optional(S.NullOr(S.String)),
-          mcp: S.optional(S.NullOr(__S(593, __c37, 1))),
-          origin: S.optional(S.NullOr(__S(659, __c41, 3))),
+          mcp: S.optional(S.NullOr(__S(801, __c50, 1))),
+          origin: S.optional(S.NullOr(__S(867, __c54, 3))),
         }),
       ).annotate({ identifier: "PromptData" });
     case 3:
@@ -10980,15 +11184,15 @@ function __c37(j: number): any {
           function_type: S.optional(S.String),
           prompt_session_id: S.optional(S.String),
           prompt_session_function_id: S.optional(S.String),
-          inline_context: S.optional(__S(592, __c37, 0)),
+          inline_context: S.optional(__S(800, __c50, 0)),
           code: S.optional(S.String),
           name: S.optional(S.NullOr(S.String)),
-          inline_prompt: S.optional(__S(594, __c37, 2)),
-          inline_function: S.optional(__S(2464, __c154, 0)),
+          inline_prompt: S.optional(__S(802, __c50, 2)),
+          inline_function: S.optional(__S(2768, __c173, 0)),
         }),
       ).annotate({ identifier: "CreateEvalRequestScoresItem" });
     case 4:
-      return S.Array(__S(595, __c37, 3));
+      return S.Array(__S(803, __c50, 3));
     case 5:
       return S.suspend(() =>
         S.Struct({
@@ -11002,15 +11206,15 @@ function __c37(j: number): any {
         S.Struct({
           object_type: S.optional(S.String),
           object_id: S.optional(S.String),
-          row_ids: S.optional(S.NullOr(__S(597, __c37, 5))),
-          propagated_event: S.optional(S.NullOr(__S(2464, __c154, 0))),
+          row_ids: S.optional(S.NullOr(__S(805, __c50, 5))),
+          propagated_event: S.optional(S.NullOr(__S(2768, __c173, 0))),
         }),
       ).annotate({ identifier: "CreateEvalRequestParent" });
     case 7:
       return S.suspend(() =>
         S.Struct({
           collect: S.String,
-          fields: S.optional(__S(672, __c42, 0)),
+          fields: S.optional(__S(880, __c55, 0)),
         }),
       ).annotate({ identifier: "GitMetadataSettings" });
     case 8:
@@ -11019,12 +11223,12 @@ function __c37(j: number): any {
           project_id: S.String,
           data: S.Unknown,
           name: S.optional(S.String),
-          parameters: S.optional(__S(2464, __c154, 0)),
+          parameters: S.optional(__S(2768, __c173, 0)),
           task: S.Unknown,
-          scores: __S(596, __c37, 4),
+          scores: __S(804, __c50, 4),
           experiment_name: S.optional(S.String),
-          metadata: S.optional(__S(2464, __c154, 0)),
-          parent: S.optional(__S(598, __c37, 6)),
+          metadata: S.optional(__S(2768, __c173, 0)),
+          parent: S.optional(__S(806, __c50, 6)),
           stream: S.optional(S.Boolean),
           trial_count: S.optional(S.NullOr(S.Number)),
           is_public: S.optional(S.NullOr(S.Boolean)),
@@ -11032,13 +11236,13 @@ function __c37(j: number): any {
           max_concurrency: S.optional(S.NullOr(S.Number)),
           base_experiment_name: S.optional(S.NullOr(S.String)),
           base_experiment_id: S.optional(S.NullOr(S.String)),
-          git_metadata_settings: S.optional(S.NullOr(__S(599, __c37, 7))),
-          repo_info: S.optional(__S(608, __c38, 0)),
+          git_metadata_settings: S.optional(S.NullOr(__S(807, __c50, 7))),
+          repo_info: S.optional(__S(832, __c52, 0)),
           strict: S.optional(S.NullOr(S.Boolean)),
           stop_token: S.optional(S.NullOr(S.String)),
           extra_messages: S.optional(S.String),
-          tags: S.optional(__S(2976, __c186, 0)),
-          mcp_auth: S.optional(__S(689, __c43, 1)),
+          tags: S.optional(__S(3168, __c198, 0)),
+          mcp_auth: S.optional(__S(897, __c56, 1)),
           endpoint_name: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "POST", uri: "/v1/eval", code: 200 })),
       ).annotate({ identifier: "CreateEvalRequest" });
@@ -11052,13 +11256,42 @@ function __c37(j: number): any {
           projectUrl: S.String,
           experimentUrl: S.String,
           comparisonExperimentName: S.optional(S.String),
-          scores: __S(625, __c39, 1),
-          metrics: __S(627, __c39, 3),
+          scores: __S(817, __c51, 1),
+          metrics: __S(819, __c51, 3),
         }),
       ).annotate({ identifier: "CreateEvalResponse" });
   }
 }
-function __c38(j: number): any {
+function __c51(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          name: S.String,
+          score: S.Number,
+          diff: S.optional(S.Number),
+          improvements: S.Number,
+          regressions: S.Number,
+        }),
+      ).annotate({ identifier: "ScoreSummary" });
+    case 1:
+      return S.Record(S.String, __S(816, __c51, 0));
+    case 2:
+      return S.suspend(() =>
+        S.Struct({
+          name: S.String,
+          metric: S.Number,
+          unit: S.String,
+          diff: S.optional(S.Number),
+          improvements: S.Number,
+          regressions: S.Number,
+        }),
+      ).annotate({ identifier: "MetricSummary" });
+    case 3:
+      return S.Record(S.String, __S(818, __c51, 2));
+  }
+}
+function __c52(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11076,36 +11309,7 @@ function __c38(j: number): any {
       ).annotate({ identifier: "CreateEvalRequestRepoInfo" });
   }
 }
-function __c39(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          name: S.String,
-          score: S.Number,
-          diff: S.optional(S.Number),
-          improvements: S.Number,
-          regressions: S.Number,
-        }),
-      ).annotate({ identifier: "ScoreSummary" });
-    case 1:
-      return S.Record(S.String, __S(624, __c39, 0));
-    case 2:
-      return S.suspend(() =>
-        S.Struct({
-          name: S.String,
-          metric: S.Number,
-          unit: S.String,
-          diff: S.optional(S.Number),
-          improvements: S.Number,
-          regressions: S.Number,
-        }),
-      ).annotate({ identifier: "MetricSummary" });
-    case 3:
-      return S.Record(S.String, __S(626, __c39, 2));
-  }
-}
-function __c40(j: number): any {
+function __c53(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11118,10 +11322,10 @@ function __c40(j: number): any {
         }),
       ).annotate({ identifier: "PromptDataToolFunctionsItem" });
     case 1:
-      return S.Array(__S(640, __c40, 0));
+      return S.Array(__S(848, __c53, 0));
   }
 }
-function __c41(j: number): any {
+function __c54(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11139,8 +11343,8 @@ function __c41(j: number): any {
         S.Struct({
           type: S.String,
           use_cot: S.Boolean,
-          choice_scores: S.optional(__S(657, __c41, 1)),
-          choice: S.optional(__S(2976, __c186, 0)),
+          choice_scores: S.optional(__S(865, __c54, 1)),
+          choice: S.optional(__S(3168, __c198, 0)),
           allow_no_match: S.optional(S.Boolean),
           allow_skip: S.optional(S.Boolean),
         }),
@@ -11155,13 +11359,13 @@ function __c41(j: number): any {
       ).annotate({ identifier: "PromptDataOrigin" });
   }
 }
-function __c42(j: number): any {
+function __c55(j: number): any {
   switch (j) {
     case 0:
       return S.Array(S.String);
   }
 }
-function __c43(j: number): any {
+function __c56(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11170,140 +11374,10 @@ function __c43(j: number): any {
         }),
       ).annotate({ identifier: "CreateEvalRequestMcpAuthValue" });
     case 1:
-      return S.Record(S.String, __S(688, __c43, 0));
+      return S.Record(S.String, __S(896, __c56, 0));
   }
 }
-function __c44(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String,
-          name: S.String,
-          slug: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(1281, __c80, 1))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          function_type: S.optional(S.NullOr(S.String)),
-          function_data: S.Unknown,
-          origin: S.optional(S.NullOr(__S(1296, __c81, 0))),
-          function_schema: S.optional(S.NullOr(__S(1297, __c81, 1))),
-        }).pipe(T.Http({ method: "PUT", uri: "/v1/function", code: 200 })),
-      ).annotate({ identifier: "ReplaceFunctionRequest" });
-  }
-}
-function __c45(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          member_users: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          member_groups: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          org_name: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "PUT", uri: "/v1/group", code: 200 })),
-      ).annotate({ identifier: "ReplaceGroupRequest" });
-  }
-}
-function __c46(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String,
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          url: S.String,
-        }).pipe(T.Http({ method: "PUT", uri: "/v1/mcp_server", code: 200 })),
-      ).annotate({ identifier: "ReplaceMcpServerRequest" });
-  }
-}
-function __c47(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String,
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          config: S.Unknown,
-        }).pipe(T.Http({ method: "PUT", uri: "/v1/project_automation", code: 200 })),
-      ).annotate({ identifier: "ReplaceProjectAutomationRequest" });
-  }
-}
-function __c48(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          org_name: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "PUT", uri: "/v1/project_group", code: 200 })),
-      ).annotate({ identifier: "ReplaceProjectGroupRequest" });
-  }
-}
-function __c49(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String,
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          score_type: S.String,
-          categories: S.optional(S.NullOr(S.Unknown)),
-          config: S.optional(S.NullOr(__S(1636, __c102, 4))),
-        }).pipe(T.Http({ method: "PUT", uri: "/v1/project_score", code: 200 })),
-      ).annotate({ identifier: "ReplaceProjectScoreRequest" });
-  }
-}
-function __c50(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String,
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          color: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "PUT", uri: "/v1/project_tag", code: 200 })),
-      ).annotate({ identifier: "ReplaceProjectTagRequest" });
-  }
-}
-function __c51(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String,
-          name: S.String,
-          slug: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(1281, __c80, 1))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          function_type: S.optional(S.NullOr(S.String)),
-          environment_slugs: S.optional(S.NullOr(__S(2976, __c186, 0))),
-        }).pipe(T.Http({ method: "PUT", uri: "/v1/prompt", code: 200 })),
-      ).annotate({ identifier: "ReplacePromptRequest" });
-  }
-}
-function __c52(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          member_permissions: S.optional(S.NullOr(__S(1841, __c115, 1))),
-          member_roles: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          org_name: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "PUT", uri: "/v1/role", code: 200 })),
-      ).annotate({ identifier: "ReplaceRoleRequest" });
-  }
-}
-function __c53(j: number): any {
+function __c57(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11316,66 +11390,7 @@ function __c53(j: number): any {
       ).annotate({ identifier: "ReplaceServiceTokenRequest" });
   }
 }
-function __c54(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String,
-          name: S.optional(S.NullOr(S.String)),
-          description: S.optional(S.NullOr(S.String)),
-          repo_info: S.optional(S.NullOr(__S(608, __c38, 0))),
-          base_exp_id: S.optional(S.NullOr(S.String)),
-          dataset_id: S.optional(S.NullOr(S.String)),
-          dataset_version: S.optional(S.NullOr(S.String)),
-          internal_metadata: S.optional(S.NullOr(__S(880, __c55, 0))),
-          parameters_id: S.optional(S.NullOr(S.String)),
-          parameters_version: S.optional(S.NullOr(S.String)),
-          public: S.optional(S.NullOr(S.Boolean)),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          ensure_new: S.optional(S.NullOr(S.Boolean)),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/experiment", code: 200 })),
-      ).annotate({ identifier: "CreateExperimentRequest" });
-  }
-}
-function __c55(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.StructWithRest(
-          S.Struct({
-            dataset_filter: S.optional(S.NullOr(__S(2464, __c154, 0))),
-          }),
-          [S.Record(S.String, S.Unknown)],
-        ),
-      ).annotate({ identifier: "CreateExperimentRequestInternalMetadata" });
-    case 1:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          project_id: S.String,
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          created: S.optional(S.NullOr(S.String)),
-          repo_info: S.optional(S.NullOr(__S(608, __c38, 0))),
-          commit: S.optional(S.NullOr(S.String)),
-          base_exp_id: S.optional(S.NullOr(S.String)),
-          deleted_at: S.optional(S.NullOr(S.String)),
-          dataset_id: S.optional(S.NullOr(S.String)),
-          dataset_version: S.optional(S.NullOr(S.String)),
-          internal_metadata: S.optional(S.NullOr(__S(880, __c55, 0))),
-          parameters_id: S.optional(S.NullOr(S.String)),
-          parameters_version: S.optional(S.NullOr(S.String)),
-          public: S.Boolean,
-          user_id: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-        }),
-      ).annotate({ identifier: "Experiment" });
-  }
-}
-function __c56(j: number): any {
+function __c58(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11389,7 +11404,7 @@ function __c56(j: number): any {
       ).annotate({ identifier: "ReplaceSpanIframeRequest" });
   }
 }
-function __c57(j: number): any {
+function __c59(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11399,7 +11414,7 @@ function __c57(j: number): any {
           view_type: S.String,
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
-          view_data: S.optional(S.NullOr(__S(1953, __c122, 1))),
+          view_data: S.optional(S.NullOr(__S(2017, __c126, 1))),
           options: S.optional(S.NullOr(S.Unknown)),
           user_id: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
@@ -11407,7 +11422,7 @@ function __c57(j: number): any {
       ).annotate({ identifier: "ReplaceViewRequest" });
   }
 }
-function __c58(j: number): any {
+function __c60(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11426,7 +11441,7 @@ function __c58(j: number): any {
       ).annotate({ identifier: "DatasetRestoreResponse" });
   }
 }
-function __c59(j: number): any {
+function __c61(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11448,12 +11463,12 @@ function __c59(j: number): any {
           dataset_name: S.String,
           project_url: S.String,
           dataset_url: S.String,
-          data_summary: S.optional(S.NullOr(__S(945, __c59, 1))),
+          data_summary: S.optional(S.NullOr(__S(977, __c61, 1))),
         }),
       ).annotate({ identifier: "SummarizeDatasetResponse" });
   }
 }
-function __c60(j: number): any {
+function __c62(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11473,13 +11488,13 @@ function __c60(j: number): any {
           project_url: S.String,
           experiment_url: S.String,
           comparison_experiment_name: S.optional(S.NullOr(S.String)),
-          scores: S.optional(S.NullOr(__S(625, __c39, 1))),
-          metrics: S.optional(S.NullOr(__S(627, __c39, 3))),
+          scores: S.optional(S.NullOr(__S(817, __c51, 1))),
+          metrics: S.optional(S.NullOr(__S(819, __c51, 3))),
         }),
       ).annotate({ identifier: "SummarizeExperimentResponse" });
   }
 }
-function __c61(j: number): any {
+function __c63(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11487,13 +11502,13 @@ function __c61(j: number): any {
           ai_secret_id: S.String.pipe(T.Label()),
           name: S.optional(S.NullOr(S.String)),
           type: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
           secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/ai_secret/{ai_secret_id}", code: 200 })),
       ).annotate({ identifier: "UpdateAiSecretRequest" });
   }
 }
-function __c62(j: number): any {
+function __c64(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11505,7 +11520,7 @@ function __c62(j: number): any {
       ).annotate({ identifier: "UpdateColumnRequest" });
   }
 }
-function __c63(j: number): any {
+function __c65(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11513,13 +11528,13 @@ function __c63(j: number): any {
           dataset_id: S.String.pipe(T.Label()),
           name: S.optional(S.NullOr(S.String)),
           description: S.optional(S.NullOr(S.String)),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/dataset/{dataset_id}", code: 200 })),
       ).annotate({ identifier: "UpdateDatasetRequest" });
   }
 }
-function __c64(j: number): any {
+function __c66(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11533,7 +11548,66 @@ function __c64(j: number): any {
       ).annotate({ identifier: "UpdateDatasetSnapshotRequest" });
   }
 }
-function __c65(j: number): any {
+function __c67(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_id: S.String,
+          name: S.optional(S.NullOr(S.String)),
+          description: S.optional(S.NullOr(S.String)),
+          repo_info: S.optional(S.NullOr(__S(832, __c52, 0))),
+          base_exp_id: S.optional(S.NullOr(S.String)),
+          dataset_id: S.optional(S.NullOr(S.String)),
+          dataset_version: S.optional(S.NullOr(S.String)),
+          internal_metadata: S.optional(S.NullOr(__S(1088, __c68, 0))),
+          parameters_id: S.optional(S.NullOr(S.String)),
+          parameters_version: S.optional(S.NullOr(S.String)),
+          public: S.optional(S.NullOr(S.Boolean)),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          ensure_new: S.optional(S.NullOr(S.Boolean)),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/experiment", code: 200 })),
+      ).annotate({ identifier: "CreateExperimentRequest" });
+  }
+}
+function __c68(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.StructWithRest(
+          S.Struct({
+            dataset_filter: S.optional(S.NullOr(__S(2768, __c173, 0))),
+          }),
+          [S.Record(S.String, S.Unknown)],
+        ),
+      ).annotate({ identifier: "CreateExperimentRequestInternalMetadata" });
+    case 1:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          project_id: S.String,
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          created: S.optional(S.NullOr(S.String)),
+          repo_info: S.optional(S.NullOr(__S(832, __c52, 0))),
+          commit: S.optional(S.NullOr(S.String)),
+          base_exp_id: S.optional(S.NullOr(S.String)),
+          deleted_at: S.optional(S.NullOr(S.String)),
+          dataset_id: S.optional(S.NullOr(S.String)),
+          dataset_version: S.optional(S.NullOr(S.String)),
+          internal_metadata: S.optional(S.NullOr(__S(1088, __c68, 0))),
+          parameters_id: S.optional(S.NullOr(S.String)),
+          parameters_version: S.optional(S.NullOr(S.String)),
+          public: S.Boolean,
+          user_id: S.optional(S.NullOr(S.String)),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+        }),
+      ).annotate({ identifier: "Experiment" });
+  }
+}
+function __c69(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11546,44 +11620,7 @@ function __c65(j: number): any {
       ).annotate({ identifier: "UpdateEnvironmentRequest" });
   }
 }
-function __c66(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          experiment_id: S.String.pipe(T.Label()),
-          feedback: __S(1089, __c68, 1),
-        }).pipe(
-          T.Http({ method: "POST", uri: "/v1/experiment/{experiment_id}/feedback", code: 200 }),
-        ),
-      ).annotate({ identifier: "CreateExperimentFeedbackRequest" });
-  }
-}
-function __c67(j: number): any {
-  switch (j) {
-    case 0:
-      return S.Record(S.String, /*@__PURE__*/ S.NullOr(S.Number));
-  }
-}
-function __c68(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          scores: S.optional(S.NullOr(__S(1072, __c67, 0))),
-          expected: S.optional(S.Unknown),
-          comment: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
-          source: S.optional(S.NullOr(S.String)),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-        }),
-      ).annotate({ identifier: "FeedbackExperimentItem" });
-    case 1:
-      return S.Array(__S(1088, __c68, 0));
-  }
-}
-function __c69(j: number): any {
+function __c70(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11591,32 +11628,10 @@ function __c69(j: number): any {
           env_var_id: S.String.pipe(T.Label()),
           name: S.String,
           value: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
           secret_type: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/env_var/{env_var_id}", code: 200 })),
       ).annotate({ identifier: "UpdateEnvVarRequest" });
-  }
-}
-function __c70(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          experiment_id: S.String.pipe(T.Label()),
-          name: S.optional(S.NullOr(S.String)),
-          description: S.optional(S.NullOr(S.String)),
-          repo_info: S.optional(S.NullOr(__S(608, __c38, 0))),
-          base_exp_id: S.optional(S.NullOr(S.String)),
-          dataset_id: S.optional(S.NullOr(S.String)),
-          dataset_version: S.optional(S.NullOr(S.String)),
-          internal_metadata: S.optional(S.NullOr(__S(880, __c55, 0))),
-          parameters_id: S.optional(S.NullOr(S.String)),
-          parameters_version: S.optional(S.NullOr(S.String)),
-          public: S.optional(S.NullOr(S.Boolean)),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/experiment/{experiment_id}", code: 200 })),
-      ).annotate({ identifier: "UpdateExperimentRequest" });
   }
 }
 function __c71(j: number): any {
@@ -11624,14 +11639,21 @@ function __c71(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          function_id: S.String.pipe(T.Label()),
+          experiment_id: S.String.pipe(T.Label()),
           name: S.optional(S.NullOr(S.String)),
           description: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(1281, __c80, 1))),
-          function_data: S.optional(S.NullOr(S.Unknown)),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/function/{function_id}", code: 200 })),
-      ).annotate({ identifier: "UpdateFunctionRequest" });
+          repo_info: S.optional(S.NullOr(__S(832, __c52, 0))),
+          base_exp_id: S.optional(S.NullOr(S.String)),
+          dataset_id: S.optional(S.NullOr(S.String)),
+          dataset_version: S.optional(S.NullOr(S.String)),
+          internal_metadata: S.optional(S.NullOr(__S(1088, __c68, 0))),
+          parameters_id: S.optional(S.NullOr(S.String)),
+          parameters_version: S.optional(S.NullOr(S.String)),
+          public: S.optional(S.NullOr(S.Boolean)),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/experiment/{experiment_id}", code: 200 })),
+      ).annotate({ identifier: "UpdateExperimentRequest" });
   }
 }
 function __c72(j: number): any {
@@ -11639,18 +11661,33 @@ function __c72(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
+          function_id: S.String.pipe(T.Label()),
+          name: S.optional(S.NullOr(S.String)),
+          description: S.optional(S.NullOr(S.String)),
+          prompt_data: S.optional(S.NullOr(__S(1441, __c90, 1))),
+          function_data: S.optional(S.NullOr(S.Unknown)),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/function/{function_id}", code: 200 })),
+      ).annotate({ identifier: "UpdateFunctionRequest" });
+  }
+}
+function __c73(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
           group_id: S.String.pipe(T.Label()),
           description: S.optional(S.NullOr(S.String)),
           name: S.optional(S.NullOr(S.String)),
-          add_member_users: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          remove_member_users: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          add_member_groups: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          remove_member_groups: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          add_member_users: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          remove_member_users: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          add_member_groups: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          remove_member_groups: S.optional(S.NullOr(__S(3168, __c198, 0))),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/group/{group_id}", code: 200 })),
       ).annotate({ identifier: "UpdateGroupRequest" });
   }
 }
-function __c73(j: number): any {
+function __c74(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11663,7 +11700,7 @@ function __c73(j: number): any {
       ).annotate({ identifier: "UpdateMcpServerRequest" });
   }
 }
-function __c74(j: number): any {
+function __c75(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11680,7 +11717,7 @@ function __c74(j: number): any {
       ).annotate({ identifier: "UpdateOrganizationRequest" });
   }
 }
-function __c75(j: number): any {
+function __c76(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11691,16 +11728,16 @@ function __c75(j: number): any {
         }),
       ).annotate({ identifier: "UpdateOrganizationMembersRequestInviteUsersServiceAccountsItem" });
     case 1:
-      return S.Array(__S(1200, __c75, 0));
+      return S.Array(__S(1216, __c76, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          ids: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          emails: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          service_accounts: S.optional(S.NullOr(__S(1201, __c75, 1))),
+          ids: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          emails: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          service_accounts: S.optional(S.NullOr(__S(1217, __c76, 1))),
           send_invite_emails: S.optional(S.NullOr(S.Boolean)),
-          group_ids: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          group_names: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          group_ids: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          group_names: S.optional(S.NullOr(__S(3168, __c198, 0))),
           group_id: S.optional(S.NullOr(S.String)),
           group_name: S.optional(S.NullOr(S.String)),
           project_group_id: S.optional(S.NullOr(S.String)),
@@ -11709,15 +11746,15 @@ function __c75(j: number): any {
     case 3:
       return S.suspend(() =>
         S.Struct({
-          ids: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          emails: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          ids: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          emails: S.optional(S.NullOr(__S(3168, __c198, 0))),
         }),
       ).annotate({ identifier: "UpdateOrganizationMembersRequestRemoveUsers" });
     case 4:
       return S.suspend(() =>
         S.Struct({
-          invite_users: S.optional(S.NullOr(__S(1202, __c75, 2))),
-          remove_users: S.optional(S.NullOr(__S(1203, __c75, 3))),
+          invite_users: S.optional(S.NullOr(__S(1218, __c76, 2))),
+          remove_users: S.optional(S.NullOr(__S(1219, __c76, 3))),
           org_name: S.optional(S.NullOr(S.String)),
           org_id: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/organization/members", code: 200 })),
@@ -11732,19 +11769,19 @@ function __c75(j: number): any {
         }),
       ).annotate({ identifier: "PatchOrganizationMembersOutputAddedUsersItem" });
     case 6:
-      return S.Array(__S(1205, __c75, 5));
+      return S.Array(__S(1221, __c76, 5));
     case 7:
       return S.suspend(() =>
         S.Struct({
           status: S.String,
           org_id: S.String,
           send_email_error: S.optional(S.NullOr(S.String)),
-          added_users: S.optional(S.NullOr(__S(1206, __c75, 6))),
+          added_users: S.optional(S.NullOr(__S(1222, __c76, 6))),
         }),
       ).annotate({ identifier: "PatchOrganizationMembersOutput" });
   }
 }
-function __c76(j: number): any {
+function __c77(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11756,7 +11793,7 @@ function __c76(j: number): any {
         }),
       ).annotate({ identifier: "UpdateProjectRequestSettingsSpanFieldOrderItem" });
     case 1:
-      return S.Array(__S(1216, __c76, 0));
+      return S.Array(__S(1232, __c77, 0));
     case 2:
       return S.Array(S.Unknown);
     case 3:
@@ -11764,16 +11801,16 @@ function __c76(j: number): any {
         S.Struct({
           comparison_key: S.optional(S.NullOr(S.String)),
           baseline_experiment_id: S.optional(S.NullOr(S.String)),
-          spanFieldOrder: S.optional(S.NullOr(__S(1217, __c76, 1))),
-          remote_eval_sources: S.optional(S.NullOr(__S(1507, __c94, 3))),
+          spanFieldOrder: S.optional(S.NullOr(__S(1233, __c77, 1))),
+          remote_eval_sources: S.optional(S.NullOr(__S(1571, __c98, 3))),
           disable_realtime_queries: S.optional(S.NullOr(S.Boolean)),
           monitor_charts_use_metrics_start: S.optional(S.NullOr(S.Boolean)),
           coding_agent_insights_dashboard: S.optional(S.NullOr(S.Boolean)),
           blind_reviews: S.optional(S.NullOr(S.Boolean)),
           require_all_human_review_scores: S.optional(S.NullOr(S.Boolean)),
-          user_id_fields: S.optional(S.NullOr(__S(1520, __c95, 0))),
-          pattern_alert_destinations: S.optional(S.NullOr(__S(1218, __c76, 2))),
-          session_id_fields: S.optional(S.NullOr(__S(1520, __c95, 0))),
+          user_id_fields: S.optional(S.NullOr(__S(1584, __c99, 0))),
+          pattern_alert_destinations: S.optional(S.NullOr(__S(1234, __c77, 2))),
+          session_id_fields: S.optional(S.NullOr(__S(1584, __c99, 0))),
           default_preprocessor: S.optional(S.NullOr(S.Unknown)),
         }),
       ).annotate({ identifier: "UpdateProjectRequestSettings" });
@@ -11784,13 +11821,13 @@ function __c76(j: number): any {
           name: S.optional(S.NullOr(S.String)),
           description: S.optional(S.NullOr(S.String)),
           user_id: S.optional(S.NullOr(S.String)),
-          settings: S.optional(__S(1219, __c76, 3)),
+          settings: S.optional(__S(1235, __c77, 3)),
           only_if_unset: S.optional(S.Boolean),
         }).pipe(T.Http({ method: "PATCH", uri: "/v1/project/{project_id}", code: 200 })),
       ).annotate({ identifier: "UpdateProjectRequest" });
   }
 }
-function __c77(j: number): any {
+function __c78(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11809,7 +11846,44 @@ function __c77(j: number): any {
       ).annotate({ identifier: "UpdateProjectAutomationRequest" });
   }
 }
-function __c78(j: number): any {
+function __c79(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          experiment_id: S.String.pipe(T.Label()),
+          feedback: __S(1297, __c81, 1),
+        }).pipe(
+          T.Http({ method: "POST", uri: "/v1/experiment/{experiment_id}/feedback", code: 200 }),
+        ),
+      ).annotate({ identifier: "CreateExperimentFeedbackRequest" });
+  }
+}
+function __c80(j: number): any {
+  switch (j) {
+    case 0:
+      return S.Record(S.String, /*@__PURE__*/ S.NullOr(S.Number));
+  }
+}
+function __c81(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          scores: S.optional(S.NullOr(__S(1280, __c80, 0))),
+          expected: S.optional(S.Unknown),
+          comment: S.optional(S.NullOr(S.String)),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
+          source: S.optional(S.NullOr(S.String)),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+        }),
+      ).annotate({ identifier: "FeedbackExperimentItem" });
+    case 1:
+      return S.Array(__S(1296, __c81, 0));
+  }
+}
+function __c82(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11817,15 +11891,109 @@ function __c78(j: number): any {
           project_group_id: S.String.pipe(T.Label()),
           name: S.optional(S.NullOr(S.String)),
           description: S.optional(S.NullOr(S.String)),
-          add_member_projects: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          remove_member_projects: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          add_member_projects: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          remove_member_projects: S.optional(S.NullOr(__S(3168, __c198, 0))),
         }).pipe(
           T.Http({ method: "PATCH", uri: "/v1/project_group/{project_group_id}", code: 200 }),
         ),
       ).annotate({ identifier: "UpdateProjectGroupRequest" });
   }
 }
-function __c79(j: number): any {
+function __c83(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_score_id: S.String.pipe(T.Label()),
+          name: S.optional(S.NullOr(S.String)),
+          description: S.optional(S.NullOr(S.String)),
+          score_type: S.optional(S.NullOr(S.String)),
+          categories: S.optional(S.NullOr(S.Unknown)),
+          config: S.optional(S.NullOr(__S(1700, __c106, 4))),
+        }).pipe(
+          T.Http({ method: "PATCH", uri: "/v1/project_score/{project_score_id}", code: 200 }),
+        ),
+      ).annotate({ identifier: "UpdateProjectScoreRequest" });
+  }
+}
+function __c84(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_tag_id: S.String.pipe(T.Label()),
+          name: S.optional(S.NullOr(S.String)),
+          description: S.optional(S.NullOr(S.String)),
+          color: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/project_tag/{project_tag_id}", code: 200 })),
+      ).annotate({ identifier: "UpdateProjectTagRequest" });
+  }
+}
+function __c85(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          prompt_id: S.String.pipe(T.Label()),
+          name: S.optional(S.NullOr(S.String)),
+          slug: S.optional(S.NullOr(S.String)),
+          description: S.optional(S.NullOr(S.String)),
+          prompt_data: S.optional(S.NullOr(__S(1441, __c90, 1))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/prompt/{prompt_id}", code: 200 })),
+      ).annotate({ identifier: "UpdatePromptRequest" });
+  }
+}
+function __c86(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          role_id: S.String.pipe(T.Label()),
+          description: S.optional(S.NullOr(S.String)),
+          name: S.optional(S.NullOr(S.String)),
+          add_member_permissions: S.optional(S.NullOr(__S(1905, __c119, 1))),
+          remove_member_permissions: S.optional(S.NullOr(__S(1905, __c119, 1))),
+          add_member_roles: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          remove_member_roles: S.optional(S.NullOr(__S(3168, __c198, 0))),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/role/{role_id}", code: 200 })),
+      ).annotate({ identifier: "UpdateRoleRequest" });
+  }
+}
+function __c87(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          span_iframe_id: S.String.pipe(T.Label()),
+          name: S.optional(S.NullOr(S.String)),
+          url: S.optional(S.NullOr(S.String)),
+          post_message: S.optional(S.NullOr(S.Boolean)),
+          description: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/span_iframe/{span_iframe_id}", code: 200 })),
+      ).annotate({ identifier: "UpdateSpanIframeRequest" });
+  }
+}
+function __c88(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          view_id: S.String.pipe(T.Label()),
+          object_type: S.String,
+          object_id: S.String,
+          view_type: S.optional(S.NullOr(S.String)),
+          name: S.optional(S.NullOr(S.String)),
+          description: S.optional(S.NullOr(S.String)),
+          starred: S.optional(S.Boolean),
+          view_data: S.optional(S.NullOr(__S(2017, __c126, 1))),
+          options: S.optional(S.NullOr(S.Unknown)),
+          user_id: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "PATCH", uri: "/v1/view/{view_id}", code: 200 })),
+      ).annotate({ identifier: "UpdateViewRequest" });
+  }
+}
+function __c89(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11834,17 +12002,17 @@ function __c79(j: number): any {
           name: S.String,
           slug: S.String,
           description: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(1281, __c80, 1))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          prompt_data: S.optional(S.NullOr(__S(1441, __c90, 1))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
           function_type: S.optional(S.NullOr(S.String)),
           function_data: S.Unknown,
-          origin: S.optional(S.NullOr(__S(1296, __c81, 0))),
-          function_schema: S.optional(S.NullOr(__S(1297, __c81, 1))),
+          origin: S.optional(S.NullOr(__S(1456, __c91, 0))),
+          function_schema: S.optional(S.NullOr(__S(1457, __c91, 1))),
         }).pipe(T.Http({ method: "POST", uri: "/v1/function", code: 200 })),
       ).annotate({ identifier: "CreateFunctionRequest" });
   }
 }
-function __c80(j: number): any {
+function __c90(j: number): any {
   switch (j) {
     case 0:
       return S.Record(S.String, S.Unknown);
@@ -11852,18 +12020,18 @@ function __c80(j: number): any {
       return S.suspend(() =>
         S.Struct({
           prompt: S.optional(S.NullOr(S.Unknown)),
-          options: S.optional(S.NullOr(__S(656, __c41, 0))),
-          parser: S.optional(S.NullOr(__S(658, __c41, 2))),
+          options: S.optional(S.NullOr(__S(864, __c54, 0))),
+          parser: S.optional(S.NullOr(__S(866, __c54, 2))),
           preprocessor: S.optional(S.NullOr(S.Unknown)),
-          tool_functions: S.optional(S.NullOr(__S(641, __c40, 1))),
+          tool_functions: S.optional(S.NullOr(__S(849, __c53, 1))),
           template_format: S.optional(S.NullOr(S.String)),
-          mcp: S.optional(S.NullOr(__S(1280, __c80, 0))),
-          origin: S.optional(S.NullOr(__S(659, __c41, 3))),
+          mcp: S.optional(S.NullOr(__S(1440, __c90, 0))),
+          origin: S.optional(S.NullOr(__S(867, __c54, 3))),
         }),
       ).annotate({ identifier: "PromptDataNullish" });
   }
 }
-function __c81(j: number): any {
+function __c91(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -11892,126 +12060,32 @@ function __c81(j: number): any {
           slug: S.String,
           description: S.optional(S.NullOr(S.String)),
           created: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(1281, __c80, 1))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
+          prompt_data: S.optional(S.NullOr(__S(1441, __c90, 1))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
           function_type: S.optional(S.NullOr(S.String)),
           function_data: S.Unknown,
-          origin: S.optional(S.NullOr(__S(1296, __c81, 0))),
-          function_schema: S.optional(S.NullOr(__S(1297, __c81, 1))),
+          origin: S.optional(S.NullOr(__S(1456, __c91, 0))),
+          function_schema: S.optional(S.NullOr(__S(1457, __c91, 1))),
         }),
       ).annotate({ identifier: "Function" });
   }
 }
-function __c82(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_score_id: S.String.pipe(T.Label()),
-          name: S.optional(S.NullOr(S.String)),
-          description: S.optional(S.NullOr(S.String)),
-          score_type: S.optional(S.NullOr(S.String)),
-          categories: S.optional(S.NullOr(S.Unknown)),
-          config: S.optional(S.NullOr(__S(1636, __c102, 4))),
-        }).pipe(
-          T.Http({ method: "PATCH", uri: "/v1/project_score/{project_score_id}", code: 200 }),
-        ),
-      ).annotate({ identifier: "UpdateProjectScoreRequest" });
-  }
-}
-function __c83(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_tag_id: S.String.pipe(T.Label()),
-          name: S.optional(S.NullOr(S.String)),
-          description: S.optional(S.NullOr(S.String)),
-          color: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/project_tag/{project_tag_id}", code: 200 })),
-      ).annotate({ identifier: "UpdateProjectTagRequest" });
-  }
-}
-function __c84(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          prompt_id: S.String.pipe(T.Label()),
-          name: S.optional(S.NullOr(S.String)),
-          slug: S.optional(S.NullOr(S.String)),
-          description: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(1281, __c80, 1))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/prompt/{prompt_id}", code: 200 })),
-      ).annotate({ identifier: "UpdatePromptRequest" });
-  }
-}
-function __c85(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          role_id: S.String.pipe(T.Label()),
-          description: S.optional(S.NullOr(S.String)),
-          name: S.optional(S.NullOr(S.String)),
-          add_member_permissions: S.optional(S.NullOr(__S(1841, __c115, 1))),
-          remove_member_permissions: S.optional(S.NullOr(__S(1841, __c115, 1))),
-          add_member_roles: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          remove_member_roles: S.optional(S.NullOr(__S(2976, __c186, 0))),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/role/{role_id}", code: 200 })),
-      ).annotate({ identifier: "UpdateRoleRequest" });
-  }
-}
-function __c86(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          span_iframe_id: S.String.pipe(T.Label()),
-          name: S.optional(S.NullOr(S.String)),
-          url: S.optional(S.NullOr(S.String)),
-          post_message: S.optional(S.NullOr(S.Boolean)),
-          description: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/span_iframe/{span_iframe_id}", code: 200 })),
-      ).annotate({ identifier: "UpdateSpanIframeRequest" });
-  }
-}
-function __c87(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          view_id: S.String.pipe(T.Label()),
-          object_type: S.String,
-          object_id: S.String,
-          view_type: S.optional(S.NullOr(S.String)),
-          name: S.optional(S.NullOr(S.String)),
-          description: S.optional(S.NullOr(S.String)),
-          starred: S.optional(S.Boolean),
-          view_data: S.optional(S.NullOr(__S(1953, __c122, 1))),
-          options: S.optional(S.NullOr(S.Unknown)),
-          user_id: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "PATCH", uri: "/v1/view/{view_id}", code: 200 })),
-      ).annotate({ identifier: "UpdateViewRequest" });
-  }
-}
-function __c88(j: number): any {
+function __c92(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
         S.Struct({
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
-          member_users: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          member_groups: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          member_users: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          member_groups: S.optional(S.NullOr(__S(3168, __c198, 0))),
           org_name: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "POST", uri: "/v1/group", code: 200 })),
       ).annotate({ identifier: "CreateGroupRequest" });
   }
 }
-function __c89(j: number): any {
+function __c93(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12023,13 +12097,13 @@ function __c89(j: number): any {
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
-          member_users: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          member_groups: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          member_users: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          member_groups: S.optional(S.NullOr(__S(3168, __c198, 0))),
         }),
       ).annotate({ identifier: "Group" });
   }
 }
-function __c90(j: number): any {
+function __c94(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12052,7 +12126,7 @@ function __c90(j: number): any {
       ).annotate({ identifier: "CreateIngestKeyResponse" });
   }
 }
-function __c91(j: number): any {
+function __c95(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12065,7 +12139,7 @@ function __c91(j: number): any {
       ).annotate({ identifier: "CreateMcpServerRequest" });
   }
 }
-function __c92(j: number): any {
+function __c96(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12082,7 +12156,7 @@ function __c92(j: number): any {
       ).annotate({ identifier: "MCPServer" });
   }
 }
-function __c93(j: number): any {
+function __c97(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12095,7 +12169,7 @@ function __c93(j: number): any {
       ).annotate({ identifier: "CreateProjectRequest" });
   }
 }
-function __c94(j: number): any {
+function __c98(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12107,7 +12181,7 @@ function __c94(j: number): any {
         }),
       ).annotate({ identifier: "ProjectSettingsSpanFieldOrderItem" });
     case 1:
-      return S.Array(__S(1504, __c94, 0));
+      return S.Array(__S(1568, __c98, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
@@ -12117,7 +12191,7 @@ function __c94(j: number): any {
         }),
       ).annotate({ identifier: "ProjectSettingsRemoteEvalSourcesItem" });
     case 3:
-      return S.Array(__S(1506, __c94, 2));
+      return S.Array(__S(1570, __c98, 2));
     case 4:
       return S.Array(S.Unknown);
     case 5:
@@ -12125,16 +12199,16 @@ function __c94(j: number): any {
         S.Struct({
           comparison_key: S.optional(S.NullOr(S.String)),
           baseline_experiment_id: S.optional(S.NullOr(S.String)),
-          spanFieldOrder: S.optional(S.NullOr(__S(1505, __c94, 1))),
-          remote_eval_sources: S.optional(S.NullOr(__S(1507, __c94, 3))),
+          spanFieldOrder: S.optional(S.NullOr(__S(1569, __c98, 1))),
+          remote_eval_sources: S.optional(S.NullOr(__S(1571, __c98, 3))),
           disable_realtime_queries: S.optional(S.NullOr(S.Boolean)),
           monitor_charts_use_metrics_start: S.optional(S.NullOr(S.Boolean)),
           coding_agent_insights_dashboard: S.optional(S.NullOr(S.Boolean)),
           blind_reviews: S.optional(S.NullOr(S.Boolean)),
           require_all_human_review_scores: S.optional(S.NullOr(S.Boolean)),
-          user_id_fields: S.optional(S.NullOr(__S(1520, __c95, 0))),
-          pattern_alert_destinations: S.optional(S.NullOr(__S(1508, __c94, 4))),
-          session_id_fields: S.optional(S.NullOr(__S(1520, __c95, 0))),
+          user_id_fields: S.optional(S.NullOr(__S(1584, __c99, 0))),
+          pattern_alert_destinations: S.optional(S.NullOr(__S(1572, __c98, 4))),
+          session_id_fields: S.optional(S.NullOr(__S(1584, __c99, 0))),
           default_preprocessor: S.optional(S.NullOr(S.Unknown)),
         }),
       ).annotate({ identifier: "ProjectSettings" });
@@ -12148,18 +12222,18 @@ function __c94(j: number): any {
           created: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
           user_id: S.optional(S.NullOr(S.String)),
-          settings: S.optional(S.NullOr(__S(1509, __c94, 5))),
+          settings: S.optional(S.NullOr(__S(1573, __c98, 5))),
         }),
       ).annotate({ identifier: "Project" });
   }
 }
-function __c95(j: number): any {
+function __c99(j: number): any {
   switch (j) {
     case 0:
-      return S.Array(__S(2976, __c186, 0));
+      return S.Array(__S(3168, __c198, 0));
   }
 }
-function __c96(j: number): any {
+function __c100(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12172,7 +12246,7 @@ function __c96(j: number): any {
       ).annotate({ identifier: "CreateProjectAutomationRequest" });
   }
 }
-function __c97(j: number): any {
+function __c101(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12191,12 +12265,12 @@ function __c97(j: number): any {
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
           config: S.Unknown,
-          runtime_block: S.optional(__S(1552, __c97, 0)),
+          runtime_block: S.optional(__S(1616, __c101, 0)),
         }),
       ).annotate({ identifier: "ProjectAutomation" });
   }
 }
-function __c98(j: number): any {
+function __c102(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12208,7 +12282,7 @@ function __c98(j: number): any {
       ).annotate({ identifier: "CreateProjectGroupRequest" });
   }
 }
-function __c99(j: number): any {
+function __c103(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12220,25 +12294,25 @@ function __c99(j: number): any {
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
-          member_projects: __S(2976, __c186, 0),
+          member_projects: __S(3168, __c198, 0),
         }),
       ).annotate({ identifier: "ProjectGroup" });
   }
 }
-function __c100(j: number): any {
+function __c104(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
         S.Struct({
           project_id: S.String.pipe(T.Label()),
-          feedback: __S(1089, __c68, 1),
+          feedback: __S(1297, __c81, 1),
         }).pipe(
           T.Http({ method: "POST", uri: "/v1/project_logs/{project_id}/feedback", code: 200 }),
         ),
       ).annotate({ identifier: "CreateProjectLogFeedbackRequest" });
   }
 }
-function __c101(j: number): any {
+function __c105(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12248,18 +12322,18 @@ function __c101(j: number): any {
           description: S.optional(S.NullOr(S.String)),
           score_type: S.String,
           categories: S.optional(S.NullOr(S.Unknown)),
-          config: S.optional(S.NullOr(__S(1636, __c102, 4))),
+          config: S.optional(S.NullOr(__S(1700, __c106, 4))),
         }).pipe(T.Http({ method: "POST", uri: "/v1/project_score", code: 200 })),
       ).annotate({ identifier: "CreateProjectScoreRequest" });
   }
 }
-function __c102(j: number): any {
+function __c106(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          users: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          groups: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          users: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          groups: S.optional(S.NullOr(__S(3168, __c198, 0))),
         }),
       ).annotate({ identifier: "ProjectScoreConfigVisibility" });
     case 1:
@@ -12268,10 +12342,10 @@ function __c102(j: number): any {
           status: S.optional(S.String),
           service_tier: S.optional(S.String),
           sampling_rate: S.Number,
-          scorers: __S(641, __c40, 1),
+          scorers: __S(849, __c53, 1),
           btql_filter: S.optional(S.NullOr(S.String)),
           apply_to_root_span: S.optional(S.NullOr(S.Boolean)),
-          apply_to_span_names: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          apply_to_span_names: S.optional(S.NullOr(__S(3168, __c198, 0))),
           skip_logging: S.optional(S.NullOr(S.Boolean)),
           scope: S.optional(S.NullOr(S.Unknown)),
         }),
@@ -12279,15 +12353,15 @@ function __c102(j: number): any {
     case 2:
       return S.suspend(() =>
         S.Struct({
-          clauses: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          subspan_clauses: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          trace_clauses: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          clauses: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          subspan_clauses: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          trace_clauses: S.optional(S.NullOr(__S(3168, __c198, 0))),
         }),
       ).annotate({ identifier: "ProjectScoreConditionWhen" });
     case 3:
       return S.suspend(() =>
         S.Struct({
-          when: __S(1634, __c102, 2),
+          when: __S(1698, __c106, 2),
           behavior: S.optional(S.String),
         }),
       ).annotate({ identifier: "ProjectScoreCondition" });
@@ -12296,10 +12370,10 @@ function __c102(j: number): any {
         S.Struct({
           multi_select: S.optional(S.NullOr(S.Boolean)),
           destination: S.optional(S.NullOr(S.String)),
-          visibility: S.optional(S.NullOr(__S(1632, __c102, 0))),
-          online: S.optional(S.NullOr(__S(1633, __c102, 1))),
-          condition: S.optional(S.NullOr(__S(1635, __c102, 3))),
-          object_types: S.optional(S.NullOr(__S(672, __c42, 0))),
+          visibility: S.optional(S.NullOr(__S(1696, __c106, 0))),
+          online: S.optional(S.NullOr(__S(1697, __c106, 1))),
+          condition: S.optional(S.NullOr(__S(1699, __c106, 3))),
+          object_types: S.optional(S.NullOr(__S(880, __c55, 0))),
         }),
       ).annotate({ identifier: "ProjectScoreConfig" });
     case 5:
@@ -12313,13 +12387,13 @@ function __c102(j: number): any {
           description: S.optional(S.NullOr(S.String)),
           score_type: S.String,
           categories: S.optional(S.NullOr(S.Unknown)),
-          config: S.optional(S.NullOr(__S(1636, __c102, 4))),
+          config: S.optional(S.NullOr(__S(1700, __c106, 4))),
           position: S.optional(S.NullOr(S.String)),
         }),
       ).annotate({ identifier: "ProjectScore" });
   }
 }
-function __c103(j: number): any {
+function __c107(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12332,7 +12406,7 @@ function __c103(j: number): any {
       ).annotate({ identifier: "CreateProjectTagRequest" });
   }
 }
-function __c104(j: number): any {
+function __c108(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12349,7 +12423,7 @@ function __c104(j: number): any {
       ).annotate({ identifier: "ProjectTag" });
   }
 }
-function __c105(j: number): any {
+function __c109(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12358,15 +12432,15 @@ function __c105(j: number): any {
           name: S.String,
           slug: S.String,
           description: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(1281, __c80, 1))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          prompt_data: S.optional(S.NullOr(__S(1441, __c90, 1))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
           function_type: S.optional(S.NullOr(S.String)),
-          environment_slugs: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          environment_slugs: S.optional(S.NullOr(__S(3168, __c198, 0))),
         }).pipe(T.Http({ method: "POST", uri: "/v1/prompt", code: 200 })),
       ).annotate({ identifier: "CreatePromptRequest" });
   }
 }
-function __c106(j: number): any {
+function __c110(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12380,15 +12454,15 @@ function __c106(j: number): any {
           slug: S.String,
           description: S.optional(S.NullOr(S.String)),
           created: S.optional(S.NullOr(S.String)),
-          prompt_data: S.optional(S.NullOr(__S(1281, __c80, 1))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
+          prompt_data: S.optional(S.NullOr(__S(1441, __c90, 1))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
           function_type: S.optional(S.NullOr(S.String)),
         }),
       ).annotate({ identifier: "Prompt" });
   }
 }
-function __c107(j: number): any {
+function __c111(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12401,7 +12475,7 @@ function __c107(j: number): any {
       ).annotate({ identifier: "CreateProxyRequest" });
   }
 }
-function __c108(j: number): any {
+function __c112(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() => S.Unknown.pipe(T.RawResponseRoot())).annotate({
@@ -12409,7 +12483,7 @@ function __c108(j: number): any {
       });
   }
 }
-function __c109(j: number): any {
+function __c113(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12417,7 +12491,7 @@ function __c109(j: number): any {
       ).annotate({ identifier: "CreateProxyAutoRequest" });
   }
 }
-function __c110(j: number): any {
+function __c114(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12425,7 +12499,7 @@ function __c110(j: number): any {
       ).annotate({ identifier: "CreateProxyChatCompletionRequest" });
   }
 }
-function __c111(j: number): any {
+function __c115(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12433,7 +12507,7 @@ function __c111(j: number): any {
       ).annotate({ identifier: "CreateProxyCompletionRequest" });
   }
 }
-function __c112(j: number): any {
+function __c116(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12447,7 +12521,7 @@ function __c112(j: number): any {
         S.Struct({
           model: S.optional(S.NullOr(S.String)),
           ttl_seconds: S.optional(S.Number),
-          logging: S.optional(S.NullOr(__S(1792, __c112, 0))),
+          logging: S.optional(S.NullOr(__S(1856, __c116, 0))),
         }).pipe(T.Http({ method: "POST", uri: "/v1/proxy/credentials", code: 200 })),
       ).annotate({ identifier: "CreateProxyCredentialsRequest" });
     case 2:
@@ -12458,7 +12532,7 @@ function __c112(j: number): any {
       ).annotate({ identifier: "CreateProxyCredentialsResponse" });
   }
 }
-function __c113(j: number): any {
+function __c117(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12466,21 +12540,21 @@ function __c113(j: number): any {
       ).annotate({ identifier: "CreateProxyEmbeddingRequest" });
   }
 }
-function __c114(j: number): any {
+function __c118(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
         S.Struct({
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
-          member_permissions: S.optional(S.NullOr(__S(1841, __c115, 1))),
-          member_roles: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          member_permissions: S.optional(S.NullOr(__S(1905, __c119, 1))),
+          member_roles: S.optional(S.NullOr(__S(3168, __c198, 0))),
           org_name: S.optional(S.NullOr(S.String)),
         }).pipe(T.Http({ method: "POST", uri: "/v1/role", code: 200 })),
       ).annotate({ identifier: "CreateRoleRequest" });
   }
 }
-function __c115(j: number): any {
+function __c119(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12490,7 +12564,7 @@ function __c115(j: number): any {
         }),
       ).annotate({ identifier: "CreateRoleRequestMemberPermissionsItem" });
     case 1:
-      return S.Array(__S(1840, __c115, 0));
+      return S.Array(__S(1904, __c119, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
@@ -12501,13 +12575,13 @@ function __c115(j: number): any {
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
-          member_permissions: S.optional(S.NullOr(__S(1841, __c115, 1))),
-          member_roles: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          member_permissions: S.optional(S.NullOr(__S(1905, __c119, 1))),
+          member_roles: S.optional(S.NullOr(__S(3168, __c198, 0))),
         }),
       ).annotate({ identifier: "Role" });
   }
 }
-function __c116(j: number): any {
+function __c120(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12520,7 +12594,7 @@ function __c116(j: number): any {
       ).annotate({ identifier: "CreateServiceTokenRequest" });
   }
 }
-function __c117(j: number): any {
+function __c121(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12539,7 +12613,7 @@ function __c117(j: number): any {
       ).annotate({ identifier: "CreateServiceTokenOutput" });
   }
 }
-function __c118(j: number): any {
+function __c122(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12553,7 +12627,7 @@ function __c118(j: number): any {
       ).annotate({ identifier: "CreateSpanIframeRequest" });
   }
 }
-function __c119(j: number): any {
+function __c123(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12571,7 +12645,7 @@ function __c119(j: number): any {
       ).annotate({ identifier: "SpanIFrame" });
   }
 }
-function __c120(j: number): any {
+function __c124(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12581,7 +12655,7 @@ function __c120(j: number): any {
           view_type: S.String,
           name: S.String,
           description: S.optional(S.NullOr(S.String)),
-          view_data: S.optional(S.NullOr(__S(1953, __c122, 1))),
+          view_data: S.optional(S.NullOr(__S(2017, __c126, 1))),
           options: S.optional(S.NullOr(S.Unknown)),
           user_id: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
@@ -12589,27 +12663,27 @@ function __c120(j: number): any {
       ).annotate({ identifier: "CreateViewRequest" });
   }
 }
-function __c121(j: number): any {
+function __c125(j: number): any {
   switch (j) {
     case 0:
       return S.Array(S.Unknown);
   }
 }
-function __c122(j: number): any {
+function __c126(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          filter: S.optional(S.NullOr(__S(1936, __c121, 0))),
-          tag: S.optional(S.NullOr(__S(1936, __c121, 0))),
-          match: S.optional(S.NullOr(__S(1936, __c121, 0))),
-          sort: S.optional(S.NullOr(__S(1936, __c121, 0))),
+          filter: S.optional(S.NullOr(__S(2000, __c125, 0))),
+          tag: S.optional(S.NullOr(__S(2000, __c125, 0))),
+          match: S.optional(S.NullOr(__S(2000, __c125, 0))),
+          sort: S.optional(S.NullOr(__S(2000, __c125, 0))),
         }),
       ).annotate({ identifier: "ViewDataSearch" });
     case 1:
       return S.suspend(() =>
         S.Struct({
-          search: S.optional(S.NullOr(__S(1952, __c122, 0))),
+          search: S.optional(S.NullOr(__S(2016, __c126, 0))),
           custom_charts: S.optional(S.Unknown),
         }),
       ).annotate({ identifier: "ViewData" });
@@ -12625,7 +12699,7 @@ function __c122(j: number): any {
           starred: S.optional(S.Boolean),
           created: S.optional(S.NullOr(S.String)),
           updated_at: S.optional(S.NullOr(S.String)),
-          view_data: S.optional(S.NullOr(__S(1953, __c122, 1))),
+          view_data: S.optional(S.NullOr(__S(2017, __c126, 1))),
           options: S.optional(S.NullOr(S.Unknown)),
           user_id: S.optional(S.NullOr(S.String)),
           deleted_at: S.optional(S.NullOr(S.String)),
@@ -12633,7 +12707,7 @@ function __c122(j: number): any {
       ).annotate({ identifier: "View" });
   }
 }
-function __c123(j: number): any {
+function __c127(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12643,7 +12717,7 @@ function __c123(j: number): any {
       ).annotate({ identifier: "DeleteAclRequest" });
   }
 }
-function __c124(j: number): any {
+function __c128(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12653,7 +12727,7 @@ function __c124(j: number): any {
       ).annotate({ identifier: "DeleteAiSecretRequest" });
   }
 }
-function __c125(j: number): any {
+function __c129(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12663,7 +12737,7 @@ function __c125(j: number): any {
       ).annotate({ identifier: "DeleteApiKeyRequest" });
   }
 }
-function __c126(j: number): any {
+function __c130(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12682,64 +12756,7 @@ function __c126(j: number): any {
       ).annotate({ identifier: "ApiKey" });
   }
 }
-function __c127(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          object_type: S.String,
-          object_id: S.String,
-          user_id: S.optional(S.NullOr(S.String)),
-          group_id: S.optional(S.NullOr(S.String)),
-          permission: S.optional(S.NullOr(S.String)),
-          restrict_object_type: S.optional(S.NullOr(S.String)),
-          role_id: S.optional(S.NullOr(S.String)),
-        }),
-      ).annotate({ identifier: "AclItem" });
-    case 1:
-      return S.Array(__S(2032, __c127, 0));
-    case 2:
-      return S.suspend(() =>
-        S.Struct({
-          add_acls: S.optional(S.NullOr(__S(2033, __c127, 1))),
-          remove_acls: S.optional(S.NullOr(__S(2033, __c127, 1))),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/acl/batch_update", code: 200 })),
-      ).annotate({ identifier: "BatchUpdateAclsRequest" });
-    case 3:
-      return S.suspend(() =>
-        S.Struct({
-          added_acls: __S(2064, __c129, 0),
-          removed_acls: __S(2064, __c129, 0),
-        }),
-      ).annotate({ identifier: "AclBatchUpdateResponse" });
-  }
-}
-function __c128(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          object_type: S.String,
-          object_id: S.String,
-          user_id: S.optional(S.NullOr(S.String)),
-          group_id: S.optional(S.NullOr(S.String)),
-          permission: S.optional(S.NullOr(S.String)),
-          restrict_object_type: S.optional(S.NullOr(S.String)),
-          role_id: S.optional(S.NullOr(S.String)),
-          _object_org_id: S.String,
-          created: S.optional(S.NullOr(S.String)),
-        }),
-      ).annotate({ identifier: "Acl" });
-  }
-}
-function __c129(j: number): any {
-  switch (j) {
-    case 0:
-      return S.Array(__S(2048, __c128, 0));
-  }
-}
-function __c130(j: number): any {
+function __c131(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12749,7 +12766,7 @@ function __c130(j: number): any {
       ).annotate({ identifier: "DeleteColumnRequest" });
   }
 }
-function __c131(j: number): any {
+function __c132(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12759,7 +12776,7 @@ function __c131(j: number): any {
       ).annotate({ identifier: "DeleteDatasetRequest" });
   }
 }
-function __c132(j: number): any {
+function __c133(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12775,7 +12792,7 @@ function __c132(j: number): any {
       ).annotate({ identifier: "DeleteDatasetSnapshotRequest" });
   }
 }
-function __c133(j: number): any {
+function __c134(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12785,7 +12802,7 @@ function __c133(j: number): any {
       ).annotate({ identifier: "DeleteEnvironmentRequest" });
   }
 }
-function __c134(j: number): any {
+function __c135(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12795,7 +12812,7 @@ function __c134(j: number): any {
       ).annotate({ identifier: "DeleteEnvVarRequest" });
   }
 }
-function __c135(j: number): any {
+function __c136(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12805,7 +12822,7 @@ function __c135(j: number): any {
       ).annotate({ identifier: "DeleteExperimentRequest" });
   }
 }
-function __c136(j: number): any {
+function __c137(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12815,7 +12832,7 @@ function __c136(j: number): any {
       ).annotate({ identifier: "DeleteFunctionRequest" });
   }
 }
-function __c137(j: number): any {
+function __c138(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12825,7 +12842,7 @@ function __c137(j: number): any {
       ).annotate({ identifier: "DeleteGroupRequest" });
   }
 }
-function __c138(j: number): any {
+function __c139(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12846,16 +12863,6 @@ function __c138(j: number): any {
       ).annotate({ identifier: "IngestKey" });
   }
 }
-function __c139(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          mcp_server_id: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "DELETE", uri: "/v1/mcp_server/{mcp_server_id}", code: 200 })),
-      ).annotate({ identifier: "DeleteMcpServerRequest" });
-  }
-}
 function __c140(j: number): any {
   switch (j) {
     case 0:
@@ -12868,11 +12875,62 @@ function __c140(j: number): any {
           permission: S.optional(S.NullOr(S.String)),
           restrict_object_type: S.optional(S.NullOr(S.String)),
           role_id: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/acl", code: 200 })),
-      ).annotate({ identifier: "CreateAclRequest" });
+        }),
+      ).annotate({ identifier: "AclItem" });
+    case 1:
+      return S.Array(__S(2240, __c140, 0));
+    case 2:
+      return S.suspend(() =>
+        S.Struct({
+          add_acls: S.optional(S.NullOr(__S(2241, __c140, 1))),
+          remove_acls: S.optional(S.NullOr(__S(2241, __c140, 1))),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/acl/batch_update", code: 200 })),
+      ).annotate({ identifier: "BatchUpdateAclsRequest" });
+    case 3:
+      return S.suspend(() =>
+        S.Struct({
+          added_acls: __S(2272, __c142, 0),
+          removed_acls: __S(2272, __c142, 0),
+        }),
+      ).annotate({ identifier: "AclBatchUpdateResponse" });
   }
 }
 function __c141(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          object_type: S.String,
+          object_id: S.String,
+          user_id: S.optional(S.NullOr(S.String)),
+          group_id: S.optional(S.NullOr(S.String)),
+          permission: S.optional(S.NullOr(S.String)),
+          restrict_object_type: S.optional(S.NullOr(S.String)),
+          role_id: S.optional(S.NullOr(S.String)),
+          _object_org_id: S.String,
+          created: S.optional(S.NullOr(S.String)),
+        }),
+      ).annotate({ identifier: "Acl" });
+  }
+}
+function __c142(j: number): any {
+  switch (j) {
+    case 0:
+      return S.Array(__S(2256, __c141, 0));
+  }
+}
+function __c143(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          mcp_server_id: S.String.pipe(T.Label()),
+        }).pipe(T.Http({ method: "DELETE", uri: "/v1/mcp_server/{mcp_server_id}", code: 200 })),
+      ).annotate({ identifier: "DeleteMcpServerRequest" });
+  }
+}
+function __c144(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12882,7 +12940,7 @@ function __c141(j: number): any {
       ).annotate({ identifier: "DeleteProjectRequest" });
   }
 }
-function __c142(j: number): any {
+function __c145(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12898,7 +12956,7 @@ function __c142(j: number): any {
       ).annotate({ identifier: "DeleteProjectAutomationRequest" });
   }
 }
-function __c143(j: number): any {
+function __c146(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12910,7 +12968,7 @@ function __c143(j: number): any {
       ).annotate({ identifier: "DeleteProjectGroupRequest" });
   }
 }
-function __c144(j: number): any {
+function __c147(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12922,7 +12980,7 @@ function __c144(j: number): any {
       ).annotate({ identifier: "DeleteProjectScoreRequest" });
   }
 }
-function __c145(j: number): any {
+function __c148(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12932,7 +12990,7 @@ function __c145(j: number): any {
       ).annotate({ identifier: "DeleteProjectTagRequest" });
   }
 }
-function __c146(j: number): any {
+function __c149(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12942,7 +13000,7 @@ function __c146(j: number): any {
       ).annotate({ identifier: "DeletePromptRequest" });
   }
 }
-function __c147(j: number): any {
+function __c150(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12952,7 +13010,7 @@ function __c147(j: number): any {
       ).annotate({ identifier: "DeleteRoleRequest" });
   }
 }
-function __c148(j: number): any {
+function __c151(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12964,7 +13022,7 @@ function __c148(j: number): any {
       ).annotate({ identifier: "DeleteServiceTokenRequest" });
   }
 }
-function __c149(j: number): any {
+function __c152(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12982,7 +13040,7 @@ function __c149(j: number): any {
       ).annotate({ identifier: "ServiceToken" });
   }
 }
-function __c150(j: number): any {
+function __c153(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -12992,7 +13050,23 @@ function __c150(j: number): any {
       ).annotate({ identifier: "DeleteSpanIframeRequest" });
   }
 }
-function __c151(j: number): any {
+function __c154(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          object_type: S.String,
+          object_id: S.String,
+          user_id: S.optional(S.NullOr(S.String)),
+          group_id: S.optional(S.NullOr(S.String)),
+          permission: S.optional(S.NullOr(S.String)),
+          restrict_object_type: S.optional(S.NullOr(S.String)),
+          role_id: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/acl", code: 200 })),
+      ).annotate({ identifier: "CreateAclRequest" });
+  }
+}
+function __c155(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13004,46 +13078,7 @@ function __c151(j: number): any {
       ).annotate({ identifier: "DeleteViewRequest" });
   }
 }
-function __c152(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          name: S.String,
-          type: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
-          secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
-          org_name: S.optional(S.NullOr(S.String)),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/ai_secret", code: 200 })),
-      ).annotate({ identifier: "CreateAiSecretRequest" });
-  }
-}
-function __c153(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          created: S.optional(S.NullOr(S.String)),
-          updated_at: S.optional(S.NullOr(S.String)),
-          secret_updated_at: S.optional(S.NullOr(S.String)),
-          org_id: S.String,
-          name: S.String,
-          type: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
-          secret_updated_by_user_id: S.optional(S.NullOr(S.String)),
-          preview_secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
-        }),
-      ).annotate({ identifier: "AISecret" });
-  }
-}
-function __c154(j: number): any {
-  switch (j) {
-    case 0:
-      return S.Record(S.String, S.Unknown);
-  }
-}
-function __c155(j: number): any {
+function __c156(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13058,7 +13093,7 @@ function __c155(j: number): any {
       ).annotate({ identifier: "FetchDatasetEventsRequest" });
   }
 }
-function __c156(j: number): any {
+function __c157(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13066,17 +13101,17 @@ function __c156(j: number): any {
           id: S.String,
           label: S.optional(S.String),
           confidence: S.optional(S.NullOr(S.Number)),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
           source: S.optional(S.NullOr(S.Unknown)),
         }),
       ).annotate({ identifier: "DatasetEventClassificationsValueItem" });
     case 1:
-      return S.Array(__S(2496, __c156, 0));
+      return S.Array(__S(2512, __c157, 0));
     case 2:
-      return S.Record(S.String, __S(2497, __c156, 1));
+      return S.Record(S.String, __S(2513, __c157, 1));
   }
 }
-function __c157(j: number): any {
+function __c158(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13101,7 +13136,7 @@ function __c157(j: number): any {
       return S.Record(S.String, /*@__PURE__*/ S.NullOr(S.String));
   }
 }
-function __c158(j: number): any {
+function __c159(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13114,30 +13149,30 @@ function __c158(j: number): any {
           dataset_id: S.String,
           input: S.optional(S.Unknown),
           expected: S.optional(S.Unknown),
-          metadata: S.optional(S.NullOr(__S(2512, __c157, 0))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          metadata: S.optional(S.NullOr(__S(2528, __c158, 0))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
           span_id: S.String,
           root_span_id: S.String,
           is_root: S.optional(S.NullOr(S.Boolean)),
-          origin: S.optional(S.NullOr(__S(2513, __c157, 1))),
-          comments: S.optional(S.NullOr(__S(1936, __c121, 0))),
-          audit_data: S.optional(S.NullOr(__S(1936, __c121, 0))),
-          facets: S.optional(S.NullOr(__S(2514, __c157, 2))),
-          classifications: S.optional(S.NullOr(__S(2498, __c156, 2))),
+          origin: S.optional(S.NullOr(__S(2529, __c158, 1))),
+          comments: S.optional(S.NullOr(__S(2000, __c125, 0))),
+          audit_data: S.optional(S.NullOr(__S(2000, __c125, 0))),
+          facets: S.optional(S.NullOr(__S(2530, __c158, 2))),
+          classifications: S.optional(S.NullOr(__S(2514, __c157, 2))),
         }),
       ).annotate({ identifier: "DatasetEvent" });
     case 1:
-      return S.Array(__S(2528, __c158, 0));
+      return S.Array(__S(2544, __c159, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          events: __S(2529, __c158, 1),
+          events: __S(2545, __c159, 1),
           cursor: S.optional(S.NullOr(S.String)),
         }),
       ).annotate({ identifier: "FetchDatasetEventsResponse" });
   }
 }
-function __c159(j: number): any {
+function __c160(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13152,7 +13187,7 @@ function __c159(j: number): any {
       ).annotate({ identifier: "FetchExperimentEventsRequest" });
   }
 }
-function __c160(j: number): any {
+function __c161(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13195,7 +13230,7 @@ function __c160(j: number): any {
       ).annotate({ identifier: "SpanAttributes" });
   }
 }
-function __c161(j: number): any {
+function __c162(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13210,35 +13245,35 @@ function __c161(j: number): any {
           output: S.optional(S.Unknown),
           expected: S.optional(S.Unknown),
           error: S.optional(S.Unknown),
-          scores: S.optional(S.NullOr(__S(1072, __c67, 0))),
-          metadata: S.optional(S.NullOr(__S(2512, __c157, 0))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          metrics: S.optional(S.NullOr(__S(2560, __c160, 0))),
-          context: S.optional(S.NullOr(__S(2561, __c160, 1))),
+          scores: S.optional(S.NullOr(__S(1280, __c80, 0))),
+          metadata: S.optional(S.NullOr(__S(2528, __c158, 0))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          metrics: S.optional(S.NullOr(__S(2576, __c161, 0))),
+          context: S.optional(S.NullOr(__S(2577, __c161, 1))),
           span_id: S.String,
-          span_parents: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          span_parents: S.optional(S.NullOr(__S(3168, __c198, 0))),
           root_span_id: S.String,
-          span_attributes: S.optional(S.NullOr(__S(2562, __c160, 2))),
+          span_attributes: S.optional(S.NullOr(__S(2578, __c161, 2))),
           is_root: S.optional(S.NullOr(S.Boolean)),
-          origin: S.optional(S.NullOr(__S(2513, __c157, 1))),
-          comments: S.optional(S.NullOr(__S(1936, __c121, 0))),
-          audit_data: S.optional(S.NullOr(__S(1936, __c121, 0))),
-          facets: S.optional(S.NullOr(__S(2514, __c157, 2))),
-          classifications: S.optional(S.NullOr(__S(2498, __c156, 2))),
+          origin: S.optional(S.NullOr(__S(2529, __c158, 1))),
+          comments: S.optional(S.NullOr(__S(2000, __c125, 0))),
+          audit_data: S.optional(S.NullOr(__S(2000, __c125, 0))),
+          facets: S.optional(S.NullOr(__S(2530, __c158, 2))),
+          classifications: S.optional(S.NullOr(__S(2514, __c157, 2))),
         }),
       ).annotate({ identifier: "ExperimentEvent" });
     case 1:
-      return S.Array(__S(2576, __c161, 0));
+      return S.Array(__S(2592, __c162, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          events: __S(2577, __c161, 1),
+          events: __S(2593, __c162, 1),
           cursor: S.optional(S.NullOr(S.String)),
         }),
       ).annotate({ identifier: "FetchExperimentEventsResponse" });
   }
 }
-function __c162(j: number): any {
+function __c163(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13253,7 +13288,7 @@ function __c162(j: number): any {
       ).annotate({ identifier: "FetchProjectLogEventsRequest" });
   }
 }
-function __c163(j: number): any {
+function __c164(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13269,36 +13304,36 @@ function __c163(j: number): any {
           output: S.optional(S.Unknown),
           expected: S.optional(S.Unknown),
           error: S.optional(S.Unknown),
-          scores: S.optional(S.NullOr(__S(1072, __c67, 0))),
-          metadata: S.optional(S.NullOr(__S(2512, __c157, 0))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          metrics: S.optional(S.NullOr(__S(2560, __c160, 0))),
-          context: S.optional(S.NullOr(__S(2561, __c160, 1))),
+          scores: S.optional(S.NullOr(__S(1280, __c80, 0))),
+          metadata: S.optional(S.NullOr(__S(2528, __c158, 0))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          metrics: S.optional(S.NullOr(__S(2576, __c161, 0))),
+          context: S.optional(S.NullOr(__S(2577, __c161, 1))),
           span_id: S.String,
-          span_parents: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          span_parents: S.optional(S.NullOr(__S(3168, __c198, 0))),
           root_span_id: S.String,
           is_root: S.optional(S.NullOr(S.Boolean)),
-          span_attributes: S.optional(S.NullOr(__S(2562, __c160, 2))),
-          origin: S.optional(S.NullOr(__S(2513, __c157, 1))),
-          comments: S.optional(S.NullOr(__S(1936, __c121, 0))),
-          audit_data: S.optional(S.NullOr(__S(1936, __c121, 0))),
+          span_attributes: S.optional(S.NullOr(__S(2578, __c161, 2))),
+          origin: S.optional(S.NullOr(__S(2529, __c158, 1))),
+          comments: S.optional(S.NullOr(__S(2000, __c125, 0))),
+          audit_data: S.optional(S.NullOr(__S(2000, __c125, 0))),
           _async_scoring_state: S.optional(S.Unknown),
-          facets: S.optional(S.NullOr(__S(2514, __c157, 2))),
-          classifications: S.optional(S.NullOr(__S(2498, __c156, 2))),
+          facets: S.optional(S.NullOr(__S(2530, __c158, 2))),
+          classifications: S.optional(S.NullOr(__S(2514, __c157, 2))),
         }),
       ).annotate({ identifier: "ProjectLogsEvent" });
     case 1:
-      return S.Array(__S(2608, __c163, 0));
+      return S.Array(__S(2624, __c164, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          events: __S(2609, __c163, 1),
+          events: __S(2625, __c164, 1),
           cursor: S.optional(S.NullOr(S.String)),
         }),
       ).annotate({ identifier: "FetchProjectLogsEventsResponse" });
   }
 }
-function __c164(j: number): any {
+function __c165(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13314,7 +13349,7 @@ function __c164(j: number): any {
       ).annotate({ identifier: "FindAndDeleteAclRequest" });
   }
 }
-function __c165(j: number): any {
+function __c166(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13325,7 +13360,7 @@ function __c165(j: number): any {
       ).annotate({ identifier: "FindAndDeleteAiSecretRequest" });
   }
 }
-function __c166(j: number): any {
+function __c167(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13335,7 +13370,7 @@ function __c166(j: number): any {
       ).annotate({ identifier: "FindAndDeleteServiceTokenRequest" });
   }
 }
-function __c167(j: number): any {
+function __c168(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13345,7 +13380,7 @@ function __c167(j: number): any {
       ).annotate({ identifier: "GetAclRequest" });
   }
 }
-function __c168(j: number): any {
+function __c169(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13355,7 +13390,7 @@ function __c168(j: number): any {
       ).annotate({ identifier: "GetAiSecretRequest" });
   }
 }
-function __c169(j: number): any {
+function __c170(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13365,7 +13400,46 @@ function __c169(j: number): any {
       ).annotate({ identifier: "GetApiKeyRequest" });
   }
 }
-function __c170(j: number): any {
+function __c171(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          name: S.String,
+          type: S.optional(S.NullOr(S.String)),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
+          secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
+          org_name: S.optional(S.NullOr(S.String)),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/ai_secret", code: 200 })),
+      ).annotate({ identifier: "CreateAiSecretRequest" });
+  }
+}
+function __c172(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          created: S.optional(S.NullOr(S.String)),
+          updated_at: S.optional(S.NullOr(S.String)),
+          secret_updated_at: S.optional(S.NullOr(S.String)),
+          org_id: S.String,
+          name: S.String,
+          type: S.optional(S.NullOr(S.String)),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
+          secret_updated_by_user_id: S.optional(S.NullOr(S.String)),
+          preview_secret: S.optional(S.NullOr(S.String).pipe(T.SensitiveValue({}))),
+        }),
+      ).annotate({ identifier: "AISecret" });
+  }
+}
+function __c173(j: number): any {
+  switch (j) {
+    case 0:
+      return S.Record(S.String, S.Unknown);
+  }
+}
+function __c174(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13375,7 +13449,109 @@ function __c170(j: number): any {
       ).annotate({ identifier: "GetDatasetRequest" });
   }
 }
-function __c171(j: number): any {
+function __c175(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          dataset_id: S.String.pipe(T.Label()),
+          limit: S.optional(S.Number.pipe(T.Query())),
+          max_xact_id: S.optional(S.String.pipe(T.Query())),
+          max_root_span_id: S.optional(S.String.pipe(T.Query())),
+          version: S.optional(S.String.pipe(T.Query())),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/dataset/{dataset_id}/fetch", code: 200 })),
+      ).annotate({ identifier: "GetDatasetEventsRequest" });
+  }
+}
+function __c176(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          dataset_snapshot_id: S.String.pipe(T.Label()),
+        }).pipe(
+          T.Http({ method: "GET", uri: "/v1/dataset_snapshot/{dataset_snapshot_id}", code: 200 }),
+        ),
+      ).annotate({ identifier: "GetDatasetSnapshotRequest" });
+  }
+}
+function __c177(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          environment_id: S.String.pipe(T.Label()),
+        }).pipe(T.Http({ method: "GET", uri: "/environment/{environment_id}", code: 200 })),
+      ).annotate({ identifier: "GetEnvironmentRequest" });
+  }
+}
+function __c178(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          env_var_id: S.String.pipe(T.Label()),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/env_var/{env_var_id}", code: 200 })),
+      ).annotate({ identifier: "GetEnvVarRequest" });
+  }
+}
+function __c179(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          experiment_id: S.String.pipe(T.Label()),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/experiment/{experiment_id}", code: 200 })),
+      ).annotate({ identifier: "GetExperimentRequest" });
+  }
+}
+function __c180(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          experiment_id: S.String.pipe(T.Label()),
+          limit: S.optional(S.Number.pipe(T.Query())),
+          max_xact_id: S.optional(S.String.pipe(T.Query())),
+          max_root_span_id: S.optional(S.String.pipe(T.Query())),
+          version: S.optional(S.String.pipe(T.Query())),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/experiment/{experiment_id}/fetch", code: 200 })),
+      ).annotate({ identifier: "GetExperimentEventsRequest" });
+  }
+}
+function __c181(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          function_id: S.String.pipe(T.Label()),
+          version: S.optional(S.String.pipe(T.Query())),
+          environment: S.optional(S.String.pipe(T.Query())),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/function/{function_id}", code: 200 })),
+      ).annotate({ identifier: "GetFunctionRequest" });
+  }
+}
+function __c182(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          group_id: S.String.pipe(T.Label()),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/group/{group_id}", code: 200 })),
+      ).annotate({ identifier: "GetGroupRequest" });
+  }
+}
+function __c183(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          mcp_server_id: S.String.pipe(T.Label()),
+        }).pipe(T.Http({ method: "GET", uri: "/v1/mcp_server/{mcp_server_id}", code: 200 })),
+      ).annotate({ identifier: "GetMcpServerRequest" });
+  }
+}
+function __c184(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13390,7 +13566,7 @@ function __c171(j: number): any {
       ).annotate({ identifier: "CreateColumnRequest" });
   }
 }
-function __c172(j: number): any {
+function __c185(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13407,109 +13583,7 @@ function __c172(j: number): any {
       ).annotate({ identifier: "CustomColumn" });
   }
 }
-function __c173(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          dataset_id: S.String.pipe(T.Label()),
-          limit: S.optional(S.Number.pipe(T.Query())),
-          max_xact_id: S.optional(S.String.pipe(T.Query())),
-          max_root_span_id: S.optional(S.String.pipe(T.Query())),
-          version: S.optional(S.String.pipe(T.Query())),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/dataset/{dataset_id}/fetch", code: 200 })),
-      ).annotate({ identifier: "GetDatasetEventsRequest" });
-  }
-}
-function __c174(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          dataset_snapshot_id: S.String.pipe(T.Label()),
-        }).pipe(
-          T.Http({ method: "GET", uri: "/v1/dataset_snapshot/{dataset_snapshot_id}", code: 200 }),
-        ),
-      ).annotate({ identifier: "GetDatasetSnapshotRequest" });
-  }
-}
-function __c175(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          environment_id: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "GET", uri: "/environment/{environment_id}", code: 200 })),
-      ).annotate({ identifier: "GetEnvironmentRequest" });
-  }
-}
-function __c176(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          env_var_id: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/env_var/{env_var_id}", code: 200 })),
-      ).annotate({ identifier: "GetEnvVarRequest" });
-  }
-}
-function __c177(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          experiment_id: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/experiment/{experiment_id}", code: 200 })),
-      ).annotate({ identifier: "GetExperimentRequest" });
-  }
-}
-function __c178(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          experiment_id: S.String.pipe(T.Label()),
-          limit: S.optional(S.Number.pipe(T.Query())),
-          max_xact_id: S.optional(S.String.pipe(T.Query())),
-          max_root_span_id: S.optional(S.String.pipe(T.Query())),
-          version: S.optional(S.String.pipe(T.Query())),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/experiment/{experiment_id}/fetch", code: 200 })),
-      ).annotate({ identifier: "GetExperimentEventsRequest" });
-  }
-}
-function __c179(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          function_id: S.String.pipe(T.Label()),
-          version: S.optional(S.String.pipe(T.Query())),
-          environment: S.optional(S.String.pipe(T.Query())),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/function/{function_id}", code: 200 })),
-      ).annotate({ identifier: "GetFunctionRequest" });
-  }
-}
-function __c180(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          group_id: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/group/{group_id}", code: 200 })),
-      ).annotate({ identifier: "GetGroupRequest" });
-  }
-}
-function __c181(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          mcp_server_id: S.String.pipe(T.Label()),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/mcp_server/{mcp_server_id}", code: 200 })),
-      ).annotate({ identifier: "GetMcpServerRequest" });
-  }
-}
-function __c182(j: number): any {
+function __c186(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13519,7 +13593,7 @@ function __c182(j: number): any {
       ).annotate({ identifier: "GetOrganizationRequest" });
   }
 }
-function __c183(j: number): any {
+function __c187(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13539,46 +13613,7 @@ function __c183(j: number): any {
       ).annotate({ identifier: "Organization" });
   }
 }
-function __c184(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          project_id: S.String,
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset", code: 200 })),
-      ).annotate({ identifier: "CreateDatasetRequest" });
-  }
-}
-function __c185(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          project_id: S.String,
-          name: S.String,
-          description: S.optional(S.NullOr(S.String)),
-          created: S.optional(S.NullOr(S.String)),
-          deleted_at: S.optional(S.NullOr(S.String)),
-          user_id: S.optional(S.NullOr(S.String)),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
-          url_slug: S.String,
-        }),
-      ).annotate({ identifier: "Dataset" });
-  }
-}
-function __c186(j: number): any {
-  switch (j) {
-    case 0:
-      return S.Array(S.String);
-  }
-}
-function __c187(j: number): any {
+function __c188(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13588,7 +13623,7 @@ function __c187(j: number): any {
       ).annotate({ identifier: "GetProjectRequest" });
   }
 }
-function __c188(j: number): any {
+function __c189(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13604,7 +13639,7 @@ function __c188(j: number): any {
       ).annotate({ identifier: "GetProjectAutomationRequest" });
   }
 }
-function __c189(j: number): any {
+function __c190(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13614,7 +13649,7 @@ function __c189(j: number): any {
       ).annotate({ identifier: "GetProjectGroupRequest" });
   }
 }
-function __c190(j: number): any {
+function __c191(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13628,7 +13663,7 @@ function __c190(j: number): any {
       ).annotate({ identifier: "GetProjectLogEventsRequest" });
   }
 }
-function __c191(j: number): any {
+function __c192(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13638,7 +13673,7 @@ function __c191(j: number): any {
       ).annotate({ identifier: "GetProjectScoreRequest" });
   }
 }
-function __c192(j: number): any {
+function __c193(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13648,7 +13683,7 @@ function __c192(j: number): any {
       ).annotate({ identifier: "GetProjectTagRequest" });
   }
 }
-function __c193(j: number): any {
+function __c194(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13660,7 +13695,7 @@ function __c193(j: number): any {
       ).annotate({ identifier: "GetPromptRequest" });
   }
 }
-function __c194(j: number): any {
+function __c195(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13670,7 +13705,7 @@ function __c194(j: number): any {
       ).annotate({ identifier: "GetRoleRequest" });
   }
 }
-function __c195(j: number): any {
+function __c196(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13680,7 +13715,46 @@ function __c195(j: number): any {
       return S.suspend(() => S.Struct({})).annotate({ identifier: "GetRootResponse" });
   }
 }
-function __c196(j: number): any {
+function __c197(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          project_id: S.String,
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset", code: 200 })),
+      ).annotate({ identifier: "CreateDatasetRequest" });
+  }
+}
+function __c198(j: number): any {
+  switch (j) {
+    case 0:
+      return S.Array(S.String);
+  }
+}
+function __c199(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          id: S.String,
+          project_id: S.String,
+          name: S.String,
+          description: S.optional(S.NullOr(S.String)),
+          created: S.optional(S.NullOr(S.String)),
+          deleted_at: S.optional(S.NullOr(S.String)),
+          user_id: S.optional(S.NullOr(S.String)),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
+          url_slug: S.String,
+        }),
+      ).annotate({ identifier: "Dataset" });
+  }
+}
+function __c200(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13690,44 +13764,7 @@ function __c196(j: number): any {
       ).annotate({ identifier: "GetServiceTokenRequest" });
   }
 }
-function __c197(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          dataset_id: S.String.pipe(T.Label()),
-          feedback: __S(3185, __c199, 1),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset/{dataset_id}/feedback", code: 200 })),
-      ).annotate({ identifier: "CreateDatasetFeedbackRequest" });
-  }
-}
-function __c198(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          status: S.String,
-        }),
-      ).annotate({ identifier: "FeedbackResponseSchema" });
-  }
-}
-function __c199(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          id: S.String,
-          comment: S.optional(S.NullOr(S.String)),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
-          source: S.optional(S.NullOr(S.String)),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-        }),
-      ).annotate({ identifier: "FeedbackDatasetItem" });
-    case 1:
-      return S.Array(__S(3184, __c199, 0));
-  }
-}
-function __c200(j: number): any {
+function __c201(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13737,7 +13774,7 @@ function __c200(j: number): any {
       ).annotate({ identifier: "GetSpanIframeRequest" });
   }
 }
-function __c201(j: number): any {
+function __c202(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13747,7 +13784,7 @@ function __c201(j: number): any {
       ).annotate({ identifier: "GetUserRequest" });
   }
 }
-function __c202(j: number): any {
+function __c203(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13762,7 +13799,7 @@ function __c202(j: number): any {
       ).annotate({ identifier: "User" });
   }
 }
-function __c203(j: number): any {
+function __c204(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13774,71 +13811,44 @@ function __c203(j: number): any {
       ).annotate({ identifier: "GetViewRequest" });
   }
 }
-function __c204(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          events: S.optional(S.NullOr(__S(3313, __c207, 1))),
-          feedback: S.optional(S.NullOr(__S(1089, __c68, 1))),
-        }),
-      ).annotate({ identifier: "InsertCrossObjectRequestExperimentValue" });
-    case 1:
-      return S.Record(S.String, __S(3264, __c204, 0));
-    case 2:
-      return S.suspend(() =>
-        S.Struct({
-          events: S.optional(S.NullOr(__S(3281, __c205, 1))),
-          feedback: S.optional(S.NullOr(__S(3185, __c199, 1))),
-        }),
-      ).annotate({ identifier: "InsertCrossObjectRequestDatasetValue" });
-    case 3:
-      return S.Record(S.String, __S(3266, __c204, 2));
-    case 4:
-      return S.suspend(() =>
-        S.Struct({
-          experiment: S.optional(S.NullOr(__S(3265, __c204, 1))),
-          dataset: S.optional(S.NullOr(__S(3267, __c204, 3))),
-          project_logs: S.optional(S.NullOr(__S(3265, __c204, 1))),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/insert", code: 200 })),
-      ).annotate({ identifier: "InsertCrossObjectRequest" });
-    case 5:
-      return S.Record(S.String, __S(3298, __c206, 2));
-    case 6:
-      return S.suspend(() =>
-        S.Struct({
-          experiment: S.optional(S.NullOr(__S(3269, __c204, 5))),
-          dataset: S.optional(S.NullOr(__S(3269, __c204, 5))),
-          project_logs: S.optional(S.NullOr(__S(3269, __c204, 5))),
-        }),
-      ).annotate({ identifier: "CrossObjectInsertResponse" });
-  }
-}
 function __c205(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          input: S.optional(S.Unknown),
-          expected: S.optional(S.Unknown),
-          metadata: S.optional(S.NullOr(__S(2512, __c157, 0))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          id: S.optional(S.NullOr(S.String)),
-          created: S.optional(S.NullOr(S.String)),
-          origin: S.optional(S.NullOr(__S(2513, __c157, 1))),
-          facets: S.optional(S.NullOr(__S(2514, __c157, 2))),
-          _object_delete: S.optional(S.NullOr(S.Boolean)),
-          _is_merge: S.optional(S.NullOr(S.Boolean)),
-          _merge_paths: S.optional(S.NullOr(__S(1520, __c95, 0))),
-          _array_delete: S.optional(S.NullOr(__S(3297, __c206, 1))),
-          _parent_id: S.optional(S.NullOr(S.String)),
-          span_id: S.optional(S.NullOr(S.String)),
-          root_span_id: S.optional(S.NullOr(S.String)),
-          span_parents: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          events: S.optional(S.NullOr(__S(3329, __c208, 1))),
+          feedback: S.optional(S.NullOr(__S(1297, __c81, 1))),
         }),
-      ).annotate({ identifier: "InsertDatasetEvent" });
+      ).annotate({ identifier: "InsertCrossObjectRequestExperimentValue" });
     case 1:
-      return S.Array(__S(3280, __c205, 0));
+      return S.Record(S.String, __S(3280, __c205, 0));
+    case 2:
+      return S.suspend(() =>
+        S.Struct({
+          events: S.optional(S.NullOr(__S(3297, __c206, 1))),
+          feedback: S.optional(S.NullOr(__S(33, __c2, 1))),
+        }),
+      ).annotate({ identifier: "InsertCrossObjectRequestDatasetValue" });
+    case 3:
+      return S.Record(S.String, __S(3282, __c205, 2));
+    case 4:
+      return S.suspend(() =>
+        S.Struct({
+          experiment: S.optional(S.NullOr(__S(3281, __c205, 1))),
+          dataset: S.optional(S.NullOr(__S(3283, __c205, 3))),
+          project_logs: S.optional(S.NullOr(__S(3281, __c205, 1))),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/insert", code: 200 })),
+      ).annotate({ identifier: "InsertCrossObjectRequest" });
+    case 5:
+      return S.Record(S.String, __S(3314, __c207, 2));
+    case 6:
+      return S.suspend(() =>
+        S.Struct({
+          experiment: S.optional(S.NullOr(__S(3285, __c205, 5))),
+          dataset: S.optional(S.NullOr(__S(3285, __c205, 5))),
+          project_logs: S.optional(S.NullOr(__S(3285, __c205, 5))),
+        }),
+      ).annotate({ identifier: "CrossObjectInsertResponse" });
   }
 }
 function __c206(j: number): any {
@@ -13846,21 +13856,48 @@ function __c206(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          path: __S(2976, __c186, 0),
-          delete: __S(1936, __c121, 0),
+          input: S.optional(S.Unknown),
+          expected: S.optional(S.Unknown),
+          metadata: S.optional(S.NullOr(__S(2528, __c158, 0))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          id: S.optional(S.NullOr(S.String)),
+          created: S.optional(S.NullOr(S.String)),
+          origin: S.optional(S.NullOr(__S(2529, __c158, 1))),
+          facets: S.optional(S.NullOr(__S(2530, __c158, 2))),
+          _object_delete: S.optional(S.NullOr(S.Boolean)),
+          _is_merge: S.optional(S.NullOr(S.Boolean)),
+          _merge_paths: S.optional(S.NullOr(__S(1584, __c99, 0))),
+          _array_delete: S.optional(S.NullOr(__S(3313, __c207, 1))),
+          _parent_id: S.optional(S.NullOr(S.String)),
+          span_id: S.optional(S.NullOr(S.String)),
+          root_span_id: S.optional(S.NullOr(S.String)),
+          span_parents: S.optional(S.NullOr(__S(3168, __c198, 0))),
+        }),
+      ).annotate({ identifier: "InsertDatasetEvent" });
+    case 1:
+      return S.Array(__S(3296, __c206, 0));
+  }
+}
+function __c207(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
+          path: __S(3168, __c198, 0),
+          delete: __S(2000, __c125, 0),
         }),
       ).annotate({ identifier: "InsertExperimentEventArrayDeleteItem" });
     case 1:
-      return S.Array(__S(3296, __c206, 0));
+      return S.Array(__S(3312, __c207, 0));
     case 2:
       return S.suspend(() =>
         S.Struct({
-          row_ids: __S(2976, __c186, 0),
+          row_ids: __S(3168, __c198, 0),
         }),
       ).annotate({ identifier: "InsertEventsResponse" });
   }
 }
-function __c207(j: number): any {
+function __c208(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13869,39 +13906,28 @@ function __c207(j: number): any {
           output: S.optional(S.Unknown),
           expected: S.optional(S.Unknown),
           error: S.optional(S.Unknown),
-          scores: S.optional(S.NullOr(__S(1072, __c67, 0))),
-          metadata: S.optional(S.NullOr(__S(2512, __c157, 0))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          metrics: S.optional(S.NullOr(__S(2560, __c160, 0))),
-          context: S.optional(S.NullOr(__S(2561, __c160, 1))),
-          span_attributes: S.optional(S.NullOr(__S(2562, __c160, 2))),
+          scores: S.optional(S.NullOr(__S(1280, __c80, 0))),
+          metadata: S.optional(S.NullOr(__S(2528, __c158, 0))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          metrics: S.optional(S.NullOr(__S(2576, __c161, 0))),
+          context: S.optional(S.NullOr(__S(2577, __c161, 1))),
+          span_attributes: S.optional(S.NullOr(__S(2578, __c161, 2))),
           id: S.optional(S.NullOr(S.String)),
           created: S.optional(S.NullOr(S.String)),
-          origin: S.optional(S.NullOr(__S(2513, __c157, 1))),
-          facets: S.optional(S.NullOr(__S(2514, __c157, 2))),
+          origin: S.optional(S.NullOr(__S(2529, __c158, 1))),
+          facets: S.optional(S.NullOr(__S(2530, __c158, 2))),
           _object_delete: S.optional(S.NullOr(S.Boolean)),
           _is_merge: S.optional(S.NullOr(S.Boolean)),
-          _merge_paths: S.optional(S.NullOr(__S(1520, __c95, 0))),
-          _array_delete: S.optional(S.NullOr(__S(3297, __c206, 1))),
+          _merge_paths: S.optional(S.NullOr(__S(1584, __c99, 0))),
+          _array_delete: S.optional(S.NullOr(__S(3313, __c207, 1))),
           _parent_id: S.optional(S.NullOr(S.String)),
           span_id: S.optional(S.NullOr(S.String)),
           root_span_id: S.optional(S.NullOr(S.String)),
-          span_parents: S.optional(S.NullOr(__S(2976, __c186, 0))),
+          span_parents: S.optional(S.NullOr(__S(3168, __c198, 0))),
         }),
       ).annotate({ identifier: "InsertExperimentEvent" });
     case 1:
-      return S.Array(__S(3312, __c207, 0));
-  }
-}
-function __c208(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          dataset_id: S.String.pipe(T.Label()),
-          events: __S(3281, __c205, 1),
-        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset/{dataset_id}/insert", code: 200 })),
-      ).annotate({ identifier: "InsertDatasetEventsRequest" });
+      return S.Array(__S(3328, __c208, 0));
   }
 }
 function __c209(j: number): any {
@@ -13909,12 +13935,10 @@ function __c209(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          experiment_id: S.String.pipe(T.Label()),
-          events: __S(3313, __c207, 1),
-        }).pipe(
-          T.Http({ method: "POST", uri: "/v1/experiment/{experiment_id}/insert", code: 200 }),
-        ),
-      ).annotate({ identifier: "InsertExperimentEventsRequest" });
+          dataset_id: S.String.pipe(T.Label()),
+          events: __S(3297, __c206, 1),
+        }).pipe(T.Http({ method: "POST", uri: "/v1/dataset/{dataset_id}/insert", code: 200 })),
+      ).annotate({ identifier: "InsertDatasetEventsRequest" });
   }
 }
 function __c210(j: number): any {
@@ -13922,13 +13946,26 @@ function __c210(j: number): any {
     case 0:
       return S.suspend(() =>
         S.Struct({
+          experiment_id: S.String.pipe(T.Label()),
+          events: __S(3329, __c208, 1),
+        }).pipe(
+          T.Http({ method: "POST", uri: "/v1/experiment/{experiment_id}/insert", code: 200 }),
+        ),
+      ).annotate({ identifier: "InsertExperimentEventsRequest" });
+  }
+}
+function __c211(j: number): any {
+  switch (j) {
+    case 0:
+      return S.suspend(() =>
+        S.Struct({
           project_id: S.String.pipe(T.Label()),
-          events: __S(3313, __c207, 1),
+          events: __S(3329, __c208, 1),
         }).pipe(T.Http({ method: "POST", uri: "/v1/project_logs/{project_id}/insert", code: 200 })),
       ).annotate({ identifier: "InsertProjectLogEventsRequest" });
   }
 }
-function __c211(j: number): any {
+function __c212(j: number): any {
   switch (j) {
     case 0:
       return S.Array(S.Unknown);
@@ -13939,22 +13976,22 @@ function __c211(j: number): any {
           request_source: S.optional(S.String),
           input: S.optional(S.Unknown),
           expected: S.optional(S.Unknown),
-          metadata: S.optional(S.NullOr(__S(2464, __c154, 0))),
-          tags: S.optional(S.NullOr(__S(2976, __c186, 0))),
-          messages: S.optional(__S(3376, __c211, 0)),
+          metadata: S.optional(S.NullOr(__S(2768, __c173, 0))),
+          tags: S.optional(S.NullOr(__S(3168, __c198, 0))),
+          messages: S.optional(__S(3392, __c212, 0)),
           parent: S.optional(S.Unknown),
           stream: S.optional(S.NullOr(S.Boolean)),
           mode: S.optional(S.NullOr(S.String)),
           strict: S.optional(S.NullOr(S.Boolean)),
-          mcp_auth: S.optional(__S(689, __c43, 1)),
-          overrides: S.optional(S.NullOr(__S(2464, __c154, 0))),
+          mcp_auth: S.optional(__S(897, __c56, 1)),
+          overrides: S.optional(S.NullOr(__S(2768, __c173, 0))),
           endpoint_name: S.optional(S.NullOr(S.String)),
           version: S.optional(S.String),
         }).pipe(T.Http({ method: "POST", uri: "/v1/function/{function_id}/invoke", code: 200 })),
       ).annotate({ identifier: "InvokeFunctionRequest" });
   }
 }
-function __c212(j: number): any {
+function __c213(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
@@ -13974,38 +14011,14 @@ function __c212(j: number): any {
       ).annotate({ identifier: "ListAclsRequest" });
   }
 }
-function __c213(j: number): any {
-  switch (j) {
-    case 0:
-      return S.suspend(() =>
-        S.Struct({
-          objects: __S(2064, __c129, 0),
-        }),
-      ).annotate({ identifier: "ListAclsResponse" });
-  }
-}
 function __c214(j: number): any {
   switch (j) {
     case 0:
       return S.suspend(() =>
         S.Struct({
-          limit: S.optional(S.Number.pipe(T.Query())),
-          starting_after: S.optional(S.String.pipe(T.Query())),
-          ending_before: S.optional(S.String.pipe(T.Query())),
-          ids: S.optional(S.Unknown.pipe(T.Query())),
-          ai_secret_name: S.optional(S.String.pipe(T.Query())),
-          org_name: S.optional(S.String.pipe(T.Query())),
-          ai_secret_type: S.optional(S.Unknown.pipe(T.Query())),
-        }).pipe(T.Http({ method: "GET", uri: "/v1/ai_secret", code: 200 })),
-      ).annotate({ identifier: "ListAiSecretsRequest" });
-    case 1:
-      return S.Array(__S(2448, __c153, 0));
-    case 2:
-      return S.suspend(() =>
-        S.Struct({
-          objects: __S(3425, __c214, 1),
+          objects: __S(2272, __c142, 0),
         }),
-      ).annotate({ identifier: "ListAiSecretsResponse" });
+      ).annotate({ identifier: "ListAclsResponse" });
   }
 }
 // Schema table: entry i is schema j of builder f, made on first reach.
