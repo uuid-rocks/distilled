@@ -8965,7 +8965,7 @@ export const listEnvironments: API.OperationMethod<
   span: "ListEnvironments",
 }));
 
-export type ListEnvVarsError = BadRequest | Forbidden | BraintrustOpError;
+export type ListEnvVarsError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
 /** List env vars List out all env vars. The env vars are sorted by creation date, with the most recently-created env vars coming first */
 export const listEnvVars: API.OperationMethod<
   ListEnvVarsRequest,
@@ -8975,7 +8975,7 @@ export const listEnvVars: API.OperationMethod<
 > = /*@__PURE__*/ API.make(() => ({
   input: __S(160, __c10, 0) as any as S.Schema<ListEnvVarsRequest>,
   output: __S(162, __c10, 2) as any as S.Schema<ListEnvVarsResponse>,
-  errors: [BadRequest, Forbidden, UnknownBraintrustError],
+  errors: [BadRequest, Forbidden, NotFoundOrForbidden, UnknownBraintrustError],
   protocol: BraintrustProtocol,
   retry: Retry.Retry,
   telemetry: TELEMETRY,
