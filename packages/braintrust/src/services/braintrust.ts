@@ -8855,13 +8855,7 @@ export const listApiKeys: API.PaginatedOperationMethod<
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "ListApiKeys",
-  pagination: {
-    mode: "keyset",
-    inputToken: "starting_after",
-    outputToken: "id",
-    items: "objects",
-    pageSize: "limit",
-  } as const,
+  pagination: { mode: "single", items: "objects" } as const,
 })) as any;
 
 export type ListColumnsError = BadRequest | Forbidden | NotFoundOrForbidden | BraintrustOpError;
@@ -9356,13 +9350,7 @@ export const listServiceTokens: API.PaginatedOperationMethod<
   retry: Retry.Retry,
   telemetry: TELEMETRY,
   span: "ListServiceTokens",
-  pagination: {
-    mode: "keyset",
-    inputToken: "starting_after",
-    outputToken: "id",
-    items: "objects",
-    pageSize: "limit",
-  } as const,
+  pagination: { mode: "single", items: "objects" } as const,
 })) as any;
 
 export type ListSpanIframesError = BadRequest | Forbidden | BraintrustOpError;
