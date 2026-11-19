@@ -8,7 +8,7 @@
  *
  * Braintrust is API-key REST with keyset pagination on its lists and cursor
  * pagination on its event fetches; core's default strategy dispatches on the
- * trait's `mode`. The RFC-6902 patches in patches/*.json apply to the Smithy
+ * trait's `mode`. The RFC-6902 patches in patches/*.patch.json apply to the Smithy
  * model via finalizeConvert in scripts/convert.ts — never here.
  */
 import { runGeneratorCli } from "@distilled.cloud/dev/codegen/cli";

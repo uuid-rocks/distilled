@@ -4,7 +4,7 @@
  * .generated-specs.
  *
  * Input:  specs/spec-mirror-braintrust/specs/openapi.json
- *         patches/*.json  (RFC-6902 patches to the Smithy model)
+ *         patches/*.patch.json  (RFC-6902 patches to the Smithy model)
  * Output: .generated-specs/braintrust.json
  *
  * Braintrust publishes ONE OpenAPI 3.1 document. Every operation lands in one
@@ -156,7 +156,7 @@ const paginationFor = (method: string, op: any): Record<string, string> | undefi
   const response = responseSchema(op);
   // A bare-array page is not stamped: core's items path cannot address the
   // response root. (The spec's one, `GET /v1/acl/list_org`, is `{ objects }`
-  // on the wire; patches/list-org-acls.json fixes its shape and pages it.)
+  // on the wire; patches/list-org-acls.patch.json fixes its shape and pages it.)
   if (method === "get" && query.has("starting_after")) {
     if (!hasArray(response, "objects")) return undefined;
     return {
