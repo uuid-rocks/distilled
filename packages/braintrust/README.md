@@ -64,14 +64,15 @@ the rest. `PUT` routes ("create or replace") are `replace*`, and the `DELETE` ro
 body instead of id are `findAndDelete*`.
 
 Lists page by keyset (`starting_after` is the last object's `id`), and the `fetch*Events`
-operations page by cursor, so `.pages()` and `.items()` stream every page. They page forward only;
-to read the page before an id, call the list once with `ending_before`:
+operations page by cursor, so `.pages()` and `.items()` stream every page:
 
 ```ts
 import * as Stream from "effect/Stream";
 
 const projects = yield* Braintrust.listProjects.items({ limit: 100 }).pipe(Stream.runCollect);
 ```
+
+They page forward only. To read the page before an id, call the list once with `ending_before`.
 
 Secrets are `Redacted`: AI secret and env var values on the way in, and env var and AI secret
 previews, the one-time service token key, the temporary proxy credential and ingest key URLs (which
