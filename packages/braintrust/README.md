@@ -19,7 +19,7 @@ import * as Braintrust from "@distilled.cloud/braintrust";
 const program = Effect.gen(function* () {
   // createProject returns an existing project of the same name, so a fixed
   // name would delete that project below.
-  const project = yield* Braintrust.createProject({ name: `distilled-example-${Date.now()}` });
+  const project = yield* Braintrust.createProject({ name: `distilled-example-${crypto.randomUUID()}` });
 
   const score = yield* Braintrust.createProjectScore({
     project_id: project.id,
@@ -64,7 +64,8 @@ the rest. `PUT` routes ("create or replace") are `replace*`, and the `DELETE` ro
 body instead of id are `findAndDelete*`.
 
 Lists page by keyset (`starting_after` is the last object's `id`), and the `fetch*Events`
-operations page by cursor, so `.pages()` and `.items()` stream every page:
+operations page by cursor, so `.pages()` and `.items()` stream every page. They page forward only;
+to read the page before an id, call the list once with `ending_before`:
 
 ```ts
 import * as Stream from "effect/Stream";
@@ -96,12 +97,12 @@ match Braintrust's official SDK. To pass a key directly, use
 
 ## Errors
 
-Braintrust never answers 404 for a missing id. Depending on the resource and method it answers 400
-or 403, as JSON `{ Code, Message }` or as plain text, with a message such as "Missing read access to
-project id …, or the project does not exist". The operations that answer this way type it as
-`NotFoundOrForbidden`; `invokeFunction` answers 404 and gets the same class. Feedback operations
-succeed for a missing id. The same message comes back when the caller lacks access, so the class
-covers both.
+For a missing id, Braintrust almost always answers 400 or 403 instead of 404. The body is JSON
+`{ Code, Message }` or plain text, depending on the resource and method, with a message such as
+"Missing read access to project id …, or the project does not exist". The operations that answer
+this way type it as `NotFoundOrForbidden`; `invokeFunction` answers 404 and gets the same class.
+Feedback operations succeed for a missing id. The same message comes back when the caller lacks
+access, so the class covers both.
 
 An organization out of credits gets `PaymentRequired` (402), which is not retried. Everything else
 fails with the statuses the spec declares (`BadRequest`, `Forbidden`), then the shared HTTP status
