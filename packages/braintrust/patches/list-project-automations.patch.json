@@ -1,0 +1,10 @@
+{
+  "description": "Send the name filter of `GET /v1/project_automation` as `name`. The spec names the query parameter `project_automation_name`, but observed live 2026-11-13 the hosted API refuses it with 400 text/plain `Error: Extraneous key \"project_automation_name\" at path []`, while `?name=distilled-test-auto-a` returns 200 with only that automation out of two in the project. The member keeps its name, so callers still pass `project_automation_name`.",
+  "patches": [
+    {
+      "op": "replace",
+      "path": "/shapes/com.braintrust#GetProjectAutomationRequest/members/project_automation_name/traits/smithy.api#httpQuery",
+      "value": "name"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "description": "Require `object_type` and `object_id` on `GET /v1/env_var`. The spec makes every query parameter optional, but observed live 2026-11-12 the call fails without both: no parameters, `?object_type=project` alone and `?ids=<id>` alone each answer 400 `{\"Code\":\"BadRequestError\",\"Message\":\"Must specify both object_type and object_id [...]\"}`.",
+  "patches": [
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetEnvVarRequest/members/object_type/traits/smithy.api#required",
+      "value": {}
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#GetEnvVarRequest/members/object_id/traits/smithy.api#required",
+      "value": {}
+    }
+  ]
+}

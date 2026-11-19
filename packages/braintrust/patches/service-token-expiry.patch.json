@@ -1,0 +1,37 @@
+{
+  "description": "Type a service token that would outlive the token creating it. Observed live 2026-11-18: authenticated with a service token that expires, `POST /v1/service_token` with `expires_in_seconds` past the caller's own expiry, or with `expires_in_seconds` omitted (a token that never expires), answers 403 text/plain `An expiring token cannot create a service token that outlives it. Set expires_in_seconds to at most 31047135. [...]`. The number is the seconds left on the calling token, so a caller can retry with it; `expires_in_seconds: 31000000` then answered 200. The spec declares only a status-wide 403. The class matches the message because a permission denial shares the status, and it declares 400 because the request, not the caller's access, is what to change.",
+  "patches": [
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#ServiceTokenOutlivesCaller",
+      "value": {
+        "type": "structure",
+        "members": {
+          "message": {
+            "target": "smithy.api#String"
+          }
+        },
+        "traits": {
+          "smithy.api#error": "client",
+          "smithy.api#httpError": 400,
+          "smithy.api#documentation": "The calling token expires, and the requested token would outlive it. The message ends with \"Set expires_in_seconds to at most <seconds>.\", the seconds left on the calling token.",
+          "com.distilled.openapi#errorMatchers": [
+            {
+              "status": 403,
+              "message": {
+                "includes": "cannot create a service token that outlives it"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PostServiceToken/errors/-",
+      "value": {
+        "target": "com.braintrust#ServiceTokenOutlivesCaller"
+      }
+    }
+  ]
+}

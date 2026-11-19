@@ -1,0 +1,16 @@
+{
+  "description": "Accept `slug` on `PATCH /v1/function/{function_id}`. The spec's `PatchFunction` lists `name`, `description`, `prompt_data`, `function_data` and `tags`, but observed live 2026-11-18 `PATCH /v1/function/{id}` with `{\"slug\":\"distilled-test-scorer-renamed\"}` answers 200 with the new slug, and a following `GET` returns it. An undeclared key is not simply honoured: `{\"bogus_field\":\"x\"}` answers 200 and changes nothing.",
+  "patches": [
+    {
+      "op": "add",
+      "path": "/shapes/com.braintrust#PatchFunctionIdRequest/members/slug",
+      "before": "description",
+      "value": {
+        "target": "smithy.api#String",
+        "traits": {
+          "smithy.api#documentation": "Unique identifier for the function within its project"
+        }
+      }
+    }
+  ]
+}

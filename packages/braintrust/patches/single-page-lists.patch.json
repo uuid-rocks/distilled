@@ -1,0 +1,15 @@
+{
+  "description": "Read `GET /v1/service_token` and `GET /v1/api_key` as one page. The spec gives both `limit` and `starting_after`, so they were paged by keyset, but observed live 2026-11-18 both ignore the two parameters and always return every token: with three service tokens in the org, `?limit=1` returned all three, and `?limit=1&starting_after=<first id>` returned the same three again (the same for `GET /v1/api_key` as a service account holding three tokens). Paging by keyset therefore fetched the full list twice and `.items` yielded each token twice. The other 22 keyset lists in the spec honour both parameters on the same probe.",
+  "patches": [
+    {
+      "op": "replace",
+      "path": "/shapes/com.braintrust#GetServiceToken/traits/smithy.api#paginated",
+      "value": { "mode": "single", "items": "objects" }
+    },
+    {
+      "op": "replace",
+      "path": "/shapes/com.braintrust#GetApiKey/traits/smithy.api#paginated",
+      "value": { "mode": "single", "items": "objects" }
+    }
+  ]
+}

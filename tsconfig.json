@@ -664,6 +664,12 @@
     },
     {
       "path": "./packages/entire/tsconfig.scripts.json"
+    },
+    {
+      "path": "./packages/braintrust/tsconfig.json"
+    },
+    {
+      "path": "./packages/braintrust/tsconfig.scripts.json"
     }
   ]
 }
