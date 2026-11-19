@@ -17,7 +17,9 @@ import * as FetchHttpClient from "effect/http/FetchHttpClient";
 import * as Braintrust from "@distilled.cloud/braintrust";
 
 const program = Effect.gen(function* () {
-  const project = yield* Braintrust.createProject({ name: "my-project" });
+  // createProject returns an existing project of the same name, so a fixed
+  // name would delete that project below.
+  const project = yield* Braintrust.createProject({ name: `distilled-example-${Date.now()}` });
 
   const score = yield* Braintrust.createProjectScore({
     project_id: project.id,
@@ -96,8 +98,9 @@ match Braintrust's official SDK. To pass a key directly, use
 
 Braintrust never answers 404 for a missing id. Depending on the resource and method it answers 400
 or 403, as JSON `{ Code, Message }` or as plain text, with a message such as "Missing read access to
-project id …, or the project does not exist". Every operation that addresses an object by id types
-that as `NotFoundOrForbidden`. The same message comes back when the caller lacks access, so the class
+project id …, or the project does not exist". The operations that answer this way type it as
+`NotFoundOrForbidden`; `invokeFunction` answers 404 and gets the same class. Feedback operations
+succeed for a missing id. The same message comes back when the caller lacks access, so the class
 covers both.
 
 An organization out of credits gets `PaymentRequired` (402), which is not retried. Everything else
